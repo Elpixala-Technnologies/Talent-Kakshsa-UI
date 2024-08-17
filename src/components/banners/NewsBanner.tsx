@@ -10,7 +10,7 @@ export default function NewsBanner({ title, subtitle }: any) {
     <Wrapper
       as="section"
       bgColor="bg-orange-500"
-      containerClassName=""
+      containerClassName="mt-20"
       className="relative"
     >
       <Image src={vector1} alt="logo" className="absolute left-5 top-5" />

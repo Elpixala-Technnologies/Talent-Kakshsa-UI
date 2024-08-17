@@ -89,9 +89,9 @@ const Header = ({ header }: any) => {
 
   return (
     <header
-      className={`fixed top-0 z-50 flex h-20 w-full items-center justify-between transition-transform duration-300 md:top-5 md:h-20 ${show} md:px-5`}
+      className={`fixed top-0 z-50 flex h-20 w-full items-center justify-between bg-white transition-transform duration-300 md:h-20 ${show}`}
     >
-      <Wrapper1 className="hidden h-20 items-center justify-between rounded-lg bg-white md:flex">
+      <Wrapper1 className="hidden h-20 items-center justify-between rounded-lg md:flex">
         {/* Logo with Link */}
         <Link href="/">
           <Image
@@ -99,7 +99,7 @@ const Header = ({ header }: any) => {
             alt="logo"
             height={100}
             width={100}
-            className="h-[12vw] max-h-8 w-min object-contain md:h-20"
+            className="h-16 max-h-16 w-min object-contain md:h-20"
           />
         </Link>
         {/* Menu */}
@@ -108,7 +108,10 @@ const Header = ({ header }: any) => {
           activeItemId={activeItemId}
           onItemClick={handleNavItemClick}
         />
-        <LoginSignUpQASection buttonType="LOG-IN" />
+        <div className="flex gap-4">
+          <LoginSignUpQASection buttonType="LOG-IN" />
+          <LoginSignUpQASection buttonType="LOG-IN" />
+        </div>
       </Wrapper1>
       {/* Mobile Section */}
       <Wrapper1 className="flex h-20 w-full items-center justify-between gap-3 bg-white md:hidden">
@@ -129,7 +132,10 @@ const Header = ({ header }: any) => {
             className="w-52 object-contain"
           />
         </Link>
-        <LoginSignUpQASection buttonType="LOG-IN" />
+        <div className="flex gap-4">
+          <LoginSignUpQASection buttonType="LOG-IN" />
+          <LoginSignUpQASection buttonType="Sign-UP" />
+        </div>
       </Wrapper1>
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
@@ -245,6 +251,7 @@ const LoginSignUpQASection = ({ buttonType = "LOG-IN" }: any) => {
         )}
       </>
     );
+  } else {
   }
 
   return null;

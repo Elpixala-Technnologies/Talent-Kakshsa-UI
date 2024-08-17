@@ -32,6 +32,32 @@ export const getAllNews = gql`
             }
           }
           slug
+          tag {
+            data {
+              id
+              attributes {
+                tag
+              }
+            }
+          }
+          author {
+            data {
+              id
+              attributes {
+                avatar {
+                  data {
+                    id
+                    attributes {
+                      url
+                    }
+                  }
+                }
+                name
+                designation
+                updatedAt
+              }
+            }
+          }
         }
       }
     }

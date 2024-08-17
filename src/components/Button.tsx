@@ -27,6 +27,9 @@ export const Button = ({
   if (variant === "blue") {
     style = `hover:bg-blue-950 bg-blue-900 border-2 border-blue-900 text-white ${disabled ? "bg-zinc-800 cursor-not-allowed" : ""}`;
   }
+  if (variant === "orange") {
+    style = `hover:bg-orange-600 bg-orange-500 border-2 border-orange-500 text-white ${disabled ? "bg-zinc-800 cursor-not-allowed" : ""}`;
+  }
   if (variant === "whiteTransparent") {
     style = `hover:bg-opacity-10 bg-white border-2 border-white bg-opacity-30 text-white ${disabled ? "bg-zinc-200 cursor-not-allowed" : ""}`;
   }

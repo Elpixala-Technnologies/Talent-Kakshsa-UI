@@ -3,10 +3,10 @@ import ReduxProvider from "@/Redux/provider";
 import { ApolloWrapper } from "@/lib/client";
 
 import "./globals.css";
-// import Header from "@/components/header/Header";
+import Header from "@/components/header/Header";
 // import Footer from "@/components/footer/Footer";
-// import { footer, header } from "@/data/wrapperData";
-// import ScrollToTopButton from "@/components/ScrollToTopButton";
+import { footer, header } from "@/data/wrapperData";
+import ScrollToTopButton from "@/components/ScrollToTopButton";
 
 export const metadata: Metadata = {
   title: "Talent Kaskhsa",
@@ -23,8 +23,8 @@ export default function RootLayout({
       <body className="relative bg-orange-50 !antialiased">
         <ReduxProvider>
           <ApolloWrapper>
-            {/* <ScrollToTopButton /> */}
-            {/* <Header header={header} /> */}
+            <ScrollToTopButton />
+            <Header header={header} />
             {children}
             {/* <Footer footer={footer} /> */}
           </ApolloWrapper>

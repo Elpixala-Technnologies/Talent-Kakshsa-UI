@@ -14,7 +14,7 @@ const LoadingSvg = (
 );
 
 export const Button = ({
-  variant = "black",
+  variant = "blue",
   className = "",
   children,
   onClick,
@@ -24,22 +24,18 @@ export const Button = ({
   ...props
 }: any) => {
   let style = "";
-  if (variant === "black") {
-    style = `hover:bg-zinc-800 bg-black text-white ${disabled ? "bg-zinc-800 cursor-not-allowed" : ""}`;
-  }
-  if (variant === "white") {
-    style = `hover:bg-zinc-200 bg-white text-black ${disabled ? "bg-zinc-200 cursor-not-allowed" : ""}`;
+  if (variant === "blue") {
+    style = `hover:bg-blue-950 bg-blue-900 border-2 border-blue-900 text-white ${disabled ? "bg-zinc-800 cursor-not-allowed" : ""}`;
   }
   if (variant === "orange") {
-    style = `hover:bg-orange-300 bg-orange-200 text-orange-500 border border-orange-500 ${disabled ? "bg-orange-300 cursor-not-allowed" : ""}`;
+    style = `hover:bg-orange-600 bg-orange-500 border-2 border-orange-500 text-white ${disabled ? "bg-zinc-800 cursor-not-allowed" : ""}`;
   }
-  if (variant === "orangeMain") {
-    style = `hover:bg-orange-300 bg-orange-500 text-white border border-orange-500 ${disabled ? "bg-orange-300 cursor-not-allowed" : ""}`;
+  if (variant === "whiteTransparent") {
+    style = `hover:bg-opacity-10 bg-white border-2 border-white bg-opacity-30 text-white ${disabled ? "bg-zinc-200 cursor-not-allowed" : ""}`;
   }
-
   return (
     <button
-      className={`${style} ${className} flex-center w-min gap-2 rounded-lg px-10 py-2 active:scale-90`}
+      className={`${style} ${className} flex-center w-min gap-2 rounded-lg px-10 py-2 capitalize active:scale-90`}
       onClick={onClick}
       type={type}
       {...props} // Spread all additional props onto the button

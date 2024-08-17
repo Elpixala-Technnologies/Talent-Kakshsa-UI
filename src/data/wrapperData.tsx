@@ -42,18 +42,18 @@ export const footer = {
   text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, \\n sed do eiusmod tempor incididunt",
   contactDetails: {
     contactNo: "+1 (999) 888-77-66",
-    email: "info@collegedakhla.com",
+    email: "info@talentkakshsa.com",
     location:
       "#1701, B Tower, World \\nTrade Tower, Sector - 16, \\nNoida, U.P - 201301",
   },
   socials: {
-    facebook: "https://www.facebook.com/collegedakhla",
-    twitter: "https://twitter.com/collegedakhla",
-    instagram: "https://www.instagram.com/collegedakhla/",
-    linkedin: "https://www.linkedin.com/school/collegedakhla/",
-    youtube: "https://www.youtube.com/c/collegedakhla",
+    facebook: "https://www.facebook.com/talentkakshsa",
+    twitter: "https://twitter.com/talentkakshsa",
+    instagram: "https://www.instagram.com/talentkakshsa/",
+    linkedin: "https://www.linkedin.com/school/talentkakshsa/",
+    youtube: "https://www.youtube.com/c/talentkakshsa",
   },
-  copyrightText: "Copyrights © 2024 collegedakhla. All rights reserved.",
+  copyrightText: "Copyrights © 2024 talentkakshsa. All rights reserved.",
   list1: {
     title: "Products",
     links: [

@@ -4,7 +4,7 @@ import { ApolloWrapper } from "@/lib/client";
 
 import "./globals.css";
 import Header from "@/components/header/Header";
-// import Footer from "@/components/footer/Footer";
+import Footer from "@/components/footer/Footer";
 import { footer, header } from "@/data/wrapperData";
 import ScrollToTopButton from "@/components/ScrollToTopButton";
 
@@ -26,7 +26,7 @@ export default function RootLayout({
             <ScrollToTopButton />
             <Header header={header} />
             {children}
-            {/* <Footer footer={footer} /> */}
+            <Footer footer={footer} />
           </ApolloWrapper>
         </ReduxProvider>
       </body>

@@ -17,16 +17,16 @@ export default function Footer({ footer }: any) {
       as="footer"
       containerClassName="w-full  text-white"
       className="pt-5 md:px-16 md:pt-12"
-      bgColor="bg-orange-500"
+      bgColor="bg-blue-900"
     >
       {/* NewsLetter Section  */}
-      <div className="mb-5 flex w-full gap-3 max-sm:flex-wrap justify-between border-b border-white md:pb-8">
+      <div className="mb-5 flex w-full justify-between gap-3 border-b border-white max-sm:flex-wrap md:pb-8">
         <Image
           src={footer?.logo}
           alt="logo"
           className="h-[12vw] max-h-9 w-min object-contain"
         />
-        <p className="text-wrap mb-4 max-sm:!w-[80vw] max-w-[400px] max-sm:mt-3">
+        <p className="mb-4 max-w-[400px] text-wrap max-sm:mt-3 max-sm:!w-[80vw]">
           <TextWithLineBreak text={footer?.text} />
         </p>
       </div>
@@ -39,7 +39,7 @@ export default function Footer({ footer }: any) {
               <li key={i}>
                 <Link
                   href={d?.href}
-                  className="hover:pl-2 hover:text-zinc-900 hover:font-medium"
+                  className="hover:pl-2 hover:font-medium hover:text-zinc-900"
                 >
                   {d?.label}
                 </Link>
@@ -54,7 +54,7 @@ export default function Footer({ footer }: any) {
               <li key={i}>
                 <Link
                   href={d?.href}
-                  className="hover:pl-2 hover:text-zinc-900 hover:font-medium"
+                  className="hover:pl-2 hover:font-medium hover:text-zinc-900"
                 >
                   {d?.label}
                 </Link>
@@ -69,7 +69,7 @@ export default function Footer({ footer }: any) {
               <li key={i}>
                 <Link
                   href={d?.href}
-                  className="hover:pl-2 hover:text-zinc-900 hover:font-medium"
+                  className="hover:pl-2 hover:font-medium hover:text-zinc-900"
                 >
                   {d?.label}
                 </Link>
@@ -84,7 +84,7 @@ export default function Footer({ footer }: any) {
               <li key={i}>
                 <Link
                   href={d?.href}
-                  className="hover:pl-2 hover:text-zinc-900 hover:font-medium"
+                  className="hover:pl-2 hover:font-medium hover:text-zinc-900"
                 >
                   {d?.label}
                 </Link>
@@ -110,9 +110,11 @@ export default function Footer({ footer }: any) {
           </p>
         </div> */}
         <div className="col-span-2 flex flex-col max-lg:hidden lg:col-span-1">
-          <h4 className="my-2 mb-3 text-xl font-semibold">{footer?.newLetter?.title}</h4>
+          <h4 className="my-2 mb-3 text-xl font-semibold">
+            {footer?.newLetter?.title}
+          </h4>
           <p>{footer?.newLetter?.description}</p>
-          <form action="" className="flex flex-col w-full gap-y-4 my-5">
+          <form action="" className="my-5 flex w-full flex-col gap-y-4">
             <input
               type="email"
               name="email"
@@ -120,7 +122,13 @@ export default function Footer({ footer }: any) {
               placeholder="Enter your Email"
               className="w-full rounded-full border-none py-4 pl-5 text-sm outline-none"
             />
-            <Button variant = "black" className="!rounded-full !px-8" type="submit">Subscribe</Button>
+            <Button
+              variant="black"
+              className="!rounded-full !px-8"
+              type="submit"
+            >
+              Subscribe
+            </Button>
           </form>
         </div>
       </div>

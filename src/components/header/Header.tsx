@@ -110,7 +110,7 @@ const Header = ({ header }: any) => {
         />
         <div className="flex gap-4">
           <LoginSignUpQASection buttonType="LOG-IN" />
-          <LoginSignUpQASection buttonType="LOG-IN" />
+          <LoginSignUpQASection buttonType="SIGN-UP" />
         </div>
       </Wrapper1>
       {/* Mobile Section */}
@@ -234,10 +234,10 @@ const LoginSignUpQASection = ({ buttonType = "LOG-IN" }: any) => {
           ) : (
             <Button
               onClick={openLoginPopup}
-              variant="black"
-              className="shadow-lg"
+              variant="white"
+              className="text-nowrap !px-2"
             >
-              LogIn
+              Log In
             </Button>
           )}
         </div>
@@ -251,7 +251,62 @@ const LoginSignUpQASection = ({ buttonType = "LOG-IN" }: any) => {
         )}
       </>
     );
-  } else {
+  }
+  if (buttonType === "SIGN-UP") {
+    return (
+      <>
+        <div className="flex items-center gap-4">
+          {isUserLoggedIn ? (
+            <div className="group relative">
+              <div className="flex-center rounded-full border-2 border-orange-500 p-0.5">
+                <Image
+                  src={
+                    userProfileData?.attributes?.avatar?.data?.attributes?.url
+                  }
+                  alt="avatar"
+                  width={100}
+                  height={100}
+                  className="hover:text-primary group h-8 w-8 cursor-pointer rounded-full object-cover text-orange-500"
+                />
+              </div>
+              <div className="absolute right-0 top-10 z-10 hidden w-max rounded-md border border-gray-200 bg-white py-1 text-zinc-600 group-hover:block">
+                <p className="text-center text-xs text-orange-500">
+                  Hello, {userProfileData?.attributes?.username?.split(" ")[0]}
+                </p>
+                <Link
+                  href={"/profile"}
+                  className="item-center flex cursor-pointer gap-x-2 px-3 py-1 hover:bg-orange-500 hover:text-white"
+                >
+                  <MdOutlinePerson className="mt-0.5" /> Profile
+                </Link>
+                <div
+                  className="item-center flex cursor-pointer gap-x-2 px-3 py-1 hover:bg-orange-500 hover:text-white"
+                  onClick={handleLogout}
+                >
+                  <IoLogOutOutline className="mt-0.5" /> Logout
+                </div>
+              </div>
+            </div>
+          ) : (
+            <Button
+              onClick={openLoginPopup}
+              variant="blue"
+              className="text-nowrap !px-2"
+            >
+              Sign up
+            </Button>
+          )}
+        </div>
+        {/* Pop-up Module */}
+        {showPopUp && (
+          <LoginSignUpModule
+            closePopup={closePopup}
+            isLoginModule={isLoginModule}
+            setIsLoginModule={setIsLoginModule}
+          />
+        )}
+      </>
+    );
   }
 
   return null;

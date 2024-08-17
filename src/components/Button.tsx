@@ -33,6 +33,9 @@ export const Button = ({
   if (variant === "whiteTransparent") {
     style = `hover:bg-opacity-10 bg-white border-2 border-white bg-opacity-30 text-white ${disabled ? "bg-zinc-200 cursor-not-allowed" : ""}`;
   }
+  if (variant === "white") {
+    style = `hover:bg-blue-500 bg-white border-2 border-blue-900 text-blue-900 ${disabled ? "bg-zinc-200 cursor-not-allowed" : ""}`;
+  }
   return (
     <button
       className={`${style} ${className} flex-center w-min gap-2 rounded-lg px-10 py-2 capitalize active:scale-90`}

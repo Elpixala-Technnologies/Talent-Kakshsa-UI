@@ -1,6 +1,22 @@
 import { gql } from "@apollo/client";
 
 export const getAllNews = gql`
+  query getAllNews(
+    $category: String
+    $newsSortingParameter: [String]
+    $page: Int
+    $pageSize: Int
+  ) {
+    news(
+      sort: $newsSortingParameter
+      filters: { category: { category: { eq: $category } } }
+      pagination: { page: $page, pageSize: $pageSize }
+    ) {
+      meta {
+        pagination {
+          total
+        }
+      }
   query getAllNews($category: String, $newsSortingParameter: [String]) {
     news(
       sort: $newsSortingParameter
@@ -12,6 +28,7 @@ export const getAllNews = gql`
         }
       }
       data {
+        id
         attributes {
           icon {
             data {
@@ -48,6 +65,7 @@ export const getAllNews = gql`
               }
             }
           }
+          content
           author {
             data {
               id
@@ -66,6 +84,19 @@ export const getAllNews = gql`
               }
             }
           }
+          updatedAt
+        }
+      }
+    }
+  }
+`;
+
+export const getAllNewsCategory = gql`
+  query getAllNewsCategory {
+    newsCategories {
+      data {
+        attributes {
+          category
         }
       }
     }
@@ -148,18 +179,6 @@ export const getAllNewsSortingParameter = gql`
           featuredSequence
           recommendedSequence
           trendingSequence
-        }
-      }
-    }
-  }
-`;
-
-export const getAllNewsCategory = gql`
-  query getAllNewsCategory {
-    newsCategories {
-      data {
-        attributes {
-          category
         }
       }
     }

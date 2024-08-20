@@ -17,16 +17,6 @@ export const getAllNews = gql`
           total
         }
       }
-  query getAllNews($category: String, $newsSortingParameter: [String]) {
-    news(
-      sort: $newsSortingParameter
-      filters: { category: { category: { eq: $category } } }
-    ) {
-      meta {
-        pagination {
-          total
-        }
-      }
       data {
         id
         attributes {
@@ -85,6 +75,20 @@ export const getAllNews = gql`
             }
           }
           updatedAt
+        }
+      }
+    }
+  }
+
+  query getAllNewsSortingParameter {
+    news {
+      data {
+        attributes {
+          updatedAt
+          newsSequence
+          featuredSequence
+          recommendedSequence
+          trendingSequence
         }
       }
     }

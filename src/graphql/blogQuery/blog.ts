@@ -1,13 +1,13 @@
 import { gql } from "@apollo/client";
 
-export const getAllNews = gql`
-  query getAllNews(
+export const getAllBlogs = gql`
+  query getAllBlogs(
     $category: String
     $newsSortingParameter: [String]
     $page: Int
     $pageSize: Int
   ) {
-    news(
+    blogs(
       sort: $newsSortingParameter
       filters: { category: { category: { eq: $category } } }
       pagination: { page: $page, pageSize: $pageSize }
@@ -18,37 +18,21 @@ export const getAllNews = gql`
         }
       }
       data {
+        id
         attributes {
-          icon {
-            data {
-              id
-              attributes {
-                url
-              }
-            }
-          }
-          bgImage {
-            data {
-              id
-              attributes {
-                url
-              }
-            }
-          }
           title
-          description
-          category {
+          slug
+          featuredImage {
             data {
               id
               attributes {
-                category
+                url
               }
             }
           }
-          slug
+          description
           tag {
             data {
-              id
               attributes {
                 tag
               }
@@ -56,11 +40,9 @@ export const getAllNews = gql`
           }
           author {
             data {
-              id
               attributes {
                 avatar {
                   data {
-                    id
                     attributes {
                       url
                     }
@@ -68,7 +50,13 @@ export const getAllNews = gql`
                 }
                 name
                 designation
-                updatedAt
+              }
+            }
+          }
+          category {
+            data {
+              attributes {
+                category
               }
             }
           }
@@ -77,95 +65,51 @@ export const getAllNews = gql`
     }
   }
 `;
-
-export const getNewsDetails = gql`
-  query getNewsDetails($ID: ID) {
-    new(id: $ID) {
+export const getBlogDetails = gql`
+  query getBlogDetails($ID: ID) {
+    blog(id: $ID) {
       data {
+        id
         attributes {
-          icon {
-            data {
-              id
-              attributes {
-                url
-              }
-            }
-          }
-          bgImage {
-            data {
-              id
-              attributes {
-                url
-              }
-            }
-          }
           title
-          description
-          category {
+          slug
+          featuredImage {
             data {
-              id
               attributes {
-                category
+                url
               }
             }
           }
-          slug
-          tag {
+          description
+          author {
             data {
-              id
               attributes {
-                tag
+                avatar {
+                  data {
+                    attributes {
+                      url
+                    }
+                  }
+                }
+                name
+                designation
               }
             }
           }
           content
-          author {
-            data {
-              id
-              attributes {
-                avatar {
-                  data {
-                    id
-                    attributes {
-                      url
-                    }
-                  }
-                }
-                name
-                designation
-                updatedAt
-              }
-            }
-          }
-          updatedAt
         }
       }
     }
   }
 `;
-
-export const getAllNewsSortingParameter = gql`
-  query getAllNewsSortingParameter {
-    news {
+export const getAllBlogsSortingParameter = gql`
+  query getAllBlogsSortingParameter {
+    blogs {
       data {
         attributes {
           updatedAt
-          newsSequence
+          popularSequence
           featuredSequence
-          recommendedSequence
-          trendingSequence
-        }
-      }
-    }
-  }
-`;
-
-export const getAllNewsCategory = gql`
-  query getAllNewsCategory {
-    newsCategories {
-      data {
-        attributes {
-          category
         }
       }
     }

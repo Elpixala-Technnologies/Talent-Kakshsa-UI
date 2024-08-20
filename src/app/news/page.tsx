@@ -3,12 +3,15 @@ import { news1 } from "@/assets";
 import Banner1 from "@/components/banners/Banner1";
 import NewsBanner from "@/components/banners/NewsBanner";
 import { Button } from "@/components/Button";
-import NewsCard from "@/components/cardsAndSliders/NewsCard";
+import NewsCard, {
+  NewsCardSkeleton,
+} from "@/components/cardsAndSliders/NewsCard";
 import NewsSlider from "@/components/cardsAndSliders/NewsSlider";
 import Faqs from "@/components/Faqs";
 import NewsAside from "@/components/newsPageSections/NewsAside";
 import Wrapper from "@/components/Wrappers";
 import { getAllNews, getAllNewsCategory } from "@/graphql/newsQuery/news";
+import { formatDate } from "@/utils/customText";
 import { useQuery } from "@apollo/client";
 import Image from "next/image";
 import Link from "next/link";
@@ -24,10 +27,10 @@ export default function NewsDetailPage() {
     refetch: newsCategoryListRefetch,
   } = useQuery(getAllNewsCategory);
   const {
-    data: RecentNewsByCategory,
-    loading,
-    error,
-    refetch,
+    data: recentNewsByCategory,
+    loading: recentNewsByCategoryLoading,
+    error: recentNewsByCategoryError,
+    refetch: recentNewsByCategoryRefetch,
   } = useQuery(getAllNews, {
     variables: {
       category: selectedFilter === "" ? undefined : selectedFilter,
@@ -37,8 +40,8 @@ export default function NewsDetailPage() {
   });
 
   useEffect(() => {
-    console.log(RecentNewsByCategory?.news?.data, "RecentNewsByCategory");
-  }, [RecentNewsByCategory]);
+    console.log(recentNewsByCategory?.news?.data, "recentNewsByCategory");
+  }, [recentNewsByCategory]);
   const handleSelect = (item: any) => {
     setSelectedFilter(item);
   };
@@ -63,28 +66,34 @@ export default function NewsDetailPage() {
           <div className="col-span-12 space-y-5 lg:col-span-9">
             {/* Recent News  */}
             <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-              {RecentNewsByCategory?.news?.data?.map(
-                (item: any, index: number) => (
-                  <NewsCard
-                    key={index}
-                    bgImage={item?.attributes?.bgImage?.data?.attributes?.url}
-                    title={item?.attributes?.title}
-                    tags={
-                      item?.attributes?.tag?.data?.map(
-                        (item: any) => item?.attributes?.tag,
-                      ) || []
-                    }
-                    author={item?.attributes?.author?.data?.attributes?.name}
-                    lastUpdated={
-                      item?.attributes?.author?.data?.attributes?.updatedAt
-                    }
-                    description={
-                      "When it comes to finding the right study abroad destination that caters to all your interests and requirements When it comes to finding the right study abroad destination that caters to all your interests and requirements"
-                    }
-                    slug={"#"}
-                  />
-                ),
-              )}
+              {!recentNewsByCategoryLoading
+                ? recentNewsByCategory?.news?.data?.map(
+                    (item: any, index: number) => (
+                      <NewsCard
+                        key={index}
+                        bgImage={
+                          item?.attributes?.bgImage?.data?.attributes?.url
+                        }
+                        title={item?.attributes?.title}
+                        tags={
+                          item?.attributes?.tag?.data?.map(
+                            (item: any) => item?.attributes?.tag,
+                          ) || []
+                        }
+                        author={
+                          item?.attributes?.author?.data?.attributes?.name
+                        }
+                        lastUpdated={formatDate(
+                          item?.attributes?.author?.data?.attributes?.updatedAt,
+                        )}
+                        description={item?.attributes?.description}
+                        slug={item?.attributes?.id}
+                      />
+                    ),
+                  )
+                : [0, 1]?.map((item: any, index: number) => (
+                    <NewsCardSkeleton key={index} />
+                  ))}
             </div>
             {/* Most Trending  */}
             <div className="space-y-3">

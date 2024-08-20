@@ -49,3 +49,23 @@ export default function NewsCard({
     </div>
   );
 }
+
+export function NewsCardSkeleton() {
+  return (
+    <div className="col-span-1 w-full space-y-3 rounded-lg bg-white p-5 shadow-lg">
+      <div className="mb-3 h-60 w-full animate-pulse rounded-lg bg-gray-200"></div>
+      <div className="h-6 w-3/4 animate-pulse rounded-lg bg-gray-200"></div>
+      <div className="flex flex-wrap gap-2">
+        <div className="h-6 w-16 animate-pulse rounded-full bg-gray-200"></div>
+        <div className="h-6 w-16 animate-pulse rounded-full bg-gray-200"></div>
+        <div className="h-6 w-16 animate-pulse rounded-full bg-gray-200"></div>
+      </div>
+      <div className="flex items-end gap-4">
+        <div className="h-6 w-24 animate-pulse rounded-lg bg-gray-200"></div>
+        <div className="h-4 w-16 animate-pulse rounded-lg bg-gray-200"></div>
+      </div>
+      <div className="h-16 w-full animate-pulse rounded-lg bg-gray-200"></div>
+      <div className="h-6 w-24 animate-pulse rounded-lg bg-gray-200"></div>
+    </div>
+  );
+}

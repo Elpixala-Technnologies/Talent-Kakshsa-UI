@@ -35,11 +35,11 @@ export default function NewsCard({
           </span>
         ))}
       </div>
-      <div className="flex items-center gap-4">
+      <div className="flex items-end gap-4">
         <p className="font-bold">{author}</p>
         <p className="text-sm text-zinc-400">{lastUpdated}</p>
       </div>
-      <p className="text-justify text-zinc-500">{description}</p>
+      <p className="line-clamp-4 text-justify text-zinc-500">{description}</p>
       <Link
         href={`/news/${slug} || #`}
         className="text-blue-900 hover:underline"

@@ -9,5 +9,7 @@ import vector2 from "@/assets/vectors/Vector2.svg";
 import login_bg from "@/assets/login-background.png";
 // news
 import news1 from "@/assets/news/1.png";
+// avatar
+import user1 from "@/assets/user1.png";
 
-export { headerLogo, footerLogo, vector1, vector2, news1, login_bg };
+export { headerLogo, footerLogo, vector1, vector2, news1, login_bg, user1 };

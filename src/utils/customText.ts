@@ -45,6 +45,15 @@ export function getDate(dateString: string) {
     return (`${day}-${month}-${year}`);
 }
 
+export function formatTime(isoString: string) {
+    const date = new Date(isoString);
+    let hours = date.getHours();
+    const minutes = date.getMinutes().toString().padStart(2, '0');
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12 || 12;
+    return `${hours}:${minutes} ${ampm}`;
+} //  // Output: "07:15 PM"
+
 export function convertQueryDataToTabSections(queryData: any): any {
     const tabSectionsMap: { [key: string]: any } = {};
 

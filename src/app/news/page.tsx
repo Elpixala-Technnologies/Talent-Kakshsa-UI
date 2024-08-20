@@ -1,21 +1,49 @@
 "use client";
 import { news1 } from "@/assets";
+import Banner1 from "@/components/banners/Banner1";
 import NewsBanner from "@/components/banners/NewsBanner";
 import { Button } from "@/components/Button";
-import NewsCard from "@/components/cardsAndSliders/NewsCard";
+import NewsCard, {
+  NewsCardSkeleton,
+} from "@/components/cardsAndSliders/NewsCard";
 import NewsSlider from "@/components/cardsAndSliders/NewsSlider";
 import Faqs from "@/components/Faqs";
+import NewsAside from "@/components/newsPageSections/NewsAside";
 import Wrapper from "@/components/Wrappers";
+import { getAllNews, getAllNewsCategory } from "@/graphql/newsQuery/news";
+import { formatDate } from "@/utils/customText";
+import { useQuery } from "@apollo/client";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 export default function NewsDetailPage() {
-  const [selectedIndex, setSelectedIndex] = useState(0);
-  const handleSelect = (index: any) => {
-    setSelectedIndex(index);
-    // Update the URL with the selected tab
-    // const selectedTab = data[index].navItem.toLowerCase();
+  const [selectedFilter, setSelectedFilter] = useState("");
+  // Query
+  const {
+    data: newsCategoryList,
+    loading: newsCategoryListLoading,
+    error: newsCategoryListError,
+    refetch: newsCategoryListRefetch,
+  } = useQuery(getAllNewsCategory);
+  const {
+    data: recentNewsByCategory,
+    loading: recentNewsByCategoryLoading,
+    error: recentNewsByCategoryError,
+    refetch: recentNewsByCategoryRefetch,
+  } = useQuery(getAllNews, {
+    variables: {
+      category: selectedFilter === "" ? undefined : selectedFilter,
+      // page: 1,
+      // pageSize: 10,
+    },
+  });
+
+  useEffect(() => {
+    console.log(recentNewsByCategory?.news?.data, "recentNewsByCategory");
+  }, [recentNewsByCategory]);
+  const handleSelect = (item: any) => {
+    setSelectedFilter(item);
   };
 
   return (
@@ -26,30 +54,46 @@ export default function NewsDetailPage() {
       />
       <Wrapper bgColor="bg-blue-50 my-10">
         <Navbar
-          navItems={["latest news", "social media feed", "video news"]}
+          navItems={
+            newsCategoryList?.newsCategories?.data?.map(
+              (item: any) => item?.attributes?.category,
+            ) || []
+          }
           onSelect={handleSelect}
-          selectedIndex={selectedIndex}
+          selectedFilter={selectedFilter}
         />
         <main className="my-8 grid grid-cols-12 gap-5">
-          <div className="col-span-12 space-y-5 md:col-span-9">
+          <div className="col-span-12 space-y-5 lg:col-span-9">
             {/* Recent News  */}
             <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-              {[1, 2]?.map((item: any, index: number) => (
-                <NewsCard
-                  key={index}
-                  bgImage={news1}
-                  title={
-                    "15+ Scholarships for Indian Students to Study in the UK"
-                  }
-                  tags={["Web development", "Machine Learning ", "Coding"]}
-                  author={"Pankaj Kumar"}
-                  lastUpdated={"Nov 12, 2022"}
-                  description={
-                    "When it comes to finding the right study abroad destination that caters to all your interests and requirements When it comes to finding the right study abroad destination that caters to all your interests and requirements"
-                  }
-                  slug={"#"}
-                />
-              ))}
+              {!recentNewsByCategoryLoading
+                ? recentNewsByCategory?.news?.data?.map(
+                    (item: any, index: number) => (
+                      <NewsCard
+                        key={index}
+                        bgImage={
+                          item?.attributes?.bgImage?.data?.attributes?.url
+                        }
+                        title={item?.attributes?.title}
+                        tags={
+                          item?.attributes?.tag?.data?.map(
+                            (item: any) => item?.attributes?.tag,
+                          ) || []
+                        }
+                        author={
+                          item?.attributes?.author?.data?.attributes?.name
+                        }
+                        lastUpdated={formatDate(
+                          item?.attributes?.author?.data?.attributes?.updatedAt,
+                        )}
+                        description={item?.attributes?.description}
+                        slug={item?.attributes?.id}
+                      />
+                    ),
+                  )
+                : [0, 1]?.map((item: any, index: number) => (
+                    <NewsCardSkeleton key={index} />
+                  ))}
             </div>
             {/* Most Trending  */}
             <div className="space-y-3">
@@ -75,42 +119,7 @@ export default function NewsDetailPage() {
             </div>
           </div>
           {/* Aside Section  */}
-          <aside className="col-span-3 space-y-5 max-lg:hidden">
-            {/* Recommended Posts */}
-            <div className="rounded-xl bg-white p-3 font-semibold shadow-lg">
-              <h4 className="border-b border-zinc-400 pb-2 text-lg">
-                Recommended Posts
-              </h4>
-              {[1, 2, 3, 4]?.map((item: any, index: number) => (
-                <NewsAsideCard
-                  key={index}
-                  bgImage={news1}
-                  title={
-                    "15+ Scholarships for Indian Students to Study in the UK"
-                  }
-                  lastUpdated={"Nov 12, 2022"}
-                  slug
-                />
-              ))}
-            </div>
-            {/* Discover communities */}
-            <div className="rounded-xl bg-white p-3 font-semibold shadow-lg">
-              <h4 className="border-b border-zinc-400 pb-2 text-lg">
-                Discover communities
-              </h4>
-              {[1, 2, 3, 4]?.map((item: any, index: number) => (
-                <NewsAsideCard
-                  key={index}
-                  bgImage={news1}
-                  title={
-                    "15+ Scholarships for Indian Students to Study in the UK"
-                  }
-                  lastUpdated={"Nov 12, 2022"}
-                  slug
-                />
-              ))}
-            </div>
-          </aside>
+          <NewsAside />
         </main>
         {/* Top Stories  */}
         <div className="space-y-3">
@@ -151,11 +160,12 @@ export default function NewsDetailPage() {
           <Faqs data={faqs} />
         </div>
       </Wrapper>
+      <Banner1 />
     </>
   );
 }
 
-function Navbar({ navItems, onSelect, selectedIndex }: any) {
+function Navbar({ navItems, onSelect, selectedFilter }: any) {
   return (
     <nav className="rounded-lg bg-blue-900">
       <ul className="no-scrollbar flex gap-x-8 overflow-x-auto px-5">
@@ -164,11 +174,11 @@ function Navbar({ navItems, onSelect, selectedIndex }: any) {
             <li key={index}>
               <button
                 className={`text-nowrap py-5 capitalize ${
-                  selectedIndex === index
+                  selectedFilter === item
                     ? "text-orange-500 duration-100"
                     : "text-white duration-100"
                 }`}
-                onClick={() => onSelect(index)}
+                onClick={() => onSelect(item)}
               >
                 {item}
               </button>
@@ -177,26 +187,6 @@ function Navbar({ navItems, onSelect, selectedIndex }: any) {
         ))}
       </ul>
     </nav>
-  );
-}
-function NewsAsideCard({ bgImage, title, lastUpdated, slug }: any) {
-  return (
-    <div className="my-3 flex cursor-pointer items-center gap-x-2 rounded-lg p-2 hover:bg-gray-100">
-      <Image
-        src={bgImage}
-        alt="logo"
-        width={100}
-        height={100}
-        className="h-16 w-16 rounded-lg object-cover"
-      />
-      <div>
-        <Link href={`/news/${slug} || #`} />
-        <h3 className="line-clamp-2 cursor-pointer font-semibold text-zinc-700 hover:text-blue-900">
-          {title}
-        </h3>
-        <p className="text-xs text-zinc-400">{lastUpdated}</p>
-      </div>
-    </div>
   );
 }
 
@@ -209,7 +199,7 @@ function NewsListingCard({
   slug,
 }: any) {
   return (
-    <div className="my-3 flex cursor-pointer items-center gap-x-5 rounded-lg bg-white p-2">
+    <div className="my-3 flex cursor-pointer items-center gap-5 rounded-lg bg-white p-2 max-md:flex-col">
       <Image
         src={bgImage}
         alt="logo"
@@ -228,9 +218,9 @@ function NewsListingCard({
             </span>
           ))}
         </div>
-        <div className="flex w-full justify-between gap-5">
+        <div className="flex w-full justify-between gap-5 max-md:flex-col">
           <Link href={`/news/${slug} || #`}>
-            <h3 className="line-clamp-1 cursor-pointer font-bold text-black hover:text-blue-900">
+            <h3 className="cursor-pointer font-bold text-black hover:text-blue-900 md:line-clamp-1">
               {title}
             </h3>
           </Link>
@@ -257,7 +247,7 @@ function NewsListingCard1({
   slug,
 }: any) {
   return (
-    <div className="my-3 flex cursor-pointer items-center gap-x-5 rounded-lg bg-white p-2">
+    <div className="my-3 flex cursor-pointer items-center gap-5 rounded-lg bg-white p-2 max-md:flex-col">
       <Image
         src={bgImage}
         alt="logo"
@@ -276,7 +266,7 @@ function NewsListingCard1({
             </span>
           ))}
         </div>
-        <Link href={`/news/${slug} || #`}>
+        <Link href={`/news/${slug} || #`} className="max-md:mt-3">
           <h3 className="cursor-pointer font-bold text-black hover:text-blue-900">
             {title}
           </h3>

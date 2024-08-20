@@ -5,7 +5,7 @@ import Image from "next/image";
 import { vector1, vector2 } from "@/assets";
 import NewsTypeHeadSearchBar from "../TypeHeadSearchBar/NewsTypeHeadSearchBar";
 
-export default function NewsBanner({ title, subtitle }: any) {
+export default function BlogBanner({ title, subtitle }: any) {
   return (
     <Wrapper
       as="section"

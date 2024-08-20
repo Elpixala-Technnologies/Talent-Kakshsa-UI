@@ -24,7 +24,7 @@ export default function Footer({ footer }: any) {
         <Image
           src={footer?.logo}
           alt="logo"
-          className="h-[12vw] max-h-9 w-min object-contain"
+          className="h-16 max-h-16 w-min object-contain md:h-20"
         />
         <p className="mb-4 max-w-[400px] text-wrap max-sm:mt-3 max-sm:!w-[80vw]">
           <TextWithLineBreak text={footer?.text} />

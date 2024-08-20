@@ -17,6 +17,9 @@ import { LoginSignUpModule } from "../loginSignUpModule/LoginSignUpModule";
 import { Button } from "../Button";
 import { store } from "@/Redux";
 import useUserData from "@/customHook/useProfile";
+import NewsTypeHeadSearchBar from "../TypeHeadSearchBar/NewsTypeHeadSearchBar";
+import { FaRegBell } from "react-icons/fa";
+import { TiShoppingCart } from "react-icons/ti";
 
 const Header = ({ header }: any) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
@@ -91,7 +94,7 @@ const Header = ({ header }: any) => {
     <header
       className={`fixed top-0 z-50 flex h-20 w-full items-center justify-between bg-white transition-transform duration-300 md:h-20 ${show}`}
     >
-      <Wrapper1 className="hidden h-20 items-center justify-between rounded-lg md:flex">
+      <Wrapper1 className="hidden h-20 items-center justify-between gap-4 rounded-lg md:flex">
         {/* Logo with Link */}
         <Link href="/">
           <Image
@@ -108,6 +111,15 @@ const Header = ({ header }: any) => {
           activeItemId={activeItemId}
           onItemClick={handleNavItemClick}
         />
+        {/* Search Bar */}
+        <div className="relative mx-auto flex h-min w-full max-w-sm items-center gap-2 rounded-full border border-blue-900 bg-white px-2 py-2 focus-within:border-orange-500">
+          <NewsTypeHeadSearchBar />
+        </div>
+        {/* Icons  */}
+        <div className="flex justify-center gap-4 text-xl text-blue-900">
+          <FaRegBell className="cursor-pointer hover:text-orange-500" />
+          <TiShoppingCart className="cursor-pointer hover:text-orange-500" />
+        </div>
         <div className="flex gap-4">
           <LoginSignUpQASection buttonType="LOG-IN" />
           <LoginSignUpQASection buttonType="SIGN-UP" />
@@ -129,7 +141,7 @@ const Header = ({ header }: any) => {
             alt="logo"
             height={100}
             width={100}
-            className="w-52 object-contain"
+            className="h-16 max-h-16 w-min object-contain md:h-20"
           />
         </Link>
         <div className="flex gap-4">
@@ -256,38 +268,7 @@ const LoginSignUpQASection = ({ buttonType = "LOG-IN" }: any) => {
     return (
       <>
         <div className="flex items-center gap-4">
-          {isUserLoggedIn ? (
-            <div className="group relative">
-              <div className="flex-center rounded-full border-2 border-orange-500 p-0.5">
-                <Image
-                  src={
-                    userProfileData?.attributes?.avatar?.data?.attributes?.url
-                  }
-                  alt="avatar"
-                  width={100}
-                  height={100}
-                  className="hover:text-primary group h-8 w-8 cursor-pointer rounded-full object-cover text-orange-500"
-                />
-              </div>
-              <div className="absolute right-0 top-10 z-10 hidden w-max rounded-md border border-gray-200 bg-white py-1 text-zinc-600 group-hover:block">
-                <p className="text-center text-xs text-orange-500">
-                  Hello, {userProfileData?.attributes?.username?.split(" ")[0]}
-                </p>
-                <Link
-                  href={"/profile"}
-                  className="item-center flex cursor-pointer gap-x-2 px-3 py-1 hover:bg-orange-500 hover:text-white"
-                >
-                  <MdOutlinePerson className="mt-0.5" /> Profile
-                </Link>
-                <div
-                  className="item-center flex cursor-pointer gap-x-2 px-3 py-1 hover:bg-orange-500 hover:text-white"
-                  onClick={handleLogout}
-                >
-                  <IoLogOutOutline className="mt-0.5" /> Logout
-                </div>
-              </div>
-            </div>
-          ) : (
+          {!isUserLoggedIn && (
             <Button
               onClick={openLoginPopup}
               variant="blue"
@@ -297,14 +278,6 @@ const LoginSignUpQASection = ({ buttonType = "LOG-IN" }: any) => {
             </Button>
           )}
         </div>
-        {/* Pop-up Module */}
-        {showPopUp && (
-          <LoginSignUpModule
-            closePopup={closePopup}
-            isLoginModule={isLoginModule}
-            setIsLoginModule={setIsLoginModule}
-          />
-        )}
       </>
     );
   }

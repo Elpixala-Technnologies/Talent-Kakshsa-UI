@@ -4,7 +4,7 @@ import { IoIosArrowDown } from "react-icons/io";
 
 const Menu = ({ navItemsArray, activeItemId, onItemClick }: any) => {
   return (
-    <ul className="hidden items-center gap-x-5 font-medium text-black md:flex">
+    <ul className="hidden items-center gap-x-5 font-semibold text-blue-900 md:flex">
       {navItemsArray?.map((item: any) => (
         <li key={item?.id} className="group relative transition-all">
           <Link
@@ -12,7 +12,9 @@ const Menu = ({ navItemsArray, activeItemId, onItemClick }: any) => {
             className="flex cursor-pointer items-center"
             onClick={() => onItemClick(item.id, item.href)}
           >
-            <span className={`font px-1 py-4 transition-all hover:scale-105 duration-300 hover:text-orange-500 ${activeItemId === item.id.toString() ? 'text-orange-500' : ''}`}>
+            <span
+              className={`font px-1 py-4 transition-all duration-300 hover:scale-105 hover:text-orange-500 ${activeItemId === item.id.toString() ? "text-orange-500" : ""}`}
+            >
               {item?.label}
             </span>
             {item?.subNav && item.subNav?.length !== 0 && (
@@ -26,10 +28,10 @@ const Menu = ({ navItemsArray, activeItemId, onItemClick }: any) => {
                 <Link
                   key={nav.id}
                   href={nav.href || "#"}
-                  className={`hover:bg-blue-500 flex cursor-pointer items-center py-1 pl-2 pr-8 hover:text-white ${activeItemId === nav.id.toString() ? 'text-orange-500' : ''}`}
+                  className={`flex cursor-pointer items-center py-1 pl-2 pr-8 hover:bg-blue-500 hover:text-white ${activeItemId === nav.id.toString() ? "text-orange-500" : ""}`}
                   onClick={() => onItemClick(nav.id, nav.href)}
                 >
-                  <span className="whitespace-nowrap pl-3 ">{nav.label}</span>
+                  <span className="whitespace-nowrap pl-3">{nav.label}</span>
                 </Link>
               ))}
             </div>

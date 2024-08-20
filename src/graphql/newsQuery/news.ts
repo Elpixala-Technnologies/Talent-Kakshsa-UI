@@ -1,22 +1,6 @@
 import { gql } from "@apollo/client";
 
 export const getAllNews = gql`
-  query getAllNews(
-    $category: String
-    $newsSortingParameter: [String]
-    $page: Int
-    $pageSize: Int
-  ) {
-    news(
-      sort: $newsSortingParameter
-      filters: { category: { category: { eq: $category } } }
-      pagination: { page: $page, pageSize: $pageSize }
-    ) {
-      meta {
-        pagination {
-          total
-        }
-      }
   query getAllNews($category: String, $newsSortingParameter: [String]) {
     news(
       sort: $newsSortingParameter

@@ -11,11 +11,11 @@ import NewsAside from "@/components/newsPageSections/NewsAside";
 
 type Props = {
   params: {
-    news: String;
+    blog: String;
   };
 };
 export default function NewsPage({ params }: Props) {
-  const newsId = params?.news;
+  const blogId = params?.blog;
   // Query
   const {
     loading,
@@ -23,7 +23,7 @@ export default function NewsPage({ params }: Props) {
     data: newsDetailData,
     refetch,
   } = useQuery(getNewsDetails, {
-    variables: { ID: newsId },
+    variables: { ID: blogId },
   });
   // useEffect(() => {
   //   console.log(newsDetailData, "first");

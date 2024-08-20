@@ -6,33 +6,47 @@ export const header = {
   navItems: [
     {
       id: 1,
-      label: "Explore colleges",
-      href: "/colleges",
-      subNav: [
-        // {
-        //   id: 21,
-        //   label: "courses1",
-        //   href: "#",
-        // },
-      ],
+      label: "Home",
+      href: "/",
     },
     {
       id: 2,
-      label: "Exams",
-      href: "/exams",
-      subNav: [],
+      label: "Courses",
+      href: "/courses",
+      subNav: [
+        {
+          id: 21,
+          label: "courses1",
+          href: "#",
+        },
+        {
+          id: 22,
+          label: "courses2",
+          href: "#",
+        },
+        {
+          id: 23,
+          label: "courses3",
+          href: "#",
+        },
+      ],
     },
     {
       id: 3,
-      label: "Programs",
-      href: "/courses",
+      label: "Blogs",
+      href: "/blogs",
       subNav: [],
     },
-
     {
       id: 4,
-      label: "Latest News",
+      label: "News",
       href: "/news",
+      subNav: [],
+    },
+    {
+      id: 5,
+      label: "Contact",
+      href: "/contact-us",
       subNav: [],
     },
   ],

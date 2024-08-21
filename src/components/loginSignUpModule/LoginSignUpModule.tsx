@@ -23,21 +23,14 @@ export function LoginSignUpModule({
 
   return (
     <section
-      className="fixed -top-5 left-0 z-50 flex h-screen w-full items-center justify-center bg-zinc-950 bg-opacity-70 max-sm:mt-20 max-sm:h-[85vh]"
+      className="fixed left-0 top-0 z-50 flex h-screen w-full items-center justify-center bg-zinc-950 bg-opacity-70 max-sm:mt-20 max-sm:h-screen"
       onClick={handleOverlayClick}
     >
       {/* Module  */}
-      <div className="relative z-10 flex h-max w-full justify-center overflow-y-hidden rounded-3xl border-8 border-white bg-white shadow-lg max-sm:h-full max-sm:min-h-[100vh] max-sm:flex-col max-sm:items-center max-sm:rounded-none max-sm:pt-20 md:max-w-[960px]">
+      <div className="grid-row-3 relative z-10 grid w-full justify-center overflow-y-hidden rounded-3xl border-8 border-white bg-blue-50 shadow-lg max-sm:h-full max-sm:min-h-screen max-sm:flex-col max-sm:items-center max-sm:rounded-none md:max-w-[960px] md:grid-cols-3">
         {/* Left Side */}
-        <Image
-          src={login_bg}
-          layout="fill"
-          objectFit="cover"
-          alt="Background"
-          className="!relative !h-auto !w-1/3 rounded-s-3xl object-cover object-center max-sm:hidden"
-        />
-        <div className="flex-center absolute left-0 top-0 h-full w-1/3 flex-col rounded-s-3xl bg-gradient-to-t from-[#ff90299f] to-[#ac5300a1] bg-cover bg-center p-5 max-sm:hidden">
-          <div className="flex-center flex-col text-center sm:mb-10">
+        <div className="row-span-1 flex h-full flex-col justify-center bg-blue-900 p-5 max-sm:hidden md:col-span-1 md:rounded-s-3xl">
+          <div className="flex flex-col sm:mb-10">
             <Image
               src={headerLogo}
               alt="logo"
@@ -45,32 +38,14 @@ export function LoginSignUpModule({
               className="h-16 w-full object-contain"
             />
           </div>
-          <ul className="ml-5 flex list-none flex-col gap-y-2 text-sm text-white max-sm:hidden">
-            <li className="flex items-center">
-              <FaCircleCheck className="mr-2 rounded-full bg-white text-green-800" />
-              Personal Counsellor
-            </li>
-            <li className="flex items-center">
-              <FaCircleCheck className="mr-2 rounded-full bg-white text-green-800" />
-              Admission Assistance
-            </li>
-            <li className="flex items-center">
-              <FaCircleCheck className="mr-2 rounded-full bg-white text-green-800" />
-              Lowest Package Seats
-            </li>
-            <li className="flex items-center">
-              <FaCircleCheck className="mr-2 rounded-full bg-white text-green-800" />
-              Expert Guidance
-            </li>
-            <li className="flex items-center">
-              <FaCircleCheck className="mr-2 rounded-full bg-white text-green-800" />
-              MCI/NTA Updates
-            </li>
-            <li className="flex items-center">
-              <FaCircleCheck className="mr-2 rounded-full bg-white text-green-800" />
-              Fees Negotiation
-            </li>
-          </ul>
+          <h2 className="text-3xl font-bold text-white">
+            Join Talent Kaksha for free
+          </h2>
+          <div className="h-2 w-32 rounded-3xl bg-orange-500"></div>
+          <p className="mt-5 text-white">
+            Unleash your creativity with a vast array of classes in design,
+            management, and marketing and many more.
+          </p>
         </div>
         {/* Right Side */}
         {isLoginModule ? (

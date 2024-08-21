@@ -127,13 +127,6 @@ const Header = ({ header }: any) => {
       </Wrapper1>
       {/* Mobile Section */}
       <Wrapper1 className="flex h-20 w-full items-center justify-between gap-3 bg-white md:hidden">
-        <div className="flex-center relative cursor-pointer rounded-full text-3xl text-blue-950 hover:bg-blue-500/5">
-          {isMobileMenuOpen ? (
-            <VscChromeClose onClick={handleMobileMenu} />
-          ) : (
-            <IoMenu onClick={handleMobileMenu} />
-          )}
-        </div>
         {/* Logo with Link */}
         <Link href="/">
           <Image
@@ -141,12 +134,18 @@ const Header = ({ header }: any) => {
             alt="logo"
             height={100}
             width={100}
-            className="h-16 max-h-16 w-min object-contain md:h-20"
+            className="h-16 max-h-12 w-min object-contain"
           />
         </Link>
         <div className="flex gap-4">
           <LoginSignUpQASection buttonType="LOG-IN" />
-          <LoginSignUpQASection buttonType="Sign-UP" />
+          <div className="flex-center relative cursor-pointer rounded-full text-3xl text-blue-950 hover:bg-blue-500/5">
+            {isMobileMenuOpen ? (
+              <VscChromeClose onClick={handleMobileMenu} />
+            ) : (
+              <IoMenu onClick={handleMobileMenu} />
+            )}
+          </div>
         </div>
       </Wrapper1>
       {/* Mobile Menu */}
@@ -192,6 +191,11 @@ const LoginSignUpQASection = ({ buttonType = "LOG-IN" }: any) => {
     setShowPopUp(true);
     document.body.style.overflow = "hidden";
     setIsLoginModule(true);
+  };
+  const openSignUpPopup = () => {
+    setShowPopUp(true);
+    document.body.style.overflow = "hidden";
+    setIsLoginModule(false);
   };
 
   const closePopup = () => {
@@ -264,20 +268,26 @@ const LoginSignUpQASection = ({ buttonType = "LOG-IN" }: any) => {
       </>
     );
   }
-  if (buttonType === "SIGN-UP") {
+  if (buttonType === "SIGN-UP" && !isUserLoggedIn) {
     return (
       <>
         <div className="flex items-center gap-4">
-          {!isUserLoggedIn && (
-            <Button
-              onClick={openLoginPopup}
-              variant="blue"
-              className="text-nowrap !px-2"
-            >
-              Sign up
-            </Button>
-          )}
+          <Button
+            onClick={openSignUpPopup}
+            variant="blue"
+            className="text-nowrap !px-2"
+          >
+            Sign up
+          </Button>
         </div>
+        {/* Pop-up Module */}
+        {showPopUp && (
+          <LoginSignUpModule
+            closePopup={closePopup}
+            isLoginModule={isLoginModule}
+            setIsLoginModule={setIsLoginModule}
+          />
+        )}
       </>
     );
   }

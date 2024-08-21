@@ -10,6 +10,13 @@ import NewsDetailPageBanner, {
 } from "@/components/banners/NewsDetailPageBanner";
 import { news1 } from "@/assets";
 import NewsAside from "@/components/newsPageSections/NewsAside";
+import NewsSlider from "@/components/cardsAndSliders/NewsSlider";
+import { getAllNews } from "@/graphql/newsQuery/news";
+import NewsListingCard1, {
+  NewsListingCard1Skeleton,
+} from "@/components/cardsAndSliders/NewsListingCard1";
+import Faqs from "@/components/Faqs";
+import { faqs } from "@/data/wrapperData";
 
 type Props = {
   params: {
@@ -27,6 +34,19 @@ export default function NewsPage({ params }: Props) {
   } = useQuery(getNewsDetails, {
     variables: { ID: newsId },
   });
+  const {
+    data: featuredSequenceNews,
+    loading: featuredSequenceLoading,
+    error: featuredSequenceError,
+    refetch: featuredSequenceRefetch,
+  } = useQuery(getAllNews, {
+    variables: {
+      newsSortingParameter: "featuredSequence",
+      page: 1,
+      pageSize: 5,
+    },
+  });
+  // ============================================= //
   useEffect(() => {
     console.log(newsDetailData, "first");
     console.log(newsId, "newsId");
@@ -37,6 +57,11 @@ export default function NewsPage({ params }: Props) {
       refetch();
     }
   }, [newsDetailData, refetch, loading]);
+  useEffect(() => {
+    if (!featuredSequenceLoading && !featuredSequenceNews) {
+      featuredSequenceRefetch();
+    }
+  }, [featuredSequenceNews, featuredSequenceRefetch, featuredSequenceLoading]);
   // ==================================================== //
   return (
     <>
@@ -87,6 +112,52 @@ export default function NewsPage({ params }: Props) {
           </div>
           <NewsAside />
         </main>
+        {/* Top Stories  */}
+        <div className="space-y-3">
+          <h2 className="mb-5 text-2xl font-bold text-blue-900">Top Stories</h2>
+          <div className="sliderStyle relative">
+            <NewsSlider />
+          </div>
+        </div>
+        {/* Featured Articles  */}
+        <div className="my-8 space-y-3">
+          <h2 className="text-2xl font-bold text-blue-900">
+            Featured Articles
+          </h2>
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+            {!featuredSequenceLoading
+              ? featuredSequenceNews?.news?.data?.map(
+                  (item: any, index: number) => (
+                    <NewsListingCard1
+                      key={item?.id}
+                      bgImage={item?.attributes?.bgImage?.data?.attributes?.url}
+                      title={item?.attributes?.title}
+                      tags={
+                        item?.attributes?.tag?.data?.map(
+                          (item: any) => item?.attributes?.tag,
+                        ) || []
+                      }
+                      author={item?.attributes?.author?.data?.attributes?.name}
+                      lastUpdated={formatDate(
+                        item?.attributes?.author?.data?.attributes?.updatedAt,
+                      )}
+                      description={item?.attributes?.description}
+                      slug={item?.id}
+                    />
+                  ),
+                )
+              : [1, 2, 3, 4].map((item: any, index: number) => (
+                  <NewsListingCard1Skeleton key={index} />
+                ))}
+          </div>
+        </div>
+        {/* FAQ's  */}
+        <div className="my-8 space-y-3">
+          <h2 className="mb-5 text-2xl font-bold text-blue-900">
+            Frequently Asked Questions
+          </h2>
+          <Faqs data={faqs} />
+        </div>
       </Wrapper>
     </>
   );

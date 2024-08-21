@@ -15,16 +15,13 @@ import { useAppDispatch } from "@/Redux";
 import { setAuthState } from "@/Redux/authSlice";
 import { Input } from "./Input";
 import useUserSignUp from "@/customHook/useSignup";
+import { FcGoogle } from "react-icons/fc";
 
 interface UserSubmittedData {
   name: string;
   email: string;
   number: string;
-  dob: string;
-  course: ID | string;
-  state: ID | string;
-  city: ID | string;
-  isWhatsappNo?: boolean;
+  password: string;
 }
 
 export function SignUpContainer({
@@ -47,10 +44,7 @@ export function SignUpContainer({
       name: "",
       email: "",
       number: "",
-      dob: "",
-      course: "",
-      state: "",
-      city: "",
+      password: "",
     },
   );
   const [userOtp, setUserOtp] = useState("");
@@ -85,11 +79,7 @@ export function SignUpContainer({
       variables: {
         username: data?.name,
         email: data?.email,
-        phoneNumber: data?.number,
-        dob: data?.dob,
-        course: data?.course ? Number(data?.course) : null,
-        state: data?.state ? Number(data?.state) : null,
-        city: data?.city ? Number(data?.city) : null,
+        password: data?.email,
       },
     });
     if (registerResponse?.data?.registerUser?.status === 200) {
@@ -150,9 +140,10 @@ export function SignUpContainer({
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const mobileRegex = /^[0-9]{10}$/;
+  const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
 
   return (
-    <div className="flex min-h-[90vh] flex-col overflow-y-auto rounded-b rounded-r p-8 text-black [flex:6] sm:relative md:justify-center">
+    <div className="row-span-1 flex h-full flex-col overflow-y-auto p-6 text-black [flex:6] sm:relative md:col-span-2">
       <button
         className="absolute right-[0.05rem] top-[0.05rem] w-max p-3 text-lg font-normal text-zinc-600 hover:underline"
         onClick={closePopup}
@@ -160,8 +151,7 @@ export function SignUpContainer({
       >
         <ImCross />
       </button>
-      <h1 className="text-2xl font-bold text-zinc-800">To Sign Up,</h1>
-      <p>Please enter the following details</p>
+      <h1 className="text-2xl font-bold text-zinc-800">Sign Up</h1>
       <p className="text-md mt-1 flex w-full font-sans font-semibold leading-normal text-inherit text-zinc-600 antialiased">
         Already have an account?
         <span
@@ -206,23 +196,13 @@ export function SignUpContainer({
             <Input
               label="Name"
               placeholder=" "
+              type="text"
               {...register("name", {
                 required: "Name is required",
               })}
             />
             {errors.name && (
               <p className="text-xs text-red-600">{errors.name.message}</p>
-            )}
-            <Input
-              label="Date of Birth"
-              type="date"
-              placeholder=" "
-              {...register("dob", {
-                required: "Date of Birth is required",
-              })}
-            />
-            {errors.dob && (
-              <p className="text-xs text-red-600">{errors.dob.message}</p>
             )}
             <Input
               label="Mobile Number"
@@ -254,75 +234,22 @@ export function SignUpContainer({
             {errors.email && (
               <p className="text-xs text-red-600">{errors.email.message}</p>
             )}
-            <select
-              className="mt-5 w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-zinc-500 outline-none duration-200 focus:outline-zinc-300"
-              {...register("course", {
-                required: "Course selection is required",
+            <Input
+              label="Password"
+              type="text"
+              placeholder=" "
+              {...register("password", {
+                required: "Email is required",
+                pattern: {
+                  value: passwordRegex,
+                  message:
+                    "Password must be at least 8 characters with at least one uppercase letter, one lowercase letter, one digit, and one special character.",
+                },
               })}
-            >
-              <option value="">Select course you are interested in</option>
-              {allCoursesData?.courses?.data?.map((course: any, index: any) => (
-                <option value={course?.id} key={course?.id}>
-                  {course?.attributes?.breadCrumb}
-                </option>
-              ))}
-            </select>
-            {errors?.course && (
-              <p className="text-xs text-red-600">{errors.course.message}</p>
+            />
+            {errors.password && typeof errors.password.message === "string" && (
+              <p className="text-xs text-red-600">{errors.password.message}</p>
             )}
-            <div className="mt-5 flex w-full gap-5 max-sm:flex-col">
-              <div className="w-full flex-[1]">
-                <select
-                  className="w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-zinc-500 outline-none duration-200 focus:outline-zinc-300"
-                  {...register("state", {
-                    required: "Selecting state is required",
-                  })}
-                  onChange={(e) => {
-                    const selectedState = allStatesData?.states?.data?.find(
-                      (state: any) => state?.id === e.target.value,
-                    );
-                    setSelectedStateId(selectedState?.id);
-                    setValue("state", e.target.value); // Update the form state
-                  }}
-                >
-                  <option value="">State</option>
-                  {allStatesData?.states?.data?.map(
-                    (state: any, index: any) => (
-                      <option value={state?.id} key={state?.id}>
-                        {state?.attributes?.state}
-                      </option>
-                    ),
-                  )}
-                </select>
-                {errors?.state && (
-                  <p className="text-xs text-red-600">
-                    {errors?.state.message}
-                  </p>
-                )}
-              </div>
-              <div className="w-full flex-[1]">
-                <select
-                  className="w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-zinc-500 outline-none duration-200 focus:outline-zinc-300"
-                  {...register("city", {
-                    required: "City selection is required",
-                  })}
-                >
-                  <option value="">City</option>
-                  {cityRelatedData?.cities?.data?.map(
-                    (city: any, index: any) => (
-                      <option value={city?.id} key={city?.id}>
-                        {city?.attributes?.city}
-                      </option>
-                    ),
-                  )}
-                </select>
-                {errors.city && (
-                  <p className="text-xs text-red-600">
-                    {errors?.city?.message}
-                  </p>
-                )}
-              </div>
-            </div>
           </>
         )}
         <button
@@ -339,10 +266,19 @@ export function SignUpContainer({
           {isOtp && "Resend OTP"}
         </button>
       </form>
+      {error && <p className="my-5 text-center text-red-600">{error}</p>}
       <p className="mt-2 text-center font-sans text-sm leading-normal text-inherit antialiased">
         Your personal information is secured with us
       </p>
-      {error && <p className="mt-5 text-center text-red-600">{error}</p>}
+      <div className="flex-center my-5 gap-4">
+        <div className="h-1 w-[30%] border-t border-zinc-800"></div>
+        <p className="font-bold">or</p>
+        <div className="h-1 w-[30%] border-t border-zinc-800"></div>
+      </div>
+      <div className="flex-center flex-col gap-3">
+        <FcGoogle className="text-2xl" />
+        <p className="font-semibold">Sign in with Google</p>
+      </div>
     </div>
   );
 }

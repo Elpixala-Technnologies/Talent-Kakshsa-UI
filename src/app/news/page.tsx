@@ -6,10 +6,14 @@ import { Button } from "@/components/Button";
 import NewsCard, {
   NewsCardSkeleton,
 } from "@/components/cardsAndSliders/NewsCard";
+import NewsListingCard1, {
+  NewsListingCard1Skeleton,
+} from "@/components/cardsAndSliders/NewsListingCard1";
 import NewsSlider from "@/components/cardsAndSliders/NewsSlider";
 import Faqs from "@/components/Faqs";
 import NewsAside from "@/components/newsPageSections/NewsAside";
 import Wrapper from "@/components/Wrappers";
+import { faqs } from "@/data/wrapperData";
 import { getAllNews, getAllNewsCategory } from "@/graphql/newsQuery/news";
 import { formatDate } from "@/utils/customText";
 import { useQuery } from "@apollo/client";
@@ -65,8 +69,16 @@ export default function NewsDetailPage() {
   });
   // =================================================== //
   useEffect(() => {
-    console.log(recentNewsByCategory?.news?.data, "recentNewsByCategory");
-  }, [recentNewsByCategory]);
+    if (!trendingSequenceLoading && !trendingSequenceNews) {
+      trendingSequenceRefetch();
+    }
+  }, [trendingSequenceNews, trendingSequenceRefetch, trendingSequenceLoading]);
+  useEffect(() => {
+    if (!featuredSequenceLoading && !featuredSequenceNews) {
+      featuredSequenceRefetch();
+    }
+  }, [featuredSequenceNews, featuredSequenceRefetch, featuredSequenceLoading]);
+
   const handleSelect = (item: any) => {
     setSelectedFilter(item);
   };
@@ -77,16 +89,20 @@ export default function NewsDetailPage() {
         title="Everyday News Updates"
         subtitle="Search. Explore. Learn"
       />
-      <Wrapper bgColor="bg-blue-50 my-10">
-        <Navbar
-          navItems={
-            newsCategoryList?.newsCategories?.data?.map(
-              (item: any) => item?.attributes?.category,
-            ) || []
-          }
-          onSelect={handleSelect}
-          selectedFilter={selectedFilter}
-        />
+      <Wrapper bgColor="bg-blue-50 py-10">
+        {!newsCategoryListLoading ? (
+          <Navbar
+            navItems={
+              newsCategoryList?.newsCategories?.data?.map(
+                (item: any) => item?.attributes?.category,
+              ) || []
+            }
+            onSelect={handleSelect}
+            selectedFilter={selectedFilter}
+          />
+        ) : (
+          <NavbarSkeleton />
+        )}
         <main className="my-8 grid grid-cols-12 gap-5">
           <div className="col-span-12 space-y-5 lg:col-span-9">
             {/* Recent News  */}
@@ -192,7 +208,9 @@ export default function NewsDetailPage() {
                     />
                   ),
                 )
-              : ""}
+              : [1, 2, 3, 4].map((item: any, index: number) => (
+                  <NewsListingCard1Skeleton key={index} />
+                ))}
           </div>
         </div>
         {/* FAQ's  */}
@@ -227,6 +245,20 @@ function Navbar({ navItems, onSelect, selectedFilter }: any) {
               </button>
             </li>
           </>
+        ))}
+      </ul>
+    </nav>
+  );
+}
+
+function NavbarSkeleton() {
+  return (
+    <nav className="rounded-lg bg-blue-900">
+      <ul className="no-scrollbar flex animate-pulse gap-x-8 overflow-x-auto px-5 py-5">
+        {Array.from({ length: 5 }).map((_, index) => (
+          <li key={index}>
+            <div className="h-6 w-20 rounded-md bg-gray-200"></div>
+          </li>
         ))}
       </ul>
     </nav>
@@ -281,53 +313,6 @@ function NewsListingCard({
     </div>
   );
 }
-function NewsListingCard1({
-  bgImage,
-  tags,
-  author,
-  title,
-  lastUpdated,
-  slug,
-}: any) {
-  return (
-    <div className="my-3 flex cursor-pointer items-center gap-5 rounded-lg bg-white p-2 max-md:flex-col">
-      <Image
-        src={bgImage}
-        alt="logo"
-        width={500}
-        height={500}
-        className="h-36 w-80 rounded-lg object-cover"
-      />
-      <div className="w-full space-y-2">
-        <div className="flex flex-wrap gap-2">
-          {tags?.map((tag: any, index: number) => (
-            <span
-              key={index}
-              className="rounded-full bg-blue-900 px-4 py-1 text-sm text-white"
-            >
-              {tag}
-            </span>
-          ))}
-        </div>
-        <Link href={slug ? `/news/${slug}` : `#`} className="max-md:mt-3">
-          <h3 className="cursor-pointer font-bold text-black hover:text-blue-900">
-            {title}
-          </h3>
-        </Link>
-
-        <div className="flex items-end gap-4">
-          <p className="font-bold text-zinc-500">{author}</p>
-          <p className="text-sm text-zinc-400">{lastUpdated}</p>
-        </div>
-        <Link href={slug ? `/news/${slug}` : `#`}>
-          <Button variant="orange" className="text-nowrap !px-2 !py-1">
-            Read Full Story
-          </Button>
-        </Link>
-      </div>
-    </div>
-  );
-}
 
 function NewsListingCardSkeleton() {
   return (
@@ -351,36 +336,6 @@ function NewsListingCardSkeleton() {
     </div>
   );
 }
-
-const faqs = [
-  {
-    id: 1,
-    question: "When was the University Established?",
-    answer:
-      "The Indian Institute of Technology, Madras was established in 1961. The institute was founded by the erstwhile Prime Minister, Shri. Venkatesh Iyengar.",
-  },
-  {
-    id: 2,
-    question: "Is the University a Private or Government University",
-    answer:
-      "The Indian Institute of Technology, Madras is a private university. The institute is governed by the Government of India. The institute has a status of Government.",
-  },
-  {
-    id: 3,
-    question: "What is the University Affiliation?",
-    answer:
-      "The Indian Institute of Technology, Madras is affiliated to the University of Madras. The institute is governed by the Government of India. The institute has a status of Government.",
-  },
-  {
-    id: 4,
-    question: "How good is the University",
-    answer:
-      "The Indian Institute of Technology, Madras is a private university. The institute is governed by the Government of India. The institute has a status of Government.",
-  },
-  {
-    id: 5,
-    question: "What courses does the University Offer?",
-    answer:
-      "The Indian Institute of Technology, Madras is a private university. The institute is governed by the Government of India. The institute has a status of Government.",
-  },
-];
+// useEffect(() => {
+//   console.log(recentNewsByCategory?.news?.data, "recentNewsByCategory");
+// }, [recentNewsByCategory]);

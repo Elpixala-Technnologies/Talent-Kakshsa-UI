@@ -56,18 +56,18 @@ export const footer = {
   text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, \\n sed do eiusmod tempor incididunt",
   contactDetails: {
     contactNo: "+1 (999) 888-77-66",
-    email: "info@talentkakshsa.com",
+    email: "info@TalentKaksha.com",
     location:
       "#1701, B Tower, World \\nTrade Tower, Sector - 16, \\nNoida, U.P - 201301",
   },
   socials: {
-    facebook: "https://www.facebook.com/talentkakshsa",
-    twitter: "https://twitter.com/talentkakshsa",
-    instagram: "https://www.instagram.com/talentkakshsa/",
-    linkedin: "https://www.linkedin.com/school/talentkakshsa/",
-    youtube: "https://www.youtube.com/c/talentkakshsa",
+    facebook: "https://www.facebook.com/TalentKaksha",
+    twitter: "https://twitter.com/TalentKaksha",
+    instagram: "https://www.instagram.com/TalentKaksha/",
+    linkedin: "https://www.linkedin.com/school/TalentKaksha/",
+    youtube: "https://www.youtube.com/c/TalentKaksha",
   },
-  copyrightText: "Copyrights © 2024 talentkakshsa. All rights reserved.",
+  copyrightText: "Copyrights © 2024 TalentKaksha. All rights reserved.",
   list1: {
     title: "Products",
     links: [

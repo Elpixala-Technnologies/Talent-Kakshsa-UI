@@ -20,7 +20,7 @@ export default function NewsCard({
         height={400}
         className="mb-3 h-60 w-full rounded-lg object-cover"
       />
-      <Link href={`/news/${slug} || #`}>
+      <Link href={slug ? `/news/${slug}` : `#`}>
         <h2 className="line-clamp-2 cursor-pointer text-lg font-bold hover:text-blue-900">
           {title}
         </h2>
@@ -41,7 +41,7 @@ export default function NewsCard({
       </div>
       <p className="line-clamp-4 text-justify text-zinc-500">{description}</p>
       <Link
-        href={`/news/${slug} || #`}
+        href={slug ? `/news/${slug}` : `#`}
         className="text-blue-900 hover:underline"
       >
         Read More

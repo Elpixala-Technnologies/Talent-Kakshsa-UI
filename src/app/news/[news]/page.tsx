@@ -5,7 +5,9 @@ import { getNewsDetails } from "@/graphql/newsQuery/newsDetails";
 import Image from "next/image";
 import { formatDate } from "@/utils/customText";
 import Wrapper from "@/components/Wrappers";
-import NewsDetailPageBanner from "@/components/banners/NewsDetailPageBanner";
+import NewsDetailPageBanner, {
+  NewsDetailPageBannerSkeleton,
+} from "@/components/banners/NewsDetailPageBanner";
 import { news1 } from "@/assets";
 import NewsAside from "@/components/newsPageSections/NewsAside";
 
@@ -25,9 +27,10 @@ export default function NewsPage({ params }: Props) {
   } = useQuery(getNewsDetails, {
     variables: { ID: newsId },
   });
-  // useEffect(() => {
-  //   console.log(newsDetailData, "first");
-  // }, [newsDetailData]);
+  useEffect(() => {
+    console.log(newsDetailData, "first");
+    console.log(newsId, "newsId");
+  }, [newsDetailData]);
   // ==================================================== //
   useEffect(() => {
     if (!loading && !newsDetailData) {
@@ -37,15 +40,26 @@ export default function NewsPage({ params }: Props) {
   // ==================================================== //
   return (
     <>
-      <NewsDetailPageBanner
-        title={"15+ Scholarships for Indian Students to Study in the UK"}
-        tags={["Web development", "Machine Learning ", "Coding"]}
-        description={
-          "When it comes to finding the right study abroad destination that caters to all your interests and requirements"
-        }
-        lastUpdated={"Nov 12, 2022"}
-        bgImage={news1}
-      />
+      {!loading ? (
+        <NewsDetailPageBanner
+          title={newsDetailData?.new?.data?.attributes?.title}
+          tags={
+            newsDetailData?.new?.data?.attributes?.tag?.data?.map(
+              (item: any) => item?.attributes?.tag,
+            ) || []
+          }
+          description={newsDetailData?.new?.data?.attributes?.description}
+          lastUpdated={formatDate(
+            newsDetailData?.new?.data?.attributes?.updatedAt,
+          )}
+          bgImage={
+            newsDetailData?.new?.data?.attributes?.bgImage?.data?.attributes
+              ?.url
+          }
+        />
+      ) : (
+        <NewsDetailPageBannerSkeleton />
+      )}
       <Wrapper bgColor="bg-blue-50 py-10">
         <main className="grid grid-cols-12 gap-5">
           <div className="col-span-12 space-y-5 lg:col-span-9">
@@ -102,7 +116,7 @@ function Content({
           <p className="text-3xl font-bold text-orange-500">
             {writerName || "Admin"}
           </p>
-          <div className="flex items-center gap-2 text-zinc-500">
+          <div className="flex flex-wrap items-center gap-2 text-zinc-500">
             <p className="font-bold">{designation} |</p>
             <p className="font-medium">Last Updated: {formatDate(date)}</p>
           </div>

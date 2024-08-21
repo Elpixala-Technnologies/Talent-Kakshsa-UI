@@ -23,6 +23,8 @@ export default function NewsDetailPageBanner({
       <Image
         src={bgImage}
         alt="logo"
+        width={500}
+        height={500}
         className="max-h-80 w-full flex-[1] rounded-xl object-cover"
       />
       <div className="flex-[1] space-y-4">
@@ -60,6 +62,39 @@ export default function NewsDetailPageBanner({
         <Button variant="blue" className="text-nowrap font-semibold">
           Subscribe Now
         </Button>
+      </div>
+    </Wrapper>
+  );
+}
+
+export function NewsDetailPageBannerSkeleton() {
+  return (
+    <Wrapper
+      as="section"
+      bgColor="bg-orange-500"
+      containerClassName="mt-20"
+      className="relative flex gap-5 py-10 max-md:flex-col md:flex-row-reverse md:py-16"
+    >
+      <div className="max-h-80 w-full flex-[1] animate-pulse rounded-xl bg-gray-200"></div>
+      <div className="flex-[1] space-y-4">
+        {/* BreadCrumb Skeleton */}
+        <div className="flex items-center gap-3 text-black">
+          <div className="h-6 w-16 animate-pulse rounded-md bg-gray-200"></div>
+          <div className="h-6 w-16 animate-pulse rounded-md bg-gray-200"></div>
+          <div className="h-6 w-24 animate-pulse rounded-md bg-gray-200"></div>
+        </div>
+        <div className="h-10 w-3/4 animate-pulse rounded-md bg-gray-200"></div>
+        <div className="flex flex-wrap gap-2">
+          <div className="h-6 w-16 animate-pulse rounded-full bg-gray-200"></div>
+          <div className="h-6 w-16 animate-pulse rounded-full bg-gray-200"></div>
+          <div className="h-6 w-16 animate-pulse rounded-full bg-gray-200"></div>
+        </div>
+        <div className="h-6 w-full animate-pulse rounded-md bg-gray-200"></div>
+        <div className="h-6 w-full animate-pulse rounded-md bg-gray-200"></div>
+        <div className="flex items-center gap-3">
+          <div className="h-6 w-24 animate-pulse rounded-md bg-gray-200"></div>
+        </div>
+        <div className="h-10 w-40 animate-pulse rounded-md bg-blue-900"></div>
       </div>
     </Wrapper>
   );

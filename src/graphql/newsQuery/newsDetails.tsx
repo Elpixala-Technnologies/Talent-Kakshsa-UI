@@ -6,7 +6,24 @@ export const getNewsDetails = gql`
       data {
         id
         attributes {
+          bgImage {
+            data {
+              id
+              attributes {
+                url
+              }
+            }
+          }
           title
+          description
+          tag {
+            data {
+              id
+              attributes {
+                tag
+              }
+            }
+          }
           author {
             data {
               id

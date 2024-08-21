@@ -19,7 +19,7 @@ import React, { useEffect, useState } from "react";
 
 export default function NewsDetailPage() {
   const [selectedFilter, setSelectedFilter] = useState("");
-  // Query
+  // ================= Query ==================== //
   const {
     data: newsCategoryList,
     loading: newsCategoryListLoading,
@@ -33,12 +33,37 @@ export default function NewsDetailPage() {
     refetch: recentNewsByCategoryRefetch,
   } = useQuery(getAllNews, {
     variables: {
-      category: selectedFilter === "" ? undefined : selectedFilter,
-      // page: 1,
-      // pageSize: 10,
+      category: selectedFilter || undefined,
+      newsSortingParameter: "updatedAt",
+      page: 1,
+      pageSize: 2,
     },
   });
-
+  const {
+    data: trendingSequenceNews,
+    loading: trendingSequenceLoading,
+    error: trendingSequenceError,
+    refetch: trendingSequenceRefetch,
+  } = useQuery(getAllNews, {
+    variables: {
+      newsSortingParameter: "trendingSequence",
+      page: 1,
+      pageSize: 5,
+    },
+  });
+  const {
+    data: featuredSequenceNews,
+    loading: featuredSequenceLoading,
+    error: featuredSequenceError,
+    refetch: featuredSequenceRefetch,
+  } = useQuery(getAllNews, {
+    variables: {
+      newsSortingParameter: "featuredSequence",
+      page: 1,
+      pageSize: 5,
+    },
+  });
+  // =================================================== //
   useEffect(() => {
     console.log(recentNewsByCategory?.news?.data, "recentNewsByCategory");
   }, [recentNewsByCategory]);
@@ -70,7 +95,7 @@ export default function NewsDetailPage() {
                 ? recentNewsByCategory?.news?.data?.map(
                     (item: any, index: number) => (
                       <NewsCard
-                        key={index}
+                        key={item?.id}
                         bgImage={
                           item?.attributes?.bgImage?.data?.attributes?.url
                         }
@@ -87,7 +112,7 @@ export default function NewsDetailPage() {
                           item?.attributes?.author?.data?.attributes?.updatedAt,
                         )}
                         description={item?.attributes?.description}
-                        slug={item?.attributes?.id}
+                        slug={item?.id}
                       />
                     ),
                   )
@@ -100,22 +125,34 @@ export default function NewsDetailPage() {
               <h2 className="text-2xl font-bold text-blue-900">
                 Most Trending
               </h2>
-              {[1, 2, 3, 4]?.map((item: any, index: number) => (
-                <NewsListingCard
-                  key={index}
-                  bgImage={news1}
-                  title={
-                    "GATE 2025 exam date announced; IIT Roorkee to hold exam from February 1 to 16"
-                  }
-                  tags={["Web development", "Machine Learning ", "Coding"]}
-                  author={"Pankaj Kumar"}
-                  lastUpdated={"Nov 12, 2022"}
-                  description={
-                    "When it comes to finding the right study abroad destination that caters to all your interests and requirements When it comes to finding the right study abroad destination that caters to all your interests and requirements"
-                  }
-                  slug={"#"}
-                />
-              ))}
+              {!trendingSequenceLoading
+                ? trendingSequenceNews?.news?.data?.map(
+                    (item: any, index: number) => (
+                      <NewsListingCard
+                        key={item?.id}
+                        bgImage={
+                          item?.attributes?.bgImage?.data?.attributes?.url
+                        }
+                        title={item?.attributes?.title}
+                        tags={
+                          item?.attributes?.tag?.data?.map(
+                            (item: any) => item?.attributes?.tag,
+                          ) || []
+                        }
+                        author={
+                          item?.attributes?.author?.data?.attributes?.name
+                        }
+                        lastUpdated={formatDate(
+                          item?.attributes?.author?.data?.attributes?.updatedAt,
+                        )}
+                        description={item?.attributes?.description}
+                        slug={item?.id}
+                      />
+                    ),
+                  )
+                : [0, 1]?.map((item: any, index: number) => (
+                    <NewsListingCardSkeleton key={index} />
+                  ))}
             </div>
           </div>
           {/* Aside Section  */}
@@ -134,22 +171,28 @@ export default function NewsDetailPage() {
             Featured Articles
           </h2>
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-            {[1, 2, 3, 4]?.map((item: any, index: number) => (
-              <NewsListingCard1
-                key={index}
-                bgImage={news1}
-                title={
-                  "GATE 2025 exam date announced; IIT Roorkee to hold exam from February 1 to 16"
-                }
-                tags={["Web development", "Machine Learning ", "Coding"]}
-                author={"Pankaj Kumar"}
-                lastUpdated={"Nov 12, 2022"}
-                description={
-                  "When it comes to finding the right study abroad destination that caters to all your interests and requirements When it comes to finding the right study abroad destination that caters to all your interests and requirements"
-                }
-                slug={"#"}
-              />
-            ))}
+            {!featuredSequenceLoading
+              ? featuredSequenceNews?.news?.data?.map(
+                  (item: any, index: number) => (
+                    <NewsListingCard1
+                      key={item?.id}
+                      bgImage={item?.attributes?.bgImage?.data?.attributes?.url}
+                      title={item?.attributes?.title}
+                      tags={
+                        item?.attributes?.tag?.data?.map(
+                          (item: any) => item?.attributes?.tag,
+                        ) || []
+                      }
+                      author={item?.attributes?.author?.data?.attributes?.name}
+                      lastUpdated={formatDate(
+                        item?.attributes?.author?.data?.attributes?.updatedAt,
+                      )}
+                      description={item?.attributes?.description}
+                      slug={item?.id}
+                    />
+                  ),
+                )
+              : ""}
           </div>
         </div>
         {/* FAQ's  */}
@@ -219,12 +262,12 @@ function NewsListingCard({
           ))}
         </div>
         <div className="flex w-full justify-between gap-5 max-md:flex-col">
-          <Link href={`/news/${slug} || #`}>
+          <Link href={slug ? `/news/${slug}` : `#`}>
             <h3 className="cursor-pointer font-bold text-black hover:text-blue-900 md:line-clamp-1">
               {title}
             </h3>
           </Link>
-          <Link href={"/news/${slug} || #"}>
+          <Link href={slug ? `/news/${slug}` : `#`}>
             <Button variant="orange" className="text-nowrap !px-2 !py-1">
               Read Full Story
             </Button>
@@ -266,7 +309,7 @@ function NewsListingCard1({
             </span>
           ))}
         </div>
-        <Link href={`/news/${slug} || #`} className="max-md:mt-3">
+        <Link href={slug ? `/news/${slug}` : `#`} className="max-md:mt-3">
           <h3 className="cursor-pointer font-bold text-black hover:text-blue-900">
             {title}
           </h3>
@@ -276,11 +319,34 @@ function NewsListingCard1({
           <p className="font-bold text-zinc-500">{author}</p>
           <p className="text-sm text-zinc-400">{lastUpdated}</p>
         </div>
-        <Link href={"/news/${slug} || #"}>
+        <Link href={slug ? `/news/${slug}` : `#`}>
           <Button variant="orange" className="text-nowrap !px-2 !py-1">
             Read Full Story
           </Button>
         </Link>
+      </div>
+    </div>
+  );
+}
+
+function NewsListingCardSkeleton() {
+  return (
+    <div className="my-3 flex animate-pulse items-center gap-5 rounded-lg bg-white p-2 max-md:flex-col">
+      <div className="h-32 w-80 rounded-lg bg-gray-200"></div>
+      <div className="w-full space-y-2">
+        <div className="flex flex-wrap gap-2">
+          <div className="h-6 w-16 rounded-full bg-gray-200"></div>
+          <div className="h-6 w-16 rounded-full bg-gray-200"></div>
+          <div className="h-6 w-16 rounded-full bg-gray-200"></div>
+        </div>
+        <div className="flex w-full justify-between gap-5 max-md:flex-col">
+          <div className="h-6 w-3/4 rounded-md bg-gray-200"></div>
+          <div className="h-8 w-24 rounded-md bg-orange-300"></div>
+        </div>
+        <div className="flex items-end gap-4">
+          <div className="h-6 w-24 rounded-md bg-gray-200"></div>
+          <div className="h-4 w-16 rounded-md bg-gray-200"></div>
+        </div>
       </div>
     </div>
   );

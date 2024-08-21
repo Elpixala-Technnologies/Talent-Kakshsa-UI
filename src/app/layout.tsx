@@ -9,8 +9,8 @@ import { footer, header } from "@/data/wrapperData";
 import ScrollToTopButton from "@/components/ScrollToTopButton";
 
 export const metadata: Metadata = {
-  title: "Talent Kaskhsa",
-  description: "Find College that suits you",
+  title: "Talent Kaksha",
+  description: "Find Course that Suits You",
 };
 
 export default function RootLayout({

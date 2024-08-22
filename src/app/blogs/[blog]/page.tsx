@@ -5,9 +5,21 @@ import { getNewsDetails } from "@/graphql/newsQuery/newsDetails";
 import Image from "next/image";
 import { formatDate } from "@/utils/customText";
 import Wrapper from "@/components/Wrappers";
-import NewsDetailPageBanner from "@/components/banners/NewsDetailPageBanner";
+import NewsDetailPageBanner, {
+  NewsDetailPageBannerSkeleton,
+} from "@/components/banners/NewsDetailPageBanner";
 import { news1 } from "@/assets";
-import NewsAside from "@/components/newsPageSections/NewsAside";
+import NewsAside from "@/components/AsideSections/NewsAside";
+import { getBlogDetails } from "@/graphql/blogQuery/blogDetails";
+import BlogAside from "@/components/AsideSections/BlogAside";
+import BlogDetailPageBanner from "@/components/banners/BlogDetailPageBanner";
+import BlogListingCard, {
+  BlogListingCardSkeleton,
+} from "@/components/cardsAndSliders/BlogListingCard";
+import { getAllBlogs } from "@/graphql/blogQuery/blog";
+import BlogSlider1, {
+  BlogSlider1Skeleton,
+} from "@/components/cardsAndSliders/BlogSlider1";
 
 type Props = {
   params: {
@@ -20,59 +32,137 @@ export default function NewsPage({ params }: Props) {
   const {
     loading,
     error,
-    data: newsDetailData,
+    data: blogDetailData,
     refetch,
-  } = useQuery(getNewsDetails, {
+  } = useQuery(getBlogDetails, {
     variables: { ID: blogId },
   });
+  const {
+    data: featuredBlogsData,
+    loading: featuredBlogsLoading,
+    error: featuredBlogsError,
+    refetch: featuredBlogsRefetch,
+  } = useQuery(getAllBlogs, {
+    variables: {
+      blogSortingParameter: "updatedAt",
+      page: 1,
+      pageSize: 4,
+    },
+  });
   // useEffect(() => {
-  //   console.log(newsDetailData, "first");
-  // }, [newsDetailData]);
+  //   console.log(blogDetailData, "first");
+  // }, [blogDetailData]);
   // ==================================================== //
   useEffect(() => {
-    if (!loading && !newsDetailData) {
+    if (!loading && !blogDetailData) {
       refetch();
     }
-  }, [newsDetailData, refetch, loading]);
+  }, [blogDetailData, refetch, loading]);
+  useEffect(() => {
+    if (!featuredBlogsLoading && !featuredBlogsData) {
+      featuredBlogsRefetch();
+    }
+  }, [featuredBlogsData, featuredBlogsRefetch, featuredBlogsLoading]);
   // ==================================================== //
   return (
     <>
-      <NewsDetailPageBanner
-        title={"15+ Scholarships for Indian Students to Study in the UK"}
-        tags={["Web development", "Machine Learning ", "Coding"]}
-        description={
-          "When it comes to finding the right study abroad destination that caters to all your interests and requirements"
-        }
-        lastUpdated={"Nov 12, 2022"}
-        bgImage={news1}
-      />
+      {!loading ? (
+        <BlogDetailPageBanner
+          title={blogDetailData?.blog?.data?.attributes?.title}
+          tags={
+            blogDetailData?.blog?.data?.attributes?.tag?.data?.map(
+              (item: any) => item?.attributes?.tag,
+            ) || []
+          }
+          description={blogDetailData?.blog?.data?.attributes?.description}
+          lastUpdated={formatDate(
+            blogDetailData?.blog?.data?.attributes?.updatedAt,
+          )}
+          bgImage={
+            blogDetailData?.blog?.data?.attributes?.bgImage?.data?.attributes
+              ?.url
+          }
+        />
+      ) : (
+        <NewsDetailPageBannerSkeleton />
+      )}
       <Wrapper bgColor="bg-blue-50 py-10">
         <main className="grid grid-cols-12 gap-5">
           <div className="col-span-12 space-y-5 lg:col-span-9">
             {!loading ? (
               <Content
                 avatar={
-                  newsDetailData?.new?.data?.attributes?.author?.data
+                  blogDetailData?.blog?.data?.attributes?.author?.data
                     ?.attributes?.avatar?.data?.attributes?.url
                 }
                 writerName={
-                  newsDetailData?.new?.data?.attributes?.author?.data
+                  blogDetailData?.blog?.data?.attributes?.author?.data
                     ?.attributes?.name
                 }
                 designation={
-                  newsDetailData?.new?.data?.attributes?.author?.data
+                  blogDetailData?.blog?.data?.attributes?.author?.data
                     ?.attributes?.designation
                 }
-                content={newsDetailData?.new?.data?.attributes?.content}
-                title={newsDetailData?.new?.data?.attributes?.title}
-                date={newsDetailData?.new?.data?.attributes?.updatedAt}
+                content={blogDetailData?.blog?.data?.attributes?.content}
+                title={blogDetailData?.blog?.data?.attributes?.title}
+                date={blogDetailData?.blog?.data?.attributes?.updatedAt}
+                tags={
+                  blogDetailData?.blog?.data?.attributes?.tag?.data?.map(
+                    (item: any) => item?.attributes?.tag,
+                  ) || []
+                }
               />
             ) : (
               <ContentSkeleton />
             )}
           </div>
-          <NewsAside />
+          <BlogAside />
         </main>
+        {/* Featured Posts  */}
+        <div className="space-y-3">
+          <h2 className="mb-5 text-2xl font-bold text-blue-900">
+            Featured Posts
+          </h2>
+          <div className="sliderStyle relative">
+            {!loading ? (
+              <BlogSlider1 />
+            ) : (
+              <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+                {[1, 2, 3, 4]?.map((i: any) => <BlogSlider1Skeleton key={i} />)}
+              </div>
+            )}
+          </div>
+        </div>
+        {/* Latest Posts  */}
+        <div className="my-10 space-y-3">
+          <h2 className="text-2xl font-bold text-blue-900">Latest Posts</h2>
+          {!featuredBlogsLoading ? (
+            featuredBlogsData?.blogs?.data?.map((item: any, index: number) => (
+              <BlogListingCard
+                key={index}
+                bgImage={item?.attributes.bgImage?.data?.attributes?.url}
+                title={item?.attributes?.title}
+                category={item?.attributes?.category?.data
+                  ?.map(
+                    (categoryItem: any) => categoryItem?.attributes?.category,
+                  )
+                  .join(", ")}
+                author={item?.attributes?.author?.data?.attributes?.name}
+                lastUpdated={formatDate(
+                  item?.attributes?.author?.data?.attributes?.updatedAt,
+                )}
+                description={item?.attributes?.description}
+                slug={item?.id}
+              />
+            ))
+          ) : (
+            <div className="space-y-3">
+              {[1, 2, 3, 4].map((i: any) => (
+                <BlogListingCardSkeleton key={i} />
+              ))}
+            </div>
+          )}
+        </div>
       </Wrapper>
     </>
   );
@@ -85,6 +175,7 @@ function Content({
   content,
   title,
   date,
+  tags,
 }: any) {
   // console.log(avatar, "avatar");
   return (
@@ -116,6 +207,18 @@ function Content({
           className={`dangerouslySetInnerHTMLStyle transparent-bg mb-5 text-justify`}
           dangerouslySetInnerHTML={{ __html: content }}
         />
+      )}
+      {tags && (
+        <div className="flex flex-wrap gap-2">
+          {tags?.map((tag: any, index: number) => (
+            <span
+              key={index}
+              className="rounded-full bg-orange-500 px-4 py-1 text-sm text-white"
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
       )}
     </div>
   );

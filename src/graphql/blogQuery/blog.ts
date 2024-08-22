@@ -3,12 +3,12 @@ import { gql } from "@apollo/client";
 export const getAllBlogs = gql`
   query getAllBlogs(
     $category: String
-    $newsSortingParameter: [String]
+    $blogSortingParameter: [String]
     $page: Int
     $pageSize: Int
   ) {
     blogs(
-      sort: $newsSortingParameter
+      sort: $blogSortingParameter
       filters: { category: { category: { eq: $category } } }
       pagination: { page: $page, pageSize: $pageSize }
     ) {
@@ -21,8 +21,7 @@ export const getAllBlogs = gql`
         id
         attributes {
           title
-          slug
-          featuredImage {
+          bgImage {
             data {
               id
               attributes {
@@ -50,9 +49,11 @@ export const getAllBlogs = gql`
                 }
                 name
                 designation
+                updatedAt
               }
             }
           }
+            updatedAt
           category {
             data {
               attributes {
@@ -65,43 +66,7 @@ export const getAllBlogs = gql`
     }
   }
 `;
-export const getBlogDetails = gql`
-  query getBlogDetails($ID: ID) {
-    blog(id: $ID) {
-      data {
-        id
-        attributes {
-          title
-          slug
-          featuredImage {
-            data {
-              attributes {
-                url
-              }
-            }
-          }
-          description
-          author {
-            data {
-              attributes {
-                avatar {
-                  data {
-                    attributes {
-                      url
-                    }
-                  }
-                }
-                name
-                designation
-              }
-            }
-          }
-          content
-        }
-      }
-    }
-  }
-`;
+
 export const getAllBlogsSortingParameter = gql`
   query getAllBlogsSortingParameter {
     blogs {
@@ -110,6 +75,27 @@ export const getAllBlogsSortingParameter = gql`
           updatedAt
           popularSequence
           featuredSequence
+        }
+      }
+    }
+  }
+`;
+
+export const getAllBlogCategory = gql`
+  query getAllBlogCategory {
+    blogCategories {
+      data {
+        id
+        attributes {
+          category
+          image {
+            data {
+              id
+              attributes {
+                url
+              }
+            }
+          }
         }
       }
     }

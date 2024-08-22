@@ -15,7 +15,7 @@ export default function Faqs({ data, className = "" }: any) {
     <div className={`flex flex-col gap-4 ${className}`}>
       {data?.map((faq: any, index: number) => (
         <div
-          key={faq.id}
+          key={index}
           className="mb-4 rounded-lg bg-white px-6 py-2 pt-4 shadow-lg"
         >
           {faq?.question && (

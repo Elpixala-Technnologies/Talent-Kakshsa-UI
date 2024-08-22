@@ -21,6 +21,8 @@ export default function EventCard({
             <li key={index}>
               <Image
                 src={avatar}
+                width={100}
+                height={100}
                 className="h-8 w-8 rounded-full object-cover"
                 alt={`Avatar ${index}`}
               />
@@ -35,13 +37,38 @@ export default function EventCard({
           )}
         </ul>
       </div>
-      <p className="mt-3 flex justify-between text-xs">
-        <span>{date}</span> |{" "}
-        <span>
+      <p className="mt-3 flex flex-wrap justify-between text-xs">
+        <span className="text-nowrap">{date}</span> |{" "}
+        <span className="text-nowrap">
           {timeFrom} - {timeTo}
         </span>{" "}
-        | <span>{eventMedium}</span>
+        | <span className="text-nowrap">{eventMedium}</span>
       </p>
+    </div>
+  );
+}
+
+export function EventCardSkeleton() {
+  return (
+    <div className="col-span-1 animate-pulse rounded-2xl bg-white p-5 text-zinc-700">
+      <div className="h-6 w-3/4 rounded-md bg-gray-200"></div>
+      <div className="mt-2 h-4 w-1/2 rounded-md bg-gray-200"></div>
+      <div className="mt-3 h-4 w-1/4 rounded-md bg-gray-200"></div>
+      <div className="avatarsMap mt-3">
+        <ul className="flex">
+          {[...Array(5)].map((_, index) => (
+            <li key={index}>
+              <div className="h-8 w-8 rounded-full bg-gray-200"></div>
+            </li>
+          ))}
+          <li className="flex h-9 w-9 items-center justify-center bg-gray-200"></li>
+        </ul>
+      </div>
+      <div className="mt-3 flex flex-wrap justify-between text-xs">
+        <span className="h-4 w-1/4 rounded-md bg-gray-200"></span>
+        <span className="h-4 w-1/4 rounded-md bg-gray-200"></span>
+        <span className="h-4 w-1/4 rounded-md bg-gray-200"></span>
+      </div>
     </div>
   );
 }

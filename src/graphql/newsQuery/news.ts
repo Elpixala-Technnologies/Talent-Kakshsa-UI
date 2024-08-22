@@ -169,6 +169,7 @@ export const getAllNewsSortingParameter = gql`
           featuredSequence
           recommendedSequence
           trendingSequence
+          topSequence
         }
       }
     }

@@ -9,7 +9,7 @@ import NewsDetailPageBanner, {
   NewsDetailPageBannerSkeleton,
 } from "@/components/banners/NewsDetailPageBanner";
 import { news1 } from "@/assets";
-import NewsAside from "@/components/newsPageSections/NewsAside";
+import NewsAside from "@/components/AsideSections/NewsAside";
 import NewsSlider from "@/components/cardsAndSliders/NewsSlider";
 import { getAllNews } from "@/graphql/newsQuery/news";
 import NewsListingCard1, {
@@ -17,6 +17,7 @@ import NewsListingCard1, {
 } from "@/components/cardsAndSliders/NewsListingCard1";
 import Faqs from "@/components/Faqs";
 import { faqs } from "@/data/wrapperData";
+import { faq } from "@/graphql/globleQuery/globle";
 
 type Props = {
   params: {
@@ -46,11 +47,17 @@ export default function NewsPage({ params }: Props) {
       pageSize: 5,
     },
   });
+  const {
+    data: faqData,
+    loading: faqLoading,
+    error: faqError,
+    refetch: faqRefetch,
+  } = useQuery(faq);
   // ============================================= //
-  useEffect(() => {
-    console.log(newsDetailData, "first");
-    console.log(newsId, "newsId");
-  }, [newsDetailData]);
+  // useEffect(() => {
+  //   console.log(newsDetailData, "first");
+  //   console.log(newsId, "newsId");
+  // }, [newsDetailData]);
   // ==================================================== //
   useEffect(() => {
     if (!loading && !newsDetailData) {
@@ -62,6 +69,11 @@ export default function NewsPage({ params }: Props) {
       featuredSequenceRefetch();
     }
   }, [featuredSequenceNews, featuredSequenceRefetch, featuredSequenceLoading]);
+  useEffect(() => {
+    if (!faqLoading && !faqData) {
+      faqRefetch();
+    }
+  }, [faqData, faqRefetch, faqLoading]);
   // ==================================================== //
   return (
     <>
@@ -105,6 +117,11 @@ export default function NewsPage({ params }: Props) {
                 content={newsDetailData?.new?.data?.attributes?.content}
                 title={newsDetailData?.new?.data?.attributes?.title}
                 date={newsDetailData?.new?.data?.attributes?.updatedAt}
+                tags={
+                  newsDetailData?.new?.data?.attributes?.tag?.data?.map(
+                    (item: any) => item?.attributes?.tag,
+                  ) || []
+                }
               />
             ) : (
               <ContentSkeleton />
@@ -156,7 +173,13 @@ export default function NewsPage({ params }: Props) {
           <h2 className="mb-5 text-2xl font-bold text-blue-900">
             Frequently Asked Questions
           </h2>
-          <Faqs data={faqs} />
+          <Faqs
+            data={faqData?.faqs?.data?.map((item: any) => ({
+              question: item?.attributes?.question,
+              answer: item?.attributes?.answer,
+              id: item?.id,
+            }))}
+          />
         </div>
       </Wrapper>
     </>
@@ -170,6 +193,7 @@ function Content({
   content,
   title,
   date,
+  tags,
 }: any) {
   // console.log(avatar, "avatar");
   return (
@@ -201,6 +225,18 @@ function Content({
           className={`dangerouslySetInnerHTMLStyle transparent-bg mb-5 text-justify`}
           dangerouslySetInnerHTML={{ __html: content }}
         />
+      )}
+      {tags && (
+        <div className="flex flex-wrap gap-2">
+          {tags?.map((tag: any, index: number) => (
+            <span
+              key={index}
+              className="rounded-full bg-orange-500 px-4 py-1 text-sm text-white"
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
       )}
     </div>
   );

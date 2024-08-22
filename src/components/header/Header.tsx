@@ -155,7 +155,6 @@ const Header = ({ header }: any) => {
             navItemsArray={navItems}
             setIsMobileMenuOpen={setIsMobileMenuOpen}
             activeItemId={activeItemId}
-            onItemClick={handleNavItemClick}
           />
         </div>
       )}

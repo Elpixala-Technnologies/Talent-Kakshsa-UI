@@ -10,33 +10,35 @@ import Image from "next/image";
 import { Button } from "../Button";
 import Link from "next/link";
 import { FaStar } from "react-icons/fa";
-import { addCommas, convertToYearlyFee } from "@/utils/customText";
+import { addCommas, convertToYearlyFee, formatDate } from "@/utils/customText";
 import { useQuery } from "@apollo/client";
 import NewsCard from "./NewsCard";
 import { news1 } from "@/assets";
+import { getAllNews } from "@/graphql/newsQuery/news";
 // import { getAllColleges } from "@/graphql/collegeQuery/colleges";
 // import { getAllTopColleges } from "@/graphql/collegeQuery/topColleges";
 
 export default function NewsSlider() {
   const uniqueId = "news123";
   // Query
-  //   const {
-  //     data: topCollegeData,
-  //     loading,
-  //     error,
-  //     refetch,
-  //   } = useQuery(getAllTopColleges, {
-  //     variables: {
-  //       page: 1,
-  //       pageSize: 10,
-  //     },
-  //   });
+  const {
+    data: topSequenceNews,
+    loading: topSequenceLoading,
+    error: topSequenceError,
+    refetch: topSequenceRefetch,
+  } = useQuery(getAllNews, {
+    variables: {
+      newsSortingParameter: "topSequence",
+      page: 1,
+      pageSize: 5,
+    },
+  });
   // =========================================== //
-  //   useEffect(() => {
-  //     if (!loading && !topCollegeData) {
-  //       refetch();
-  //     }
-  //   }, [topCollegeData, refetch, loading]);
+  useEffect(() => {
+    if (!topSequenceLoading && !topSequenceNews) {
+      topSequenceRefetch();
+    }
+  }, [topSequenceNews, topSequenceRefetch, topSequenceLoading]);
   // =========================================== //
 
   const swiperOptions = {
@@ -79,26 +81,26 @@ export default function NewsSlider() {
         {...swiperOptions}
         className={`mySwiper w-full max-w-fit px-5 ${uniqueId}`}
       >
-        {[1, 2, 3, 4, 5, 6]?.map((college: any, index: number) => {
+        {topSequenceNews?.news?.data?.map((item: any, index: number) => {
           const slide = (
             <SwiperSlide
-              key={index}
+              key={item?.id}
               className="mb-12 w-full overflow-hidden rounded-2xl border border-zinc-300 bg-white shadow-lg"
             >
-              {" "}
               <Card
-                key={index}
-                bgImage={news1}
-                title={
-                  "15+ Scholarships for Indian Students to Study in the UK"
+                bgImage={item?.attributes?.bgImage?.data?.attributes?.url}
+                title={item?.attributes?.title}
+                tags={
+                  item?.attributes?.tag?.data?.map(
+                    (item: any) => item?.attributes?.tag,
+                  ) || []
                 }
-                tags={["Web development", "Machine Learning ", "Coding"]}
-                author={"Pankaj Kumar"}
-                lastUpdated={"Nov 12, 2022"}
-                description={
-                  "When it comes to finding the right study abroad destination that caters to all your interests and requirements When it comes to finding the right study abroad destination that caters to all your interests and requirements"
-                }
-                slug={"#"}
+                author={item?.attributes?.author?.data?.attributes?.name}
+                lastUpdated={formatDate(
+                  item?.attributes?.author?.data?.attributes?.updatedAt,
+                )}
+                description={item?.attributes?.description}
+                slug={item?.id}
               />
             </SwiperSlide>
           );

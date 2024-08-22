@@ -11,7 +11,7 @@ import NewsListingCard1, {
 } from "@/components/cardsAndSliders/NewsListingCard1";
 import NewsSlider from "@/components/cardsAndSliders/NewsSlider";
 import Faqs from "@/components/Faqs";
-import NewsAside from "@/components/newsPageSections/NewsAside";
+import NewsAside from "@/components/AsideSections/NewsAside";
 import Wrapper from "@/components/Wrappers";
 import { faqs } from "@/data/wrapperData";
 import { getAllNews, getAllNewsCategory } from "@/graphql/newsQuery/news";
@@ -20,6 +20,7 @@ import { useQuery } from "@apollo/client";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
+import { faq } from "@/graphql/globleQuery/globle";
 
 export default function NewsDetailPage() {
   const [selectedFilter, setSelectedFilter] = useState("");
@@ -67,6 +68,12 @@ export default function NewsDetailPage() {
       pageSize: 5,
     },
   });
+  const {
+    data: faqData,
+    loading: faqLoading,
+    error: faqError,
+    refetch: faqRefetch,
+  } = useQuery(faq);
   // =================================================== //
   useEffect(() => {
     if (!trendingSequenceLoading && !trendingSequenceNews) {
@@ -78,6 +85,15 @@ export default function NewsDetailPage() {
       featuredSequenceRefetch();
     }
   }, [featuredSequenceNews, featuredSequenceRefetch, featuredSequenceLoading]);
+  useEffect(() => {
+    if (!faqLoading && !faqData) {
+      faqRefetch();
+    }
+  }, [faqData, faqRefetch, faqLoading]);
+  // ========================================================== //
+  useEffect(() => {
+    console.log(faqData, "faqData");
+  }, [faqData]);
 
   const handleSelect = (item: any) => {
     setSelectedFilter(item);
@@ -218,7 +234,13 @@ export default function NewsDetailPage() {
           <h2 className="mb-5 text-2xl font-bold text-blue-900">
             Frequently Asked Questions
           </h2>
-          <Faqs data={faqs} />
+          <Faqs
+            data={faqData?.faqs?.data?.map((item: any) => ({
+              question: item?.attributes?.question,
+              answer: item?.attributes?.answer,
+              id: item?.id,
+            }))}
+          />
         </div>
       </Wrapper>
       <Banner1 />
@@ -336,6 +358,3 @@ function NewsListingCardSkeleton() {
     </div>
   );
 }
-// useEffect(() => {
-//   console.log(recentNewsByCategory?.news?.data, "recentNewsByCategory");
-// }, [recentNewsByCategory]);

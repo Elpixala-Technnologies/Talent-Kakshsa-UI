@@ -1,3 +1,4 @@
+"use client";
 import { news1 } from "@/assets";
 import { getAllBlogs } from "@/graphql/blogQuery/blog";
 import { getAllCommunity } from "@/graphql/communityQuery/community";

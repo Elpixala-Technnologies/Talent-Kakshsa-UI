@@ -1,3 +1,4 @@
+"use client";
 import DiscussionAside from "@/components/AsideSections/DiscussionAside";
 import { Button } from "@/components/Button";
 import Wrapper from "@/components/Wrappers";

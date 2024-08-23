@@ -97,11 +97,25 @@ export default function BlogPage() {
     relatedCategoryBlogsRefetch,
     relatedCategoryBlogsLoading,
   ]);
+  useEffect(() => {
+    if (!featuredBlogsLoading && !featuredBlogsData) {
+      featuredBlogsRefetch();
+    }
+  }, [featuredBlogsData, featuredBlogsRefetch, featuredBlogsLoading]);
+  useEffect(() => {
+    if (!popularBlogsLoading && !popularBlogsData) {
+      popularBlogsRefetch();
+    }
+  }, [popularBlogsData, popularBlogsRefetch, popularBlogsLoading]);
   // =========================================== //
   useEffect(() => {
     console.log(eventsData, "eventsData");
   }, [eventsData]);
-
+  useEffect(() => {
+    if (!eventsLoading && !eventsData) {
+      eventsRefetch();
+    }
+  }, [eventsData, eventsRefetch, eventsLoading]);
   return (
     <>
       <NewsBanner title="Our Blog" subtitle="Search. Explore. Learn" />
@@ -172,7 +186,7 @@ export default function BlogPage() {
             Featured Posts
           </h2>
           <div className="sliderStyle relative">
-            {!relatedCategoryBlogsLoading ? (
+            {!featuredBlogsLoading ? (
               <BlogSlider1 />
             ) : (
               <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">

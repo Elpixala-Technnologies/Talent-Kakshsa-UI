@@ -108,9 +108,9 @@ export default function BlogPage() {
     }
   }, [popularBlogsData, popularBlogsRefetch, popularBlogsLoading]);
   // =========================================== //
-  useEffect(() => {
-    console.log(eventsData, "eventsData");
-  }, [eventsData]);
+  // useEffect(() => {
+  //   console.log(eventsData, "eventsData");
+  // }, [eventsData]);
   useEffect(() => {
     if (!eventsLoading && !eventsData) {
       eventsRefetch();
@@ -145,7 +145,7 @@ export default function BlogPage() {
               Blogs Related to <span>&quot;{selectedBlogCategory}&quot;</span>
             </h2>
             <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
-              {!relatedCategoryBlogsLoading
+              {!relatedCategoryBlogsLoading && relatedCategoryBlogsData
                 ? relatedCategoryBlogsData?.blogs?.data?.map(
                     (item: any, index: number) => (
                       <div className="col-span-1" key={index}>
@@ -186,7 +186,7 @@ export default function BlogPage() {
             Featured Posts
           </h2>
           <div className="sliderStyle relative">
-            {!featuredBlogsLoading ? (
+            {!featuredBlogsLoading && featuredBlogsData ? (
               <BlogSlider1 />
             ) : (
               <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
@@ -198,7 +198,7 @@ export default function BlogPage() {
         {/* Latest Posts  */}
         <div className="my-10 space-y-3">
           <h2 className="text-2xl font-bold text-blue-900">Latest Posts</h2>
-          {!relatedCategoryBlogsLoading ? (
+          {!relatedCategoryBlogsLoading && relatedCategoryBlogsData ? (
             featuredBlogsData?.blogs?.data?.map((item: any, index: number) => (
               <BlogListingCard
                 key={index}
@@ -229,7 +229,7 @@ export default function BlogPage() {
         <div className="my-10 space-y-3">
           <h2 className="text-2xl font-bold text-blue-900">Popular Posts</h2>
           <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
-            {!relatedCategoryBlogsLoading
+            {!relatedCategoryBlogsLoading && relatedCategoryBlogsData
               ? popularBlogsData?.blogs?.data?.map(
                   (item: any, index: number) => (
                     <div className="col-span-1" key={index}>
@@ -269,7 +269,7 @@ export default function BlogPage() {
             Upcoming Events
           </h2>
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-            {!eventsLoading
+            {!eventsLoading && eventsData
               ? eventsData?.events?.data?.map((item: any, index: number) => (
                   <EventCard
                     key={item?.id}

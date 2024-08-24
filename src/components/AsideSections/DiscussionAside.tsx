@@ -1,5 +1,5 @@
 "use client";
-import { news1 } from "@/assets";
+import { news1, user1 } from "@/assets";
 import { getAllBlogs } from "@/graphql/blogQuery/blog";
 import { getAllCommunity } from "@/graphql/communityQuery/community";
 import { getAllNews } from "@/graphql/newsQuery/news";
@@ -7,9 +7,11 @@ import { formatDate } from "@/utils/customText";
 import { useQuery } from "@apollo/client";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 export default function DiscussionAside() {
+  const [avatar, setAvatar] = useState(false);
+  // Query
   const {
     data: popularSequenceBlog,
     loading: popularSequenceLoading,
@@ -39,6 +41,11 @@ export default function DiscussionAside() {
       popularSequenceRefetch();
     }
   }, [popularSequenceBlog, popularSequenceRefetch, popularSequenceLoading]);
+  useEffect(() => {
+    if (!communityDataLoading && !communityData) {
+      communityDataRefetch();
+    }
+  }, [communityData, communityDataRefetch, communityDataLoading]);
 
   // useEffect(() => {
   //   console.log(popularSequenceBlog);
@@ -46,10 +53,44 @@ export default function DiscussionAside() {
 
   return (
     <aside className="col-span-3 space-y-5 max-lg:hidden">
+      {/* User Discussions  */}
+      <div className="space-y-5 rounded-xl bg-white p-3 font-semibold text-zinc-700 shadow-lg">
+        {/* Avatar with Name  */}
+        <div className="flex w-full items-center gap-3">
+          {!avatar ? (
+            <div className="flex-center min-h-10 min-w-10 rounded-full bg-blue-900 capitalize text-white">
+              P
+            </div>
+          ) : (
+            <Image
+              src={user1}
+              alt="avatar"
+              width={50}
+              height={50}
+              className="min-10 h-10 min-h-10 w-10 rounded-full object-cover"
+            />
+          )}
+          <p className="text-bold">Pankaj Kumar</p>
+        </div>
+        <div className="flex justify-between px-5 text-sm font-normal">
+          <p className="flex-center flex-col">
+            <span className="font-semibold">8</span>
+            <span>Answers</span>
+          </p>
+          <p className="flex-center flex-col">
+            <span className="font-semibold">81</span>
+            <span>Questions</span>
+          </p>
+          <p className="flex-center flex-col">
+            <span className="font-semibold">18</span>
+            <span>Posts</span>
+          </p>
+        </div>
+      </div>
       {/* Popular Posts */}
       <div className="rounded-xl bg-white p-3 font-semibold shadow-lg">
         <h4 className="border-b border-zinc-400 pb-2 text-lg">Popular Posts</h4>
-        {!popularSequenceLoading
+        {!popularSequenceLoading && popularSequenceBlog
           ? popularSequenceBlog?.blogs?.data?.map(
               (item: any, index: number) => (
                 <BlogAsideCard
@@ -70,7 +111,7 @@ export default function DiscussionAside() {
         <h4 className="border-b border-zinc-400 pb-2 text-lg">
           Discover communities
         </h4>
-        {!communityDataLoading
+        {!communityDataLoading && communityData
           ? communityData?.communities?.data?.map(
               (item: any, index: number) => (
                 <BlogAsideCard

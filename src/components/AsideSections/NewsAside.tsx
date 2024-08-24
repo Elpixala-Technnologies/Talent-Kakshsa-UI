@@ -1,10 +1,12 @@
+"use client";
 import { news1 } from "@/assets";
+import { getAllCommunity } from "@/graphql/communityQuery/community";
 import { getAllNews } from "@/graphql/newsQuery/news";
 import { formatDate } from "@/utils/customText";
 import { useQuery } from "@apollo/client";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect } from "react";
 
 export default function NewsAside() {
   const {
@@ -19,7 +21,32 @@ export default function NewsAside() {
       pageSize: 5,
     },
   });
+  const {
+    data: communityData,
+    loading: communityDataLoading,
+    error: communityDataError,
+    refetch: communityDataRefetch,
+  } = useQuery(getAllCommunity, {
+    variables: {
+      page: 1,
+      pageSize: 5,
+    },
+  });
   // ==================================== //
+  useEffect(() => {
+    if (!recommendedSequenceLoading && !recommendedSequenceNews) {
+      recommendedSequenceRefetch();
+    }
+  }, [
+    recommendedSequenceNews,
+    recommendedSequenceRefetch,
+    recommendedSequenceLoading,
+  ]);
+  useEffect(() => {
+    if (!communityDataLoading && !communityData) {
+      communityDataRefetch();
+    }
+  }, [communityData, communityDataRefetch, communityDataLoading]);
   return (
     <aside className="col-span-3 space-y-5 max-lg:hidden">
       {/* Recommended Posts */}
@@ -50,15 +77,21 @@ export default function NewsAside() {
         <h4 className="border-b border-zinc-400 pb-2 text-lg">
           Discover communities
         </h4>
-        {[1, 2, 3, 4]?.map((item: any, index: number) => (
-          <NewsAsideCard
-            key={index}
-            bgImage={news1}
-            title={"15+ Scholarships for Indian Students to Study in the UK"}
-            lastUpdated={"Nov 12, 2022"}
-            slug
-          />
-        ))}
+        {!communityDataLoading && communityData
+          ? communityData?.communities?.data?.map(
+              (item: any, index: number) => (
+                <NewsAsideCard
+                  key={index}
+                  bgImage={item?.attributes?.bgImage?.data?.attributes?.url}
+                  title={item?.attributes?.title}
+                  totalMembersJoined={item?.attributes?.totalMembersJoined}
+                  slug
+                />
+              ),
+            )
+          : [0, 1, 2, 3, 4].map((item: any, index: number) => (
+              <NewsAsideCardSkeleton key={index} />
+            ))}
       </div>
     </aside>
   );

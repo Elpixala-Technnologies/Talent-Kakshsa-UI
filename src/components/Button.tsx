@@ -25,7 +25,7 @@ export const Button = ({
 }: any) => {
   let style = "";
   if (variant === "blue") {
-    style = `hover:bg-blue-950 bg-blue-900 border-2 border-blue-900 text-white ${disabled ? "bg-zinc-800 cursor-not-allowed" : ""}`;
+    style = `hover:bg-blue-950 bg-blue-900 border-2 border-blue-900 text-white ${disabled ? "opacity-80 cursor-not-allowed" : ""}`;
   }
   if (variant === "orange") {
     style = `hover:bg-orange-600 bg-orange-500 border-2 border-orange-500 text-white ${disabled ? "bg-zinc-800 cursor-not-allowed" : ""}`;

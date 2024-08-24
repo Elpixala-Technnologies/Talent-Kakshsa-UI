@@ -38,6 +38,16 @@ export default function BlogAside() {
       popularSequenceRefetch();
     }
   }, [popularSequenceBlog, popularSequenceRefetch, popularSequenceLoading]);
+  useEffect(() => {
+    if (!popularSequenceLoading && !popularSequenceBlog) {
+      popularSequenceRefetch();
+    }
+  }, [popularSequenceBlog, popularSequenceRefetch, popularSequenceLoading]);
+  useEffect(() => {
+    if (!communityDataLoading && !communityData) {
+      communityDataRefetch();
+    }
+  }, [communityData, communityDataRefetch, communityDataLoading]);
 
   // useEffect(() => {
   //   console.log(popularSequenceBlog);
@@ -48,7 +58,7 @@ export default function BlogAside() {
       {/* Popular Posts */}
       <div className="rounded-xl bg-white p-3 font-semibold shadow-lg">
         <h4 className="border-b border-zinc-400 pb-2 text-lg">Popular Posts</h4>
-        {!popularSequenceLoading
+        {!popularSequenceLoading && popularSequenceBlog
           ? popularSequenceBlog?.blogs?.data?.map(
               (item: any, index: number) => (
                 <BlogAsideCard
@@ -69,7 +79,7 @@ export default function BlogAside() {
         <h4 className="border-b border-zinc-400 pb-2 text-lg">
           Discover communities
         </h4>
-        {!communityDataLoading
+        {!communityDataLoading && communityData
           ? communityData?.communities?.data?.map(
               (item: any, index: number) => (
                 <BlogAsideCard

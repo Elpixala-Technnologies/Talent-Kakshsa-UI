@@ -108,14 +108,14 @@ export default function BlogPage() {
     }
   }, [popularBlogsData, popularBlogsRefetch, popularBlogsLoading]);
   // =========================================== //
-  // useEffect(() => {
-  //   console.log(eventsData, "eventsData");
-  // }, [eventsData]);
   useEffect(() => {
     if (!eventsLoading && !eventsData) {
       eventsRefetch();
     }
   }, [eventsData, eventsRefetch, eventsLoading]);
+  // useEffect(() => {
+  //   console.log(eventsData, "eventsData");
+  // }, [eventsData]);
   return (
     <>
       <NewsBanner title="Our Blog" subtitle="Search. Explore. Learn" />

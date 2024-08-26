@@ -24,9 +24,9 @@ export default function RootLayout({
         <ReduxProvider>
           <ApolloWrapper>
             <ScrollToTopButton />
-            <Header header={header} />
+            {/* <Header header={header} /> */}
             {children}
-            <Footer footer={footer} />
+            {/* <Footer footer={footer} /> */}
           </ApolloWrapper>
         </ReduxProvider>
       </body>

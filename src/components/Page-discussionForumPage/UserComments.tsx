@@ -56,7 +56,7 @@ export function UserComments({
             alt="userAvatar"
             width={100}
             height={100}
-            className="min-12 h-12 min-h-12 w-12 rounded-full object-cover"
+            className="h-12 min-h-12 w-12 rounded-full object-cover"
           />
         )}
         {/* User Details */}
@@ -80,7 +80,7 @@ export function UserComments({
             alt="image"
             width={500}
             height={500}
-            className="max-h-32 max-w-32 cursor-pointer rounded-lg object-cover"
+            className="max-h-32 max-w-40 cursor-pointer rounded-lg object-cover"
             onClick={() => openModal(item, "image")}
           />
         ))}
@@ -91,7 +91,7 @@ export function UserComments({
             alt="image"
             width={500}
             height={500}
-            className="h-24 max-h-24 w-32 max-w-32 cursor-pointer rounded-lg object-cover"
+            className="max-h-32 max-w-40 cursor-pointer rounded-lg object-cover"
             onClick={() => openModal(item, "image")}
           />
         ))}
@@ -102,7 +102,7 @@ export function UserComments({
             </div>
             <video
               width="500"
-              className="h-24 max-h-24 w-32 max-w-32 cursor-pointer rounded-lg"
+              className="h-32 max-h-32 w-40 max-w-40 cursor-pointer rounded-lg object-cover"
               onClick={() => openModal(item, "video")}
               muted
             >

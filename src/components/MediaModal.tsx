@@ -18,7 +18,7 @@ const MediaModal: React.FC<MediaModalProps> = ({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70"
+      className="fixed inset-0 z-50 !m-0 flex items-center justify-center bg-black bg-opacity-70"
       onClick={onClose}
     >
       <div
@@ -26,7 +26,7 @@ const MediaModal: React.FC<MediaModalProps> = ({
         onClick={(e) => e.stopPropagation()}
       >
         <button
-          className="absolute -right-6 -top-6 text-2xl text-white"
+          className="absolute right-3 top-3 text-2xl text-white md:-right-6 md:-top-6"
           onClick={onClose}
         >
           &times;

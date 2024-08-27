@@ -1,20 +1,12 @@
 "use client";
-type ID = number | null;
-import {
-  allCityRelatedToStateSelected,
-  allCourses,
-  allStates,
-} from "@/graphql/authQuery/signup";
-import { useQuery } from "@apollo/client";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import OtpInput from "react-otp-input";
 import { ImCross } from "react-icons/im";
 import { useAppDispatch } from "@/Redux";
-import { setAuthState } from "@/Redux/authSlice";
 import { Input } from "./Input";
-import useUserSignUp from "@/customHook/useSignup";
+import { useUserSignUp } from "@/customHook/useSignup";
 import { FcGoogle } from "react-icons/fc";
 
 interface UserSubmittedData {
@@ -29,113 +21,31 @@ export function SignUpContainer({
   isLoginModule,
   closePopup,
 }: any) {
-  const router = useRouter();
-  const dispatch = useAppDispatch();
+  const {
+    userSubmittedData,
+    setUserSubmittedData,
+    userOtp,
+    setUserOtp,
+    isOtp,
+    setIsOtp,
+    loading,
+    error,
+    sendSignUpOtp,
+    handleSubmitSignUp,
+  } = useUserSignUp();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-    setValue,
   } = useForm<UserSubmittedData>();
 
-  const [error, setError] = useState("");
-  const [userSubmittedData, setUserSubmittedData] = useState<UserSubmittedData>(
-    {
-      name: "",
-      email: "",
-      number: "",
-      password: "",
-    },
-  );
-  const [userOtp, setUserOtp] = useState("");
-  const [isOtp, setIsOtp] = useState(false);
-  const { checkOTP, registerUser } = useUserSignUp();
-  const [userId, setUserId] = useState<ID>();
-  const [selectedStateId, setSelectedStateId] = useState<any>();
-  //  ================================================================== //
-  const {
-    loading: allCoursesLoading,
-    error: allCoursesError,
-    data: allCoursesData,
-  } = useQuery(allCourses);
-  const {
-    loading: allStatesLoading,
-    error: allStatesError,
-    data: allStatesData,
-  } = useQuery(allStates);
-  const {
-    loading: cityRelatedLoading,
-    error: cityRelatedError,
-    data: cityRelatedData,
-  } = useQuery(allCityRelatedToStateSelected, {
-    variables: { stateId: selectedStateId },
-  });
-  //  ================================================================== //
-  const sendSignUpOtp = async (data: UserSubmittedData) => {
-    // console.log(data);
-    setUserSubmittedData(data);
-    // console.log(userSubmittedData);
-    const registerResponse = await registerUser({
-      variables: {
-        username: data?.name,
-        email: data?.email,
-        password: data?.email,
-      },
-    });
-    if (registerResponse?.data?.registerUser?.status === 200) {
-      setIsOtp(true);
-    } else {
-      // console.log(registerResponse?.data?.registerUser?.message);
-      setError(registerResponse?.data?.registerUser?.message);
-    }
-  };
-
-  async function handleSubmitSignUp() {
-    try {
-      const otpChecker = await checkOTP({
-        variables: {
-          phoneNumber: userSubmittedData?.number,
-          otp: userOtp, // Ensure this matches the query variable
-        },
-      });
-
-      if (
-        otpChecker?.data &&
-        otpChecker?.data?.verifyOTP?.__typename === "UserProfileEntityResponse"
-      ) {
-        const userData = otpChecker?.data?.verifyOTP?.data;
-
-        setIsLoginModule(false);
-        setUserId(userData?.id);
-        dispatch(
-          setAuthState({
-            authState: true,
-            userID: userData?.id,
-            userName: userData?.attributes?.username,
-            email: userData?.attributes?.email,
-            number: userData?.attributes?.phoneNumber,
-            token: userData?.attributes?.token,
-          }),
-        );
-        // console.log(
-        //   "user signed up successfully",
-        //   userData.attributes.username,
-        // );
-        closePopup();
-        router.push("/");
-      } else if (
-        otpChecker?.data &&
-        otpChecker?.data?.verifyOTP?.__typename === "verifyOTPErrorEntity"
-      ) {
-        setError(otpChecker?.data?.verifyOTP?.message);
-      }
-    } catch (error) {
-      setError("Failed to verify OTP");
-    }
-  }
-
   const handleFormSubmit = async (data: UserSubmittedData) => {
-    isOtp ? handleSubmitSignUp() : sendSignUpOtp(data);
+    if (isOtp) {
+      await handleSubmitSignUp();
+    } else {
+      await sendSignUpOtp(data);
+    }
   };
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -158,7 +68,7 @@ export function SignUpContainer({
           onClick={() => setIsLoginModule(!isLoginModule)}
           className="ml-1 block cursor-pointer font-sans font-bold leading-normal text-orange-600 antialiased hover:underline"
         >
-          LogIn Now!
+          Log In Now!
         </span>
       </p>
       <form onSubmit={handleSubmit(handleFormSubmit)}>
@@ -236,10 +146,10 @@ export function SignUpContainer({
             )}
             <Input
               label="Password"
-              type="text"
+              type="password"
               placeholder=" "
               {...register("password", {
-                required: "Email is required",
+                required: "Password is required",
                 pattern: {
                   value: passwordRegex,
                   message:
@@ -255,16 +165,19 @@ export function SignUpContainer({
         <button
           className="mt-5 w-full rounded-lg bg-gradient-to-b from-[#FF772B] to-[#fd6107] px-3 py-2 text-white outline-none duration-200 hover:font-bold active:scale-95"
           type="submit"
+          disabled={loading}
         >
           {isOtp ? "Sign Up" : "Send OTP"}
         </button>
-        <button
-          className="mt-5 text-sm text-orange-600 hover:underline active:scale-95"
-          type="button"
-          onClick={() => sendSignUpOtp(userSubmittedData)}
-        >
-          {isOtp && "Resend OTP"}
-        </button>
+        {isOtp && (
+          <button
+            className="mt-5 text-sm text-orange-600 hover:underline active:scale-95"
+            type="button"
+            onClick={() => sendSignUpOtp(userSubmittedData)}
+          >
+            Resend OTP
+          </button>
+        )}
       </form>
       {error && <p className="my-5 text-center text-red-600">{error}</p>}
       <p className="mt-2 text-center font-sans text-sm leading-normal text-inherit antialiased">

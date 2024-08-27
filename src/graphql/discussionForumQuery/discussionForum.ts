@@ -1,5 +1,54 @@
 import { gql } from "@apollo/client";
 
+export const getAllDiscussionForum = gql`
+  query getAllDiscussionForum {
+    discussionForums {
+      data {
+        id
+        attributes {
+          text
+          camera {
+            data {
+              id
+              attributes {
+                url
+              }
+            }
+          }
+          images {
+            data {
+              id
+              attributes {
+                url
+              }
+            }
+          }
+          video {
+            data {
+              id
+              attributes {
+                url
+              }
+            }
+          }
+          codeSnippet
+          codeLang
+          fileName
+          title
+          tags {
+            data {
+              id
+              attributes {
+                tag
+              }
+            }
+          }
+          publishedAt
+        }
+      }
+    }
+  }
+`;
 export const createDiscussionForum = gql`
   mutation createDiscussionForum($input: DiscussionForumInput!) {
     createDiscussionForum(data: $input) {
@@ -113,7 +162,21 @@ export const deleteDiscussionForum = gql`
   }
 `;
 
-export const createThread = gql`
+export const getThreadTags = gql`
+  query getThreadTags {
+    threadTags {
+      data {
+        id
+        attributes {
+          tag
+          publishedAt
+        }
+      }
+    }
+  }
+`;
+
+export const createThreadTag = gql`
 mutation($input: ThreadTagInput!) {
   createThreadTag(data: $input) {
     data {
@@ -137,5 +200,12 @@ mutation($input: ThreadTagInput!) {
 //     "title": "title",
 //     "tags": ["1"],
 //     "publishedAt": "2024-08-25T10:00:00Z"
+//   }
+// }
+
+// {
+//   "input": {
+//     "tag": "tag2",
+//     "publishedAt": "2024-08-24T00:00:00Z"
 //   }
 // }

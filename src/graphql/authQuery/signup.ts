@@ -1,174 +1,53 @@
 import { gql } from "@apollo/client";
 
-export const allCourses = gql`
-  query allCourses {
-    courses {
-      data {
-        id
-        attributes {
-          breadCrumb
-        }
-      }
-    }
-  }
-`;
-export const allStates = gql`
-  query allStates {
-    states {
-      data {
-        id
-        attributes {
-          state
-        }
-      }
-    }
-  }
-`;
-export const allCityRelatedToStateSelected = gql`
-  query allCityRelatedToStateSelected($stateId: ID!) {
-    cities(filters: { state: { id: { eq: $stateId } } }) {
-      data {
-        id
-        attributes {
-          city
-        }
-      }
-    }
-  }
-`;
-
 export const registerUserQuery = gql`
-  mutation registerUser(
+  mutation RegisterUser(
     $username: String!
-    $email: String
-    $phoneNumber: String!
-    $dob: Date
-    $course: ID
-    $state: ID
-    $city: ID
+    $email: String!
+    $password: String!
   ) {
-    registerUser(
-      input: {
-        username: $username
-        email: $email
-        phoneNumber: $phoneNumber
-        dob: $dob
-        course: $course
-        state: $state
-        city: $city
-      }
+    register(
+      input: { username: $username, email: $email, password: $password }
     ) {
-      status
-      message
-    }
-  }
-`;
-
-export const verifyOTPQuery = gql`
-  query verifyOTP($phoneNumber: String, $otp: String) {
-    verifyOTP(input: { phoneNumber: $phoneNumber, otp: $otp }) {
-      __typename
-      ... on UserProfileEntityResponse {
-        data {
-          id
-          attributes {
-            username
-            email
-            phoneNumber
-            roles
-            permissions
-            token
-          }
-        }
-      }
-      ... on verifyOTPErrorEntity {
-        status
-        message
-      }
-    }
-  }
-`;
-
-export const checkUserOTP = gql`
-  query checkUserOTP($userID: ID!, $number: Long!, $userOtp: Long) {
-    usersPermissionsUsers(
-      filters: {
-        and: [
-          {
-            id: { eq: $userID }
-            otp: { eq: $userOtp }
-            phoneNumber: { eq: $number }
-          }
-        ]
-      }
-    ) {
-      data {
+      jwt
+      user {
         id
-        attributes {
-          email
-          phoneNumber
-          username
-        }
+        username
+        email
       }
     }
   }
 `;
 
-export const getUserFormId = gql`
-  query getUserFormId($userID: ID!) {
-    usersPermissionsUser(id: $userID) {
-      data {
-        attributes {
-          userForm {
-            data {
-              id
-            }
-          }
-        }
+export const loginUserQuery = gql`
+  mutation loginUser($identifier: String!, $password: String!) {
+    login(input: { identifier: $identifier, password: $password }) {
+      jwt
+      user {
+        id
+        username
+        email
       }
     }
   }
 `;
 
-export const generateOTPQuery = gql`
-  query generateOTP($phoneNumber: String, $isResend: Boolean) {
-    generateOTP(input: { phoneNumber: $phoneNumber, isResend_otp: $isResend }) {
-      status
-      message
-    }
-  }
-`;
-
-export const updateUser = gql`
-  mutation updateUser($id: ID!, $otp: Long!) {
-    updateUsersPermissionsUser(id: $id, data: { otp: $otp }) {
+export const updateUserQuery = gql`
+  mutation updateUserQuery($id: ID!, $input: UsersPermissionsUserInput!) {
+    updateUsersPermissionsUser(id: $id, data: $input) {
       data {
         id
         attributes {
           username
           email
+          mobileNumber
+          otp
         }
       }
     }
   }
 `;
 
-export const checkUser = gql`
-  query UsersData($number: String, $email: String) {
-    usersData(
-      filters: { or: [{ number: { eq: $number } }, { email: { eq: $email } }] }
-    ) {
-      data {
-        id
-        attributes {
-          name
-          email
-          number
-        }
-      }
-    }
-  }
-`;
 // {
 //   "input":{
 //     "phoneNumber": "8318346886",

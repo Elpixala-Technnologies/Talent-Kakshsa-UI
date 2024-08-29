@@ -1,3 +1,4 @@
+import Banner2 from "@/components/banners/Banner2";
 import CourseBanner from "@/components/banners/CourseBanner";
 import CourseListSection from "@/components/coursesListingPageSections/CourseListSection";
 import Header from "@/components/header/Header";
@@ -19,6 +20,7 @@ export default function page() {
       // filterBy={coursePage?.filterBy}
       // tabsSections={tabsSections}
       />
+      <Banner2 />
     </>
   );
 }

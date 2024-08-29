@@ -37,7 +37,7 @@ export const Button = ({
     style = `hover:bg-blue-900 hover:text-white bg-white border-2 border-blue-900 text-blue-900 ${disabled ? "bg-zinc-200 cursor-not-allowed" : ""}`;
   }
   if (variant === "orangeAnimated") {
-    style = `button-56 ${disabled ? "bg-zinc-800 cursor-not-allowed" : ""}`;
+    style = `button-54 active:!scale-100 ${disabled ? "bg-zinc-800 cursor-not-allowed" : ""}`;
   }
   return (
     <button

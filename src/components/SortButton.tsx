@@ -10,10 +10,10 @@ export default function SortButton({ handleFilterOptionClick }: any) {
   return (
     <div className="group relative max-md:!w-full max-md:flex-[1]">
       <div
-        className={`flex-center group h-12 cursor-pointer gap-2 rounded-xl border-2 border-black bg-black px-2 text-white max-md:!w-full`}
+        className={`flex-center group h-12 cursor-pointer gap-2 rounded-md border-2 border-blue-900 bg-blue-900 px-2 text-white max-md:!w-full`}
         onClick={toggleDropdown} // Show dropdown on hover
       >
-        <span>Sort</span> <IoFilterOutline className="text-white" />
+        <span>Sort By</span> <IoFilterOutline className="text-white" />
       </div>
       {/* Conditional rendering based on dropdown state */}
       {isDropdownOpen && (

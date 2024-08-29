@@ -5,6 +5,7 @@ import footerLogo from "@/assets/logos/footerLogo.png";
 import vector1 from "@/assets/vectors/Vector1.svg";
 import vector2 from "@/assets/vectors/Vector2.svg";
 import vector3 from "@/assets/vectors/Vector3.svg";
+import vector4 from "@/assets/vectors/Vector4.svg";
 
 // Login bg
 import login_bg from "@/assets/login-background.png";
@@ -14,6 +15,7 @@ import news1 from "@/assets/news/1.png";
 import user1 from "@/assets/user1.png";
 // video
 import video from "@/assets/demo.m4v";
+import videoT from "@/assets/banners/videoT.png";
 // Banner
 import banner1 from "@/assets/banners/banner1.jpg";
 import course1 from "@/assets/banners/course1.jpeg";
@@ -23,10 +25,12 @@ export {
   vector1,
   vector2,
   vector3,
+  vector4,
   news1,
   login_bg,
   user1,
   video,
+  videoT,
   banner1,
   course1,
 };

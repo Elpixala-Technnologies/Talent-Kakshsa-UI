@@ -105,7 +105,7 @@ export default function CourseFilters({
       <div className="flex h-10 flex-1 items-center rounded-md border border-zinc-300 bg-white px-2 shadow-md">
         <RiSearchLine className="text-orange-500" />
         <input
-          className="w-full pl-5 placeholder:text-sm focus:outline-none max-md:p-3"
+          className="w-full pl-5 placeholder:text-sm focus:outline-none"
           type="text"
           placeholder="Search By Course Name"
           onChange={handleSearch}

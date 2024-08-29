@@ -36,6 +36,9 @@ export const Button = ({
   if (variant === "white") {
     style = `hover:bg-blue-900 hover:text-white bg-white border-2 border-blue-900 text-blue-900 ${disabled ? "bg-zinc-200 cursor-not-allowed" : ""}`;
   }
+  if (variant === "orangeAnimated") {
+    style = `button-56 ${disabled ? "bg-zinc-800 cursor-not-allowed" : ""}`;
+  }
   return (
     <button
       className={`${style} ${className} flex-center w-min gap-2 rounded-lg px-10 py-2 capitalize active:scale-90`}

@@ -4,4 +4,3 @@ https://www.figma.com/design/Z2H5itNyvPJ8CG7thTRYby/Talent-Kaksha-(Copy)?t=lAa8Q
 
 
 
-https://www.nikolailehbr.ink/blog/syntax-highlighting-shiki-next-js

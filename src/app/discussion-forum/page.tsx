@@ -20,6 +20,8 @@ import ThreadListingCard from "@/components/cardsAndSliders/ThreadListingCard";
 import { news1 } from "@/assets";
 import Banner1 from "@/components/banners/Banner1";
 import { DiscussionForumPostInput } from "@/components/Page-discussionForumPage/DiscussionForumPostInput";
+import Header from "@/components/header/Header";
+import { header } from "@/data/wrapperData";
 
 export default function DiscussionForumPage() {
   const [selectedBlogCategory, setSelectedBlogCategory] = useState("");
@@ -72,6 +74,7 @@ export default function DiscussionForumPage() {
   }, [eventsData, eventsRefetch, eventsLoading]);
   return (
     <>
+      <Header header={header} />
       <Wrapper bgColor="bg-blue-50 py-10 mt-14">
         <main className="grid grid-cols-12 gap-5">
           <div className="col-span-12 space-y-5 lg:col-span-9">

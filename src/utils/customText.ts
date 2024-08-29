@@ -21,9 +21,9 @@ export function formatRupee(number: number) {
 
 export default function formatFees(amount: number) {
     if (amount >= 100000) {
-        return `${(amount / 100000)?.toFixed(1)} Lac`;
+        return `${(amount / 100000)?.toFixed(2)} Lac`;
     } else if (amount >= 1000) {
-        return `${(amount / 1000)?.toFixed(1)} K`;
+        return `${(amount / 1000)?.toFixed(2)} K`;
     } else {
         return `${amount}`;
     }
@@ -91,4 +91,8 @@ export function convertToYearlyFee(courseFee: any, courseFeeLabel: any) {
         default: // yearly
             return courseFee;
     }
+}
+
+export function discountedAmount(data: number) {
+    return data - ((data * 20) / 100);
 }

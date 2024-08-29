@@ -9,7 +9,7 @@ import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import Image from "next/image";
 
 export default function BlogSlider({ data, setSelectedBlogCategory }: any) {
-  const uniqueId = "news123";
+  const uniqueId = "blog123";
   const swiperOptions = {
     slidesPerView: 1,
     spaceBetween: 10,

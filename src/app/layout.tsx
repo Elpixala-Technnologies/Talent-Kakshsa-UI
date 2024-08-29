@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import ReduxProvider from "@/Redux/provider";
 import { ApolloWrapper } from "@/lib/client";
 
+import "./fonts.css";
 import "./globals.css";
 import Header from "@/components/header/Header";
 import Footer from "@/components/footer/Footer";

@@ -8,10 +8,10 @@ import OtpInput from "react-otp-input";
 import { Input } from "./Input";
 import { FaRegEdit } from "react-icons/fa";
 import { ImCross } from "react-icons/im";
-import useUserSignUp from "@/customHook/useSignup";
 import { useAppDispatch } from "@/Redux";
 import { setAuthState } from "@/Redux/authSlice";
 import { FcGoogle } from "react-icons/fc";
+import { useUserSignUp } from "@/customHook/useSignup";
 
 type ID = number | null;
 
@@ -26,7 +26,7 @@ export function SignInContainer({
   closePopup,
 }: any) {
   const router = useRouter();
-  const { checkOTP, generateOTP } = useUserSignUp();
+  // const { checkOTP, generateOTP } = useUserSignUp();
   const {
     register,
     handleSubmit,
@@ -41,55 +41,54 @@ export function SignInContainer({
   const [isOtp, setIsOtp] = useState(false);
   const dispatch = useAppDispatch();
 
-  async function sendLogInOtp(data: any) {
-    setUserSubmittedData(data);
-    const registerResponse = await generateOTP({
-      variables: {
-        phoneNumber: data?.number,
-      },
-    });
-    // console.log(registerResponse);
-    if (registerResponse?.data?.generateOTP?.status === 200) {
-      setIsOtp(true);
-    } else {
-      setError(registerResponse?.data?.generateOTP?.message);
-    }
-  }
+  // async function sendLogInOtp(data: any) {
+  //   setUserSubmittedData(data);
+  //   const registerResponse = await generateOTP({
+  //     variables: {
+  //       phoneNumber: data?.number,
+  //     },
+  //   });
+  //   // console.log(registerResponse);
+  //   if (registerResponse?.data?.generateOTP?.status === 200) {
+  //     setIsOtp(true);
+  //   } else {
+  //     setError(registerResponse?.data?.generateOTP?.message);
+  //   }
+  // }
 
   async function handleSubmitLogIn() {
-    try {
-      const otpChecker = await checkOTP({
-        variables: {
-          email: userSubmittedData?.email,
-          password: userSubmittedData?.password,
-        },
-      });
-
-      if (otpChecker?.data) {
-        const userData = otpChecker?.data?.verifyOTP?.data;
-        setIsLoginModule(false);
-        setUserId(userData?.id);
-        dispatch(
-          setAuthState({
-            authState: true,
-            userID: userData?.id,
-            userName: userData?.attributes?.username,
-            email: userData?.attributes?.email,
-            number: userData?.attributes?.phoneNumber,
-            token: userData?.attributes?.token,
-          }),
-        );
-        closePopup();
-        router.push("/");
-      } else if (
-        otpChecker?.data &&
-        otpChecker?.data?.verifyOTP?.__typename === "verifyOTPErrorEntity"
-      ) {
-        setError(otpChecker?.data?.verifyOTP?.message);
-      }
-    } catch (error) {
-      setError("Failed to verify OTP");
-    }
+    // try {
+    // const otpChecker = await checkOTP({
+    //   variables: {
+    //     email: userSubmittedData?.email,
+    //     password: userSubmittedData?.password,
+    //   },
+    // });
+    // if (otpChecker?.data) {
+    //   const userData = otpChecker?.data?.verifyOTP?.data;
+    //   setIsLoginModule(false);
+    //   setUserId(userData?.id);
+    //   dispatch(
+    //     setAuthState({
+    //       authState: true,
+    //       userID: userData?.id,
+    //       userName: userData?.attributes?.username,
+    //       email: userData?.attributes?.email,
+    //       number: userData?.attributes?.phoneNumber,
+    //       token: userData?.attributes?.token,
+    //     }),
+    //   );
+    //     closePopup();
+    //     router.push("/");
+    //   } else if (
+    //     otpChecker?.data &&
+    //     otpChecker?.data?.verifyOTP?.__typename === "verifyOTPErrorEntity"
+    //   ) {
+    //     setError(otpChecker?.data?.verifyOTP?.message);
+    //   }
+    // } catch (error) {
+    //   setError("Failed to verify OTP");
+    // }
   }
 
   const handleFormSubmit = async (data: any) => {

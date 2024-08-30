@@ -1,4 +1,4 @@
-import { footerLogo, headerLogo } from "@/assets";
+import { footerLogo, headerLogo, user1, video } from "@/assets";
 
 export const header = {
   logo: headerLogo,
@@ -227,3 +227,62 @@ export const faqs = [
       "The Indian Institute of Technology, Madras is a private university. The institute is governed by the Government of India. The institute has a status of Government.",
   },
 ];
+
+export const content = [
+  {
+    subtitle: "About Course",
+    title:
+      "Covers pretty much everything you need to know about Graphics Design",
+    textEditor: `<p>This course will teach you everything you need to know about Graphics Design, including design, content, and coding. And you'll learn from the ground up, so it doesn't matter how much experience you have when you start.</p>`,
+  },
+  {
+    subtitle: "Course Content",
+    title: "Our courses are balanced mix of videos & articles",
+    syllabus: {
+      totalLessons: 10,
+      totalHours: "24h 32m",
+      totalVideos: 10,
+      totalArticles: 5,
+      totalAssignments: 18,
+      lessons: [
+        {
+          title: "Exercise: Turning Information Priority into an IA Model",
+          sections: [
+            {
+              title: "Hierarchical Tree IA Model",
+              href: "https://pdfobject.com/pdf/sample.pdf",
+              duration: "2h 32m",
+              isDemo: true,
+              category: "pdf",
+            },
+            {
+              title: "Hierarchical Tree IA Model",
+              href: video,
+              duration: "2h 32m",
+              isDemo: true,
+              category: "pdf",
+            },
+            {
+              title: "Hierarchical Tree IA Model",
+              href: "https://pdfobject.com/pdf/sample.pdf",
+              duration: "2h 32m",
+              isDemo: true,
+              category: "pdf",
+            },
+          ],
+        },
+      ],
+    },
+  },
+];
+
+export const instructorDetails = {
+  instructorName: "Pankaj Kumar",
+  avatar: user1,
+  designation: "29-year UX + Design Veteran; Consultant, Author & Speaker",
+  textEditor: `<p>I'm Angela, I'm a developer with a passion for teaching. I'm the <strong>lead instructor</strong> at the London App Brewery, London's leading <strong>Programming Bootcamp</strong>. I've helped hundreds of thousands of students learn to code and change their lives by becoming a developer. I've been invited by companies such as Twitter, Facebook and Google to teach their employees.</p>`,
+  rating: 4.7,
+  totalReviews: 45453453,
+  studentEnrolled: 64565,
+  totalCourse: 12,
+};

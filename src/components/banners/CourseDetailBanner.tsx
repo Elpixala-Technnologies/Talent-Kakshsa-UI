@@ -91,7 +91,7 @@ export function CourseDetailBanner({
             </div>
             <p className="flex flex-wrap items-center gap-2 font-semibold">
               <span className="text-3xl font-extrabold text-blue-900">
-                ₹ {formatRupee(discountedAmount(fees))}
+                ₹ {formatRupee(discountedAmount(fees, discountFeesBy))}
               </span>
               <span className="line-through">/ ₹ {formatRupee(fees)}</span>
               <span className="text-blue-900">-{discountFeesBy}% Off</span>

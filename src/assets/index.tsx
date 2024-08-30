@@ -19,6 +19,8 @@ import videoT from "@/assets/banners/videoT.png";
 // Banner
 import banner1 from "@/assets/banners/banner1.jpg";
 import course1 from "@/assets/banners/course1.jpeg";
+//icon
+import icon from "@/assets/documents.png";
 export {
   headerLogo,
   footerLogo,
@@ -33,4 +35,5 @@ export {
   videoT,
   banner1,
   course1,
+  icon,
 };

@@ -21,6 +21,7 @@ import { GoDotFill } from "react-icons/go";
 import { SiTicktick } from "react-icons/si";
 import MediaModal from "../MediaModal";
 import { discountedAmount, formatRupee } from "@/utils/customText";
+import { Button } from "../Button";
 
 export function CourseDetailBanner({
   tag,
@@ -57,11 +58,11 @@ export function CourseDetailBanner({
           alt="banner"
           className="absolute inset-0 h-full w-full object-cover"
         />
-        <div className="grid grid-cols-2 gap-5">
-          {/* Left  */}
-          <div className="z-10 col-span-1 flex flex-col justify-center space-y-5 p-5 text-white max-md:flex-row-reverse max-md:flex-col md:p-10">
+        <div className="max-md:grid-row-2 grid gap-5 md:grid-cols-2">
+          {/* Left */}
+          <div className="z-10 flex flex-col justify-center space-y-5 p-3 text-white max-md:row-start-1 md:col-span-1 md:p-10 md:pr-0">
             {/* Breadcrumb  */}
-            <div className="flex gap-2 font-semibold">
+            <div className="flex flex-wrap items-center gap-2 font-semibold">
               <Link href={"/"}>Home</Link>
               <IoIosArrowForward />
               <Link href={"/courses"}>Courses</Link>
@@ -88,16 +89,24 @@ export function CourseDetailBanner({
               </div>
               <p>Last Updated: {lastUpdated}</p>
             </div>
-            <p className="flex items-center gap-2 font-semibold">
+            <p className="flex flex-wrap items-center gap-2 font-semibold">
               <span className="text-3xl font-extrabold text-blue-900">
-                ₹ {formatRupee(discountedAmount(fees))}
+                ₹ {formatRupee(discountedAmount(fees, discountFeesBy))}
               </span>
               <span className="line-through">/ ₹ {formatRupee(fees)}</span>
               <span className="text-blue-900">-{discountFeesBy}% Off</span>
             </p>
+            <div className="flex gap-4 max-md:flex-col">
+              <Button variant="whiteTransparent" className="text-nowrap">
+                WishList
+              </Button>
+              <Button variant="blue" className="text-nowrap">
+                Buy Now
+              </Button>
+            </div>
           </div>
-          {/* Right  */}
-          <div className="flex-center relative col-span-1">
+          {/* Right */}
+          <div className="flex-center relative max-md:row-start-2 max-md:h-96 max-sm:h-72 md:col-span-1">
             <div className="h-min w-min">
               <Image
                 src={vector1}
@@ -112,9 +121,7 @@ export function CourseDetailBanner({
               <Image
                 src={videoThumbnail}
                 alt="Video Thumbnail"
-                className="h-52 w-min object-contain"
-                width={500}
-                height={500}
+                className="absolute inset-1/2 h-64 min-w-max -translate-x-1/2 -translate-y-1/2 transform object-contain max-md:h-44 max-sm:h-40"
                 onClick={() => openModal(demoVideo, "video")}
               />
             </div>

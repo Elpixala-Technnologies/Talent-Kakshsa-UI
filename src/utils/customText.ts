@@ -93,6 +93,6 @@ export function convertToYearlyFee(courseFee: any, courseFeeLabel: any) {
     }
 }
 
-export function discountedAmount(data: number) {
-    return data - ((data * 20) / 100);
+export function discountedAmount(data: number, discount: number) {
+    return data - ((data * discount) / 100);
 }

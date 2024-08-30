@@ -1,14 +1,14 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { RiSearchLine } from "react-icons/ri";
 import { MdOutlineSort } from "react-icons/md";
 import Wrapper from "@/components/Wrappers";
 import { Button, LoadingButton } from "../Button";
 import CourseFilters from "./CourseFilters";
 import CourseFilteredCard, {
   CourseFilteredCardList,
+  CourseFilteredCardListSkeleton,
+  CourseFilteredCardSkeleton,
 } from "../cardsAndSliders/CourseFilteredCard";
-import { FilteredCardSkeleton } from "../cardsAndSliders/CourseFilteredCard";
 
 import { getAllCourses } from "@/graphql/courseQuery/course";
 import { useQuery } from "@apollo/client";
@@ -200,7 +200,7 @@ export default function CourseListSection({
                   />
                 ))
               : [1, 2, 3, 4, 5]?.map(() => (
-                  <FilteredCardSkeleton key={Math.random()} />
+                  <CourseFilteredCardSkeleton key={Math.random()} />
                 ))}
             {courseData?.courses?.meta?.pagination?.total >
               filteredData?.length && (
@@ -227,7 +227,7 @@ export default function CourseListSection({
                   />
                 ))
               : [1, 2, 3, 4, 5]?.map(() => (
-                  <FilteredCardSkeleton key={Math.random()} />
+                  <CourseFilteredCardListSkeleton key={Math.random()} />
                 ))}
             {courseData?.courses?.meta?.pagination?.total >
               filteredData?.length && (

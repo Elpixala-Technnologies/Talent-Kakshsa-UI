@@ -27,6 +27,12 @@ export default function page() {
           demoVideo={video}
           videoThumbnail={videoT}
         />
+        <div className="grid grid-cols-10">
+          <div className="col-span-2 bg-blue-900 text-white"></div>
+          <div className="col-span-2"></div>
+          <div className="col-span-1"></div>
+          <div className="col-span-1"></div>
+        </div>
       </Wrapper>
     </>
   );

@@ -21,6 +21,8 @@ import banner1 from "@/assets/banners/banner1.jpg";
 import course1 from "@/assets/banners/course1.jpeg";
 //icon
 import icon from "@/assets/documents.png";
+// pdf
+import pdf from "@/assets/pdf.pdf";
 export {
   headerLogo,
   footerLogo,
@@ -36,4 +38,5 @@ export {
   banner1,
   course1,
   icon,
+  pdf,
 };

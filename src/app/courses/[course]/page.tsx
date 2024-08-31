@@ -5,7 +5,10 @@ import { CourseDetailBanner } from "@/components/banners/CourseDetailBanner";
 import PriceAndMaterialIncluded, {
   PopularCourses,
 } from "@/components/detailPageSections/Aside";
-import Content from "@/components/detailPageSections/Content";
+import Content, {
+  InstructorContent,
+  OtherCourses,
+} from "@/components/detailPageSections/Content";
 import Header from "@/components/header/Header";
 import Wrapper from "@/components/Wrappers";
 import { header } from "@/data/wrapperData";
@@ -42,11 +45,13 @@ export default function page() {
           rating={4.5}
           students={formatRupee(124356)}
         />
-        <main className="grid grid-cols-12">
-          <article className="col-span-9">
+        <main className="grid grid-rows-2 gap-5 md:grid-cols-12">
+          <article className="max-md:row-start-2 md:col-span-8 xl:col-span-9">
             <Content />
+            <InstructorContent />
+            <OtherCourses />
           </article>
-          <aside className="col-span-3 space-y-5">
+          <aside className="space-y-5 max-md:row-start-1 md:col-span-4 xl:col-span-3">
             <PriceAndMaterialIncluded />
             <PopularCourses />
           </aside>

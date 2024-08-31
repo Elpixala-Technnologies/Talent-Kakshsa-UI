@@ -357,3 +357,7 @@ input[type="text"] {
     padding: 0.25em 0.75em;
   }
 }
+
+.mask-gradient {
+  -webkit-mask-image: linear-gradient(#ffffff, #ffffff, rgba(255, 255, 255, 0));
+}

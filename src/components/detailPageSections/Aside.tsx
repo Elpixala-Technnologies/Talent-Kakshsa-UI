@@ -25,7 +25,7 @@ export default function PriceAndMaterialIncluded() {
             </p>
             <p className="text-blue-900">-{20}% Off</p>
           </div>
-          <div className="flex justify-between gap-2">
+          <div className="flex flex-wrap justify-center gap-2 lg:justify-between">
             <Button variant="white" className="text-nowrap !px-3">
               Watch Demo
             </Button>
@@ -86,7 +86,7 @@ export default function PriceAndMaterialIncluded() {
 export function PopularCourses() {
   const [PinState, setPinState] = useState(false);
   return (
-    <div className="space-y-2 rounded-lg border border-zinc-400 bg-white p-3">
+    <div className="space-y-2 rounded-lg border border-zinc-400 bg-white p-3 max-md:hidden">
       <h2 className="text-lg font-bold">Popular Courses</h2>
       <div className="space-y-4">
         {[0, 1, 2, 3, 4]?.map((item: any, index: number) => (

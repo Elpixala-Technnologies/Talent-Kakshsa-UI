@@ -27,7 +27,7 @@ export default function CourseFilteredCard({
       >
         <TiPinOutline />
       </button>
-      <div className="h-60 p-5">
+      <div className="p-5 lg:h-60">
         <Image
           src={bgImage}
           alt="logo"
@@ -41,7 +41,7 @@ export default function CourseFilteredCard({
           <p className="rounded-e-full rounded-s-full bg-zinc-300 px-4 py-1 font-semibold">
             {tag}
           </p>
-          <p className="flex items-center text-zinc-400">
+          <p className="flex flex-wrap items-center text-zinc-400">
             <FaStar className="text-yellow-500" />({reviews} Review)
           </p>
         </div>

@@ -1,5 +1,6 @@
 "use client";
 import { video, videoT } from "@/assets";
+import Banner2 from "@/components/banners/Banner2";
 import BlogDetailPageBanner2 from "@/components/banners/BlogDetailPageBanner2";
 import { CourseDetailBanner } from "@/components/banners/CourseDetailBanner";
 import PriceAndMaterialIncluded, {
@@ -9,9 +10,10 @@ import Content, {
   InstructorContent,
   OtherCourses,
 } from "@/components/detailPageSections/Content";
+import Faqs from "@/components/Faqs";
 import Header from "@/components/header/Header";
 import Wrapper from "@/components/Wrappers";
-import { header } from "@/data/wrapperData";
+import { faqs, header } from "@/data/wrapperData";
 import { formatRupee } from "@/utils/customText";
 import React from "react";
 
@@ -50,6 +52,19 @@ export default function page() {
             <Content />
             <InstructorContent />
             <OtherCourses />
+            {/* FAQs  */}
+            <div className="my-10">
+              <div className="space-y-2">
+                <h2 className="flex items-center gap-3 text-sm font-medium text-orange-500">
+                  <span className="h-0 w-10 border-t-2 border-orange-500"></span>
+                  FAQs
+                </h2>
+                <h1 className="pb-5 text-2xl font-bold text-zinc-800">
+                  Still having a doubt? Let’s be more clearer!
+                </h1>
+              </div>
+              <Faqs data={faqs} />
+            </div>
           </article>
           <aside className="max-h-min space-y-5 max-md:row-start-1 md:col-span-4 xl:col-span-3">
             <PriceAndMaterialIncluded />
@@ -57,6 +72,7 @@ export default function page() {
           </aside>
         </main>
       </Wrapper>
+      <Banner2 />
     </>
   );
 }

@@ -12,18 +12,23 @@ export default function Faqs({ data, className = "" }: any) {
   };
 
   return (
-    <div className={`flex flex-col gap-4 ${className}`}>
+    <div className={`flex flex-col gap-3 ${className}`}>
       {data?.map((faq: any, index: number) => (
         <div
           key={index}
-          className="mb-4 rounded-lg bg-white px-6 py-2 pt-4 shadow-lg"
+          className="rounded-lg bg-white px-6 py-2 pt-4 shadow-md"
         >
           {faq?.question && (
             <button
               onClick={() => toggleFaq(faq?.id)}
               className="flex w-full items-center justify-between text-left"
             >
-              <span className="font-bold">{faq?.question}</span>
+              <p className="space-x-5">
+                <span className="font-bold text-orange-500">
+                  {index > 9 ? index + 1 : `0${index + 1}`}
+                </span>{" "}
+                <span className="font-bold">{faq?.question}</span>
+              </p>
               <IoIosArrowDown
                 className={`transform text-xl transition-transform ${
                   openFaq === faq?.id || (index === 0 && openFaq === null)

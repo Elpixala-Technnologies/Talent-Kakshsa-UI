@@ -72,7 +72,7 @@ export function UserComments({
       {/* Description */}
       <p className="text-sm text-zinc-500">{description}</p>
       {/* Images & Videos */}
-      <div className="flex gap-3">
+      <div className="flex flex-wrap gap-3">
         {images?.map((item: any, i: any) => (
           <Image
             key={i}

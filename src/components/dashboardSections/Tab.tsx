@@ -33,7 +33,9 @@ const Tab: React.FC<TabProps> = ({ tabs, activeTab, setActiveTab }) => {
               />
             )}
             <span className="z-20 text-2xl">{tab?.icon}</span>
-            <span className="z-20 max-lg:hidden">{tab?.label}</span>
+            <span className="z-20 capitalize max-lg:hidden">
+              {tab?.label?.split("-").join(" ")}
+            </span>
           </li>
         </React.Fragment>
       ))}

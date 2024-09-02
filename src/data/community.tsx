@@ -12,43 +12,23 @@ export const community = {
   tabs: [
     {
       id: "1",
-      label: "News Feed",
+      label: "feeds",
       icon: <LuLayoutDashboard />,
     },
     {
       id: "2",
-      label: "Messages",
+      label: "messages",
       icon: <LuMessagesSquare />,
     },
     {
       id: "3",
-      label: "Code Snippets",
-      icon: <FaCode />,
-    },
-    {
-      id: "4",
-      label: "Videos",
-      icon: <HiOutlineVideoCamera />,
-    },
-    {
-      id: "5",
-      label: "Friends",
-      icon: <LuUserPlus />,
-    },
-    {
-      id: "6",
-      label: "Community",
+      label: "community",
       icon: <IoPeopleOutline />,
     },
     {
-      id: "7",
-      label: "My Profile",
+      id: "4",
+      label: "my-Profile",
       icon: <CgProfile />,
-    },
-    {
-      id: "8",
-      label: "Settings",
-      icon: <IoSettingsOutline />,
     },
   ],
 };

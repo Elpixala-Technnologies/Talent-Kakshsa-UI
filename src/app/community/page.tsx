@@ -14,7 +14,7 @@ function Community() {
   const tab = searchParams.get("tab");
 
   const [mobileMenu, setMobileMenu] = useState(false);
-  const [activeTab, setActiveTab] = useState(tab || "news-feed");
+  const [activeTab, setActiveTab] = useState(tab || "feeds");
 
   const { data: userProfileData, loading, error, refetch } = useUserData();
   // ================================================================ //
@@ -37,9 +37,7 @@ function Community() {
     const selectedTab = community.tabs.find((t) => t.label === tabLabel);
     if (selectedTab) {
       setActiveTab(tabLabel);
-      router.push(
-        `?tab=${encodeURIComponent(tabLabel?.split(" ").join("-")?.toLocaleLowerCase())}`,
-      );
+      router.push(`?tab=${encodeURIComponent(tabLabel)}`);
     }
   };
   // ================================================================ //
@@ -67,6 +65,14 @@ function Community() {
         />
       </section>
       <DiscussionAside />
+      {/* Mobile Tabs */}
+      <ul className="fixed bottom-0 left-1/2 z-50 flex w-full -translate-x-1/2 justify-between rounded-2xl bg-white p-5 px-3 text-lg shadow-md">
+        <Tab
+          tabs={community?.tabs}
+          activeTab={activeTab}
+          setActiveTab={handleTabClick}
+        />
+      </ul>
     </Wrapper>
   );
 }

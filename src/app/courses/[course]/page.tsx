@@ -45,13 +45,13 @@ export default function page() {
           rating={4.5}
           students={formatRupee(124356)}
         />
-        <main className="grid grid-rows-2 gap-5 md:grid-cols-12">
+        <main className="grid grid-rows-[auto,auto] gap-5 md:grid-cols-12">
           <article className="max-md:row-start-2 md:col-span-8 xl:col-span-9">
             <Content />
             <InstructorContent />
             <OtherCourses />
           </article>
-          <aside className="space-y-5 max-md:row-start-1 md:col-span-4 xl:col-span-3">
+          <aside className="max-h-min space-y-5 max-md:row-start-1 md:col-span-4 xl:col-span-3">
             <PriceAndMaterialIncluded />
             <PopularCourses />
           </aside>

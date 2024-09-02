@@ -94,7 +94,17 @@ export const Accordion = ({
                       </p>
                     )}
                   </div>
-                  <p className="text-right max-md:w-full">{item?.duration}</p>
+                  <p className="space-x-2 text-right max-md:w-full">
+                    {item?.isDemo && (
+                      <span
+                        className="cursor-pointer text-sm font-bold text-blue-900 hover:underline"
+                        onClick={() => openModal(item?.href, item?.category)}
+                      >
+                        See Demo
+                      </span>
+                    )}
+                    <span>{item?.duration}</span>
+                  </p>
                 </li>
               ))}
             </motion.ul>
@@ -111,5 +121,3 @@ export const Accordion = ({
     </>
   );
 };
-
-const accordionIds = [0, 1, 2, 3];

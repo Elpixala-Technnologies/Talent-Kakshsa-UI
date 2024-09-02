@@ -1,8 +1,13 @@
 "use client";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { LuDownload } from "react-icons/lu";
 import { AiOutlineCloseCircle } from "react-icons/ai";
+import { pdf } from "@/assets";
+import PdfViewer from "./PDFViewer";
+import useIsMobile from "./customHooks/useIsMobile";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 interface MediaModalProps {
   isOpen: boolean;
@@ -17,14 +22,23 @@ const MediaModal: React.FC<MediaModalProps> = ({
   mediaType,
   onClose,
 }) => {
-  const downloadPDF = () => {
-    const link = document.createElement("a");
-    link.href = mediaSrc;
-    link.download = mediaSrc.split("/").pop() || "document.pdf";
-    link.click();
-  };
+  // const downloadPDF = () => {
+  //   const link = document.createElement("a");
+  //   link.href = mediaSrc;
+  //   link.download = mediaSrc.split("/").pop() || "document.pdf";
+  //   link.click();
+  // };
 
+  const isMobile = useIsMobile();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (isOpen && isMobile && mediaType === "pdf") {
+      router.push(mediaSrc);
+    }
+  }, [isOpen, isMobile, mediaType, mediaSrc, router]);
   if (!isOpen) return null;
+
   return (
     <div
       className="fixed inset-0 z-50 !m-0 flex items-center justify-center bg-black bg-opacity-70"
@@ -63,26 +77,8 @@ const MediaModal: React.FC<MediaModalProps> = ({
           </div>
         )}
         {mediaType === "pdf" && (
-          <div
-            className="h-full w-full overflow-auto rounded-lg bg-white p-4 md:max-h-[80vh]"
-            // ref={setContainerRef}
-          >
-            {/* <Document
-              file={mediaSrc}
-              onLoadSuccess={onDocumentLoadSuccess}
-              options={options}
-            >
-              {Array.from(new Array(numPages), (_el, index) => (
-                <Page key={`page_${index + 1}`} pageNumber={index + 1} />
-              ))}
-            </Document> */}
-
-            <button
-              onClick={downloadPDF}
-              className="absolute right-5 top-14 text-2xl text-orange-500 hover:text-orange-500 md:-right-7 md:top-2 md:text-white"
-            >
-              <LuDownload />
-            </button>
+          <div className="h-full w-full overflow-auto rounded-lg bg-white p-4 md:max-h-[80vh]">
+            {!isMobile && <PdfViewer pdfUrl={mediaSrc} />}
           </div>
         )}
       </div>

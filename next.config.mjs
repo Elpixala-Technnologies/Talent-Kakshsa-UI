@@ -6,8 +6,6 @@ const nextConfig = {
     domains: ["talentkaksha-bucket.blr1.digitaloceanspaces.com"],
   },
   webpack: (config) => {
-    config.resolve.alias.canvas = false;
-
     // Extend the default Webpack configuration
     config.module.rules.push({
       test: /\.(mp4|m4v|webm|ogg)$/i,

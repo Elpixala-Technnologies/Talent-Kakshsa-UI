@@ -23,7 +23,7 @@ const Tab: React.FC<TabProps> = ({ tabs, activeTab, setActiveTab }) => {
               activeTab === tab.label
                 ? "mb-0 text-white"
                 : "text-black hover:text-orange-500"
-            } relative flex cursor-pointer flex-nowrap items-center gap-2 rounded-full px-0.5 py-1.5 font-medium transition focus-visible:outline-2 max-md:justify-center md:px-5`}
+            } relative flex w-full cursor-pointer flex-nowrap items-center gap-2 rounded-full px-0.5 py-1.5 font-medium transition focus-visible:outline-2 max-lg:justify-center md:px-5`}
           >
             {activeTab === tab?.label && (
               <motion.span

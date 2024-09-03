@@ -23,6 +23,8 @@ import course1 from "@/assets/banners/course1.jpeg";
 import icon from "@/assets/documents.png";
 // pdf
 import pdf from "@/assets/pdf.pdf";
+// sounds
+import notificationSound from "@/assets/notificationSound.mp3";
 export {
   headerLogo,
   footerLogo,
@@ -39,4 +41,5 @@ export {
   course1,
   icon,
   pdf,
+  notificationSound,
 };

@@ -57,14 +57,11 @@ function Community() {
           />
         </ul>
       </aside>
-      <section className="col-span-12 space-y-5 md:col-span-10 lg:col-span-6">
+      <section className="col-span-12 space-y-5 md:col-span-10 lg:col-span-9">
         <TabContent
           activeTab={community?.tabs?.find((tab) => tab?.label === activeTab)}
-          mobileMenu={mobileMenu}
-          setMobileMenu={setMobileMenu}
         />
       </section>
-      <DiscussionAside />
     </Wrapper>
   );
 }

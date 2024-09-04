@@ -8,6 +8,7 @@ import Header from "@/components/header/Header";
 import Footer from "@/components/footer/Footer";
 import { footer, header } from "@/data/wrapperData";
 import ScrollToTopButton from "@/components/ScrollToTopButton";
+import { SocketContextProvider } from "@/ContextAPI/SocketContext";
 
 export const metadata: Metadata = {
   title: "Talent Kaksha",
@@ -24,10 +25,12 @@ export default function RootLayout({
       <body className="relative bg-orange-50 !antialiased">
         <ReduxProvider>
           <ApolloWrapper>
-            <ScrollToTopButton />
-            {/* <Header header={header} /> */}
-            {children}
-            {/* <Footer footer={footer} /> */}
+            <SocketContextProvider>
+              <ScrollToTopButton />
+              {/* <Header header={header} /> */}
+              {children}
+              {/* <Footer footer={footer} /> */}
+            </SocketContextProvider>
           </ApolloWrapper>
         </ReduxProvider>
       </body>

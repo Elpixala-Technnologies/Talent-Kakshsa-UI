@@ -316,3 +316,38 @@ export const instructorDetails = {
   studentEnrolled: 64565,
   totalCourse: 12,
 };
+
+export const dummyConversations = [
+  {
+    id: 1,
+    avatar: user1,
+    name: "Pankaj Kumar",
+    lastMessage: "Hello",
+    lastMessageTime: "10:00 AM",
+    unreadMessages: 0,
+    messages: [
+      {
+        senderId: 1,
+        message: "Hello",
+        createdAt: "10:00 AM",
+        shouldShake: true,
+      },
+    ],
+  },
+  {
+    id: 2,
+    avatar: "",
+    name: "shiv Kumar",
+    lastMessage: "hey",
+    lastMessageTime: "09:00 AM",
+    unreadMessages: 0,
+    messages: [
+      {
+        senderId: 2,
+        message: "Hello",
+        createdAt: "10:00 AM",
+        shouldShake: true,
+      },
+    ],
+  },
+];

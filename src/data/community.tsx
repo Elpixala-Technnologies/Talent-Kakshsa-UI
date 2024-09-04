@@ -1,7 +1,5 @@
-import { FaCode } from "react-icons/fa";
 import { IoPeopleOutline, IoSettingsOutline } from "react-icons/io5";
 import { CgProfile } from "react-icons/cg";
-import { HiOutlineVideoCamera } from "react-icons/hi2";
 import {
   LuLayoutDashboard,
   LuMessagesSquare,
@@ -27,8 +25,31 @@ export const community = {
     },
     {
       id: "4",
-      label: "my-Profile",
+      label: "my-profile",
       icon: <CgProfile />,
     },
   ],
 };
+
+export const profileTab = [
+  {
+    id: 11,
+    label: "feeds",
+  },
+  {
+    id: 12,
+    label: "about",
+  },
+  {
+    id: 13,
+    label: "community",
+  },
+  {
+    id: 14,
+    label: "experience",
+  },
+  {
+    id: 15,
+    label: "skills",
+  },
+];

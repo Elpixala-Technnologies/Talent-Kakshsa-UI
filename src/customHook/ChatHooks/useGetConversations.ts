@@ -1,4 +1,5 @@
 import { user1 } from "@/assets";
+import { dummyConversations } from "@/data/wrapperData";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
@@ -30,23 +31,3 @@ const useGetConversations = () => {
 };
 export default useGetConversations;
 
-
-const dummyConversations = [
-	{
-		id: 1,
-		avatar: user1,
-		name: "Pankaj Kumar",
-		lastMessage: "Hello",
-		lastMessageTime: "10:00 AM",
-		unreadMessages: 0,
-		messages: []
-	},
-	{
-		id: 2,
-		avatar: "",
-		name: "shiv Kumar",
-		lastMessage: "hey",
-		lastMessageTime: "09:00 AM",
-		unreadMessages: 0,
-	},
-]

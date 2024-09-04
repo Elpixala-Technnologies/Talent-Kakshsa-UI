@@ -6,6 +6,7 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 export interface IAuthState {
 	authState: boolean;
 	userID: ID;
+	avatar?: string;
 	userName: string;
 	email: string;
 	number: string;
@@ -15,6 +16,7 @@ export interface IAuthState {
 const initialState: IAuthState = {
 	authState: false,
 	userID: null,
+	avatar: "",
 	userName: "",
 	email: "",
 	number: "",
@@ -30,6 +32,7 @@ export const authSlice = createSlice({
 		setAuthState: (state, action: PayloadAction<IAuthState>) => {
 			state.authState = action.payload.authState;
 			state.userID = action.payload.userID;
+			state.avatar = action.payload.avatar;
 			state.userName = action.payload.userName;
 			state.email = action.payload.email;
 			state.number = action.payload.number;
@@ -45,6 +48,7 @@ export const authSlice = createSlice({
 		clearAuthState: (state) => {
 			state.authState = false;
 			state.userID = null;
+			state.avatar = "";
 			state.userName = "";
 			state.email = "";
 			state.number = "";

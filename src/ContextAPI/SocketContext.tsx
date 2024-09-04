@@ -39,7 +39,7 @@ export const SocketContextProvider = ({
 
   useEffect(() => {
     if (authUser?.userID) {
-      const newSocket = io("http://localhost:3000/community?tab=messages/", {
+      const newSocket = io("http://localhost:5000/", {
         query: { userId: authUser.userID },
       });
 
@@ -50,7 +50,7 @@ export const SocketContextProvider = ({
       });
 
       return () => {
-        newSocket.close();
+        newSocket.disconnect();
       };
     } else {
       if (socket) {

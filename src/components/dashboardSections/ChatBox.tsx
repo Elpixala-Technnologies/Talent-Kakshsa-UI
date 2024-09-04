@@ -5,8 +5,11 @@ import MessageContainer from "@/components/dashboardSections/messages/MessageCon
 import useConversation from "@/zustand/useConversation";
 import useGetConversations from "@/customHook/ChatHooks/useGetConversations";
 import { useSocketContext } from "@/ContextAPI/SocketContext";
+import useIsMobile from "../customHooks/useIsMobile";
 
-export default function Messages() {
+export default function ChatBox() {
+  const [isUsersShow, setIsUsersShow] = React.useState(true);
+  const isMobile = useIsMobile();
   return (
     <div className="w-full rounded-xl bg-white">
       <div className="flex items-center gap-5 border-b border-zinc-300 p-2">
@@ -18,31 +21,39 @@ export default function Messages() {
       </div>
       <div className="grid grid-cols-12 p-2 pl-0">
         {/* Aside Section  */}
-        <div className="col-span-4 border-r-2 border-zinc-300 py-2">
-          <AsideUsers />
+        <div
+          className={`col-span-12 py-2 md:col-span-4 md:border-r-2 md:border-zinc-300 ${isMobile && (isUsersShow ? "block" : "hidden")}`}
+        >
+          <AsideUsers setIsUsersShow={setIsUsersShow} />
         </div>
         {/* Chatting Section   */}
-        <div className="col-span-8">
-          <MessageContainer />
+        <div
+          className={`col-span-12 md:col-span-8 ${isMobile && (!isUsersShow ? "block" : "hidden")}`}
+        >
+          <MessageContainer setIsUsersShow={setIsUsersShow} />
         </div>
       </div>
     </div>
   );
 }
 
-function AsideUsers() {
+function AsideUsers({ setIsUsersShow }: any) {
   const { loading, conversations } = useGetConversations();
   return (
-    <div className="w-full">
+    <div className="h-[68vh] w-full overflow-y-auto">
       {conversations?.map((conversation, i) => (
-        <AsideUserCard key={conversation.id} conversation={conversation} />
+        <AsideUserCard
+          key={conversation.id}
+          conversation={conversation}
+          setIsUsersShow={setIsUsersShow}
+        />
       ))}
       {loading && <AsideUserCardSkeleton />}
     </div>
   );
 }
 
-function AsideUserCard({ conversation }: any) {
+function AsideUserCard({ conversation, setIsUsersShow }: any) {
   const { selectedConversation, setSelectedConversation } = useConversation();
   const isSelected = selectedConversation?.id === conversation.id;
   const { onlineUsers } = useSocketContext();
@@ -51,7 +62,10 @@ function AsideUserCard({ conversation }: any) {
   return (
     <div
       className={`flex w-full cursor-pointer items-center justify-between gap-2 p-2 hover:bg-orange-100 ${isSelected && "border-l-4 border-orange-500 bg-orange-100"}`}
-      onClick={() => setSelectedConversation(conversation)}
+      onClick={() => {
+        setSelectedConversation(conversation);
+        setIsUsersShow(false);
+      }}
     >
       <div className="flex gap-2">
         <div className="flex-center relative h-10 w-10 overflow-hidden rounded-full border-2 border-white bg-orange-500 shadow-lg">

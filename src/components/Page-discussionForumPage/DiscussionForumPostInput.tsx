@@ -25,6 +25,7 @@ import {
 import { HiArrowUturnRight } from "react-icons/hi2";
 import { FaRegPlayCircle } from "react-icons/fa";
 import MediaModal from "../MediaModal";
+import useIsIOS from "@/customHook/useIsIOS";
 
 export function DiscussionForumPostInput({ avatar }: any) {
   const [title, setTitle] = useState<string>("");
@@ -50,6 +51,8 @@ export function DiscussionForumPostInput({ avatar }: any) {
   const [selectedMediaType, setSelectedMediaType] = useState<"image" | "video">(
     "image",
   );
+  // Detect ios
+  const { isIOS, isIPhone } = useIsIOS();
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -146,13 +149,15 @@ export function DiscussionForumPostInput({ avatar }: any) {
         </div>
         {/* Post Input - 2 */}
         <div className="flex w-full flex-wrap items-center gap-x-8 gap-y-3 sm:ml-14">
-          <button
-            onClick={() => setIsCamera(!isCamera)}
-            className="flex cursor-pointer items-center gap-2 hover:text-blue-900 active:scale-95"
-          >
-            <IoCameraOutline />
-            <p className="cursor-pointer">Camera</p>
-          </button>
+          {!isIOS && !isIPhone && (
+            <button
+              onClick={() => setIsCamera(!isCamera)}
+              className="flex cursor-pointer items-center gap-2 hover:text-blue-900 active:scale-95"
+            >
+              <IoCameraOutline />
+              <p className="cursor-pointer">Camera</p>
+            </button>
+          )}
           <label className="flex cursor-pointer items-center gap-2 hover:text-blue-900 active:scale-95">
             <IoImagesOutline />
             <p className="cursor-pointer">Images</p>

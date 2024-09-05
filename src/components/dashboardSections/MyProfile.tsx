@@ -70,7 +70,7 @@ function MyProfileTabsSection() {
     }
   };
   return (
-    <div className="h-96 p-3">
+    <div className="p-3">
       {/* Tabs */}
       <ul className="flex w-full gap-5 overflow-x-hidden rounded-lg bg-blue-50 p-2 px-3 text-lg shadow-md lg:gap-1">
         <ProfileTab

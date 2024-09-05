@@ -21,6 +21,7 @@ import banner1 from "@/assets/banners/banner1.jpg";
 import course1 from "@/assets/banners/course1.jpeg";
 //icon
 import icon from "@/assets/documents.png";
+import icon1 from "@/assets/Coffee.svg";
 // pdf
 import pdf from "@/assets/pdf.pdf";
 // sounds
@@ -40,6 +41,7 @@ export {
   banner1,
   course1,
   icon,
+  icon1,
   pdf,
   notificationSound,
 };

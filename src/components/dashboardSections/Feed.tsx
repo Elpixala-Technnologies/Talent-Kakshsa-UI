@@ -5,10 +5,10 @@ import { news1, video } from "@/assets";
 import { codeSnippetDemo } from "@/data/shiki";
 import DiscussionAside from "../AsideSections/DiscussionAside";
 
-export default function NewsFeed({ tab }: any) {
+export default function Feed() {
   return (
     <div className="grid grid-cols-9 gap-4">
-      <div className="col-span-6 max-lg:col-span-9">
+      <div className="col-span-6 space-y-5 max-lg:col-span-9">
         <DiscussionForumPostInput avatar={false} />
         {/* Other User Comments  */}
         {[1, 2].map((item) => (

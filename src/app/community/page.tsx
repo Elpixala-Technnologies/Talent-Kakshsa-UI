@@ -22,15 +22,15 @@ function Community() {
       refetch();
     }
   }, [userProfileData, refetch, loading]);
-  useEffect(() => {
-    if (
-      tab &&
-      tab !== activeTab &&
-      community.tabs.some((t) => t.label === tab)
-    ) {
-      setActiveTab(tab);
-    }
-  }, [tab, activeTab]);
+  // useEffect(() => {
+  //   if (
+  //     tab &&
+  //     tab !== activeTab &&
+  //     community.tabs.some((t) => t.label === tab)
+  //   ) {
+  //     setActiveTab(tab);
+  //   }
+  // }, [tab, activeTab]);
   // ================================================================ //
   const handleTabClick = (tabLabel: string) => {
     const selectedTab = community.tabs.find((t) => t.label === tabLabel);
@@ -45,7 +45,7 @@ function Community() {
       <Wrapper
         as="main"
         containerClassName="!bg-blue-50"
-        className="relative grid grid-cols-12 gap-1 pt-14 md:gap-4"
+        className="relative grid grid-cols-12 gap-1 py-14 md:gap-4"
       >
         <aside className="bottom-0 left-1/2 w-full space-y-5 max-md:fixed max-md:z-50 max-md:-translate-x-1/2 md:col-span-2 lg:col-span-3">
           {/* Tabs */}
@@ -70,7 +70,9 @@ function Community() {
 
 export default function CommunityPage() {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense
+      fallback={<div className="w-100vw h-100vh bg-orange-500">Loading...</div>}
+    >
       <Community />
     </Suspense>
   );

@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import ProfileTab from "./profileTabs/ProfileTab";
 import { useRouter, useSearchParams } from "next/navigation";
 import { profileTab } from "@/data/community";
+import ProfileTabContent from "./profileTabs/ProfileTabContent";
 
 export default function MyProfile({ tab }: any) {
   return (
@@ -56,35 +57,33 @@ function ProfileBanner({ avatar, bgImage, userName, designation, desc }: any) {
 function MyProfileTabsSection() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const tab = searchParams.get("tab");
+  const tab = searchParams.get("profile-tab");
   const [activeTab, setActiveTab] = useState(tab || "feeds");
-  useEffect(() => {
-    if (
-      tab &&
-      tab !== activeTab &&
-      profileTab.some((t: any) => t.label === tab)
-    ) {
-      setActiveTab(tab);
-    }
-  }, [tab, activeTab]);
   // ================================================================ //
   const handleTabClick = (tabLabel: string) => {
     const selectedTab = profileTab?.find((t) => t.label === tabLabel);
     if (selectedTab) {
       setActiveTab(tabLabel);
-      router.push(`?tab=${encodeURIComponent(tabLabel)}`);
+      router.push(
+        `/community?tab=my-profile&profile-tab=${encodeURIComponent(tabLabel)}`,
+      );
     }
   };
   return (
-    <div>
+    <div className="h-96 p-3">
       {/* Tabs */}
-      <ul className="flex w-full gap-5 overflow-x-auto rounded-2xl bg-white p-5 px-3 text-lg shadow-md lg:gap-1">
+      <ul className="flex w-full gap-5 overflow-x-hidden rounded-lg bg-blue-50 p-2 px-3 text-lg shadow-md lg:gap-1">
         <ProfileTab
           tabs={profileTab}
           activeTab={activeTab}
           setActiveTab={handleTabClick}
         />
       </ul>
+      <section className="col-span-12 space-y-5 md:col-span-10 lg:col-span-9">
+        <ProfileTabContent
+          activeTab={profileTab?.find((tab) => tab?.label === activeTab)}
+        />
+      </section>
     </div>
   );
 }

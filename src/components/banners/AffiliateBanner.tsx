@@ -3,9 +3,8 @@ import Wrapper from "../Wrappers";
 import { Button } from "../Button";
 import Image from "next/image";
 import { vector1, vector2 } from "@/assets";
-import NewsTypeHeadSearchBar from "../TypeHeadSearchBar/NewsTypeHeadSearchBar";
 
-export default function NewsBanner({ title, subtitle }: any) {
+export default function AffiliateBanner({ title, subtitle }: any) {
   return (
     <Wrapper
       as="section"
@@ -25,15 +24,11 @@ export default function NewsBanner({ title, subtitle }: any) {
             variant="whiteTransparent"
             className="text-nowrap font-semibold"
           >
-            Read More
+            Join Now
           </Button>
           <Button variant="blue" className="text-nowrap font-semibold">
             Subscribe Now
           </Button>
-        </div>
-        {/* Search Bar */}
-        <div className="relative mx-auto mb-10 flex h-min w-full max-w-screen-sm items-center gap-2 rounded-full bg-white px-2 py-2 focus-within:border-orange-500">
-          <NewsTypeHeadSearchBar />
         </div>
       </div>
     </Wrapper>

@@ -44,7 +44,7 @@ function Community() {
     <>
       <Wrapper
         as="main"
-        containerClassName="!bg-blue-50"
+        containerClassName="!bg-blue-50 mt-10"
         className="relative grid grid-cols-12 gap-1 py-14 md:gap-4"
       >
         <aside className="bottom-0 left-1/2 w-full space-y-5 max-md:fixed max-md:z-50 max-md:-translate-x-1/2 md:col-span-2 lg:col-span-3">

@@ -388,3 +388,55 @@ input[type="text"] {
       var(--c1);
   background-size: var(--s) var(--s);
 }
+
+.dotted-gradient {
+  background: radial-gradient(circle, #ffe5c5 10%, transparent 11%),
+    radial-gradient(circle at bottom left, #ffe5c5 5%, transparent 6%),
+    radial-gradient(circle at bottom right, #ffe5c5 5%, transparent 6%),
+    radial-gradient(circle at top left, #ffe5c5 5%, transparent 6%),
+    radial-gradient(circle at top right, #ffe5c5 5%, transparent 6%);
+  background-size: 3em 3em;
+  background-color: #ff7d21;
+  opacity: 1;
+}
+
+.brick-gradient {
+  --s: 100px; /* control the size*/
+  --c1: #ff7d21;
+  --c2: #001eff;
+
+  --g: var(--c2) -5% 5%, #0000 0 45%;
+  background:
+    linear-gradient(45deg, #0000 10%, var(--c1) 0 40%, #0000 0),
+    repeating-linear-gradient(45deg, var(--g)),
+    repeating-linear-gradient(-45deg, var(--g)) var(--c1);
+  background-size: var(--s) var(--s);
+}
+
+.tiny-square-gradient {
+  --s: 1px; /* control the size*/
+  --c1: #ff7d21;
+  --c2: #ffffff;
+
+  background:
+    conic-gradient(at 60% 60%, var(--c1) 75%, #0000 0) 0 0 /
+      calc(5 * var(--s) / 2) calc(5 * var(--s) / 2),
+    repeating-conic-gradient(var(--c1) 0 25%, #0000 0 50%) 0 0 /
+      calc(5 * var(--s)) calc(5 * var(--s)),
+    repeating-conic-gradient(var(--c2) 0 25%, var(--c1) 0 50%) 0 0 / var(--s)
+      var(--s);
+}
+
+.tiny-square-gradient1 {
+  --s: 1px; /* control the size*/
+  --c1: #ffffff;
+  --c2: #ff7d21;
+
+  background:
+    conic-gradient(at 60% 60%, var(--c1) 75%, #0000 0) 0 0 /
+      calc(5 * var(--s) / 2) calc(5 * var(--s) / 2),
+    repeating-conic-gradient(var(--c1) 0 25%, #0000 0 50%) 0 0 /
+      calc(5 * var(--s)) calc(5 * var(--s)),
+    repeating-conic-gradient(var(--c2) 0 25%, var(--c1) 0 50%) 0 0 / var(--s)
+      var(--s);
+}

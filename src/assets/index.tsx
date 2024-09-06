@@ -19,6 +19,7 @@ import videoT from "@/assets/banners/videoT.png";
 // Banner
 import banner1 from "@/assets/banners/banner1.jpg";
 import course1 from "@/assets/banners/course1.jpeg";
+import homeBanner from "@/assets/banner.png";
 //icon
 import icon from "@/assets/documents.png";
 import icon1 from "@/assets/Coffee.svg";
@@ -40,6 +41,7 @@ export {
   videoT,
   banner1,
   course1,
+  homeBanner,
   icon,
   icon1,
   pdf,

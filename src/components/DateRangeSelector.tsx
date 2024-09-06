@@ -41,10 +41,9 @@ export const DateRangeSelector = () => {
         </p>
         <FaAngleDown />
       </button>
-
       {/* Render date range picker only when the button is clicked */}
       {showDatePicker && (
-        <div className="absolute z-50 mt-2">
+        <div className="absolute z-40 mt-2 overflow-x-auto max-md:max-w-[85vw]">
           <DateRangePicker
             ranges={[selectedRange]}
             onChange={handleSelect}

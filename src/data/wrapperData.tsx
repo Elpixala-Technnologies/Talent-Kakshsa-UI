@@ -55,7 +55,7 @@ export const header = {
 };
 export const footer = {
   logo: footerLogo,
-  text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, \\n sed do eiusmod tempor incididunt",
+  text: "Talent Kaksha – Your go-to platform for expert-led courses and hands-on learning.",
   contactDetails: {
     contactNo: "+1 (999) 888-77-66",
     email: "info@TalentKaksha.com",
@@ -349,5 +349,152 @@ export const dummyConversations = [
         shouldShake: true,
       },
     ],
+  },
+];
+
+export const testimonials = [
+  {
+    name: "Rohit Sharma",
+    profession: "Software Developer",
+    testimonial:
+      "Talent Kaksha transformed my career! I was struggling to keep up with the fast-paced tech world, but Talent Kaksha made it easy to learn new skills. The courses are practical, easy to follow, and filled with real-world examples. Within months, I gained the expertise I needed to land a higher-paying job. ",
+  },
+  {
+    name: "Priya Mehta",
+    profession: "Data Analyst",
+    testimonial:
+      "Best platform for online learning! I’ve tried many online learning platforms, but Talent Kaksha stands out. The instructors are not just experts in their fields, but also excellent at breaking down complex topics. The course materials are up-to-date, and the learning experience is seamless. ",
+  },
+  {
+    name: "Anjali Kapoor",
+    profession: "Digital Marketer",
+    testimonial:
+      "A game changer for skill development! Talent Kaksha has been a game changer for me. I’ve been able to enhance my skills in digital marketing through their expert-led courses. The platform is easy to navigate, and the quality of content is excellent. I learned things I could immediately apply at work, ",
+  },
+  {
+    name: "Siddharth Patel",
+    profession: "Graphic Designer",
+    testimonial:
+      "Superb learning experience! The learning experience on Talent Kaksha has been nothing short of superb. The courses are well-structured, and the instructors make even the most complicated topics easy to understand. I especially appreciate how flexible the platform is.",
+  },
+  {
+    name: "Neha Gupta",
+    profession: "Product Manager",
+    testimonial:
+      "Helped me transition into a new career! I was looking to make a career shift, and Talent Kaksha provided the perfect opportunity. The courses are designed with practical knowledge in mind, and I gained the confidence to move into a completely new industry.",
+  },
+  {
+    name: "Arjun Rao",
+    profession: "Content Writer",
+    testimonial:
+      "Affordable and high-quality! Talent Kaksha offers high-quality learning content at an affordable price, which is hard to find elsewhere. The variety of courses available ensures there’s always something new to learn, and the expert-led approach gives you a sense of confidence in what you're being taught. ",
+  },
+  {
+    name: "Nisha Tiwari",
+    profession: "Web Developer",
+    testimonial:
+      "Highly recommended for continuous learning! As someone who values continuous learning, I highly recommend Talent Kaksha. Their courses keep me updated with the latest trends in web development. The platform is intuitive, and the content is regularly updated, which ensures I stay ahead of the curve. ",
+  },
+];
+
+export const packages = [
+  {
+    packageName: "Basic Plan",
+    price: "49/month",
+    isPopular: false,
+    text: "Perfect for beginners looking to start learning new skills.",
+    lists: [
+      {
+        isInclude: true,
+        text: "Personal Counsellor",
+      },
+      {
+        isInclude: true,
+        text: "Admission Procedure",
+      },
+      {
+        isInclude: true,
+        text: "Lowest Package Seats",
+      },
+    ],
+  },
+  {
+    packageName: "Pro Plan",
+    price: "99",
+    isPopular: true,
+    text: "Ideal for professionals looking to enhance their expertise.",
+    lists: [
+      {
+        isInclude: true,
+        text: "Personal Counsellor",
+      },
+      {
+        isInclude: true,
+        text: "Admission Procedure",
+      },
+      {
+        isInclude: true,
+        text: "Lowest Package Seats",
+      },
+    ],
+  },
+  {
+    packageName: "Enterprise Plan",
+    price: "199",
+    isPopular: false,
+    text: "Designed for teams or businesses seeking advanced skill development.",
+    lists: [
+      {
+        isInclude: true,
+        text: "Personal Counsellor",
+      },
+      {
+        isInclude: true,
+        text: "Admission Procedure",
+      },
+      {
+        isInclude: true,
+        text: "Lowest Package Seats",
+      },
+    ],
+  },
+];
+
+export const keyFeatures = [
+  {
+    title: "Expert Instructors",
+    description:
+      "Learn from industry leaders with years of experience in their respective fields.",
+    icon: "graduation-cap",
+  },
+  {
+    title: "Hands-On Learning",
+    description:
+      "We focus on practical, project-based learning so you can apply your skills right away.",
+    icon: "tools",
+  },
+  {
+    title: "Flexible Learning Paths",
+    description:
+      "Choose from a wide range of courses and learn at your own pace, anytime, anywhere.",
+    icon: "clock",
+  },
+  {
+    title: "Community Support",
+    description:
+      "Join a thriving community of learners and professionals to discuss ideas, ask questions, and grow together.",
+    icon: "users",
+  },
+  {
+    title: "Affordable Plans",
+    description:
+      "We offer a range of subscription plans to suit your learning needs and budget.",
+    icon: "price-tag",
+  },
+  {
+    title: "Certification",
+    description:
+      "Earn verified certificates that showcase your skills to employers and clients.",
+    icon: "certificate",
   },
 ];

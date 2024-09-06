@@ -171,6 +171,7 @@ const LoginSignUpQASection = ({ buttonType = "LOG-IN" }: any) => {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const isUserLoggedIn = useAppSelector((state) => !!state.auth.token); // Use selector to get auth state
+  const loginUserName = useAppSelector((state) => state.auth.userName);
   const { data: userProfileData, loading, error, refetch } = useUserData();
   // ================================================================ //
   useEffect(() => {
@@ -217,18 +218,24 @@ const LoginSignUpQASection = ({ buttonType = "LOG-IN" }: any) => {
         <div className="flex items-center gap-4">
           {isUserLoggedIn ? (
             <div className="group relative">
-              <div className="flex-center rounded-full border-2 border-orange-500 p-0.5">
-                <Image
-                  src={
-                    userProfileData?.attributes?.avatar?.data?.attributes?.url
-                  }
-                  alt="avatar"
-                  width={100}
-                  height={100}
-                  className="hover:text-primary group h-8 w-8 cursor-pointer rounded-full object-cover text-orange-500"
-                />
+              <div className="flex-center h-9 w-9 overflow-hidden rounded-full border-2 border-white bg-orange-500 p-0.5 text-blue-900 shadow-lg">
+                {userProfileData?.attributes?.avatar?.data?.attributes?.url ? (
+                  <Image
+                    src={
+                      userProfileData?.attributes?.avatar?.data?.attributes?.url
+                    }
+                    alt="avatar"
+                    width={100}
+                    height={100}
+                    className="hover:text-primary group h-full w-full cursor-pointer rounded-full object-cover"
+                  />
+                ) : (
+                  <p className="font-bold capitalize">
+                    {loginUserName.slice(0, 1)}
+                  </p>
+                )}
               </div>
-              <div className="absolute right-0 top-10 z-10 hidden w-max rounded-md border border-gray-200 bg-white py-1 text-zinc-600 group-hover:block">
+              <div className="absolute right-0 top-9 z-10 hidden w-max rounded-md border border-gray-200 bg-white py-1 text-zinc-600 group-hover:block">
                 <p className="text-center text-xs text-orange-500">
                   Hello, {userProfileData?.attributes?.username?.split(" ")[0]}
                 </p>

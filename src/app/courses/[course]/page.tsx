@@ -11,7 +11,6 @@ import Content, {
   OtherCourses,
 } from "@/components/detailPageSections/Content";
 import Faqs from "@/components/Faqs";
-import Header from "@/components/header/Header";
 import Wrapper from "@/components/Wrappers";
 import { faqs, header } from "@/data/wrapperData";
 import { formatRupee } from "@/utils/customText";
@@ -20,7 +19,6 @@ import React from "react";
 export default function page() {
   return (
     <>
-      <Header header={header} />
       <Wrapper bgColor="bg-blue-50" containerClassName="mt-14 py-10">
         <CourseDetailBanner
           tag={"Web Development"}

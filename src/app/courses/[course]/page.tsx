@@ -12,7 +12,7 @@ import Content, {
 } from "@/components/detailPageSections/Content";
 import Faqs from "@/components/Faqs";
 import Wrapper from "@/components/Wrappers";
-import { faqs, header } from "@/data/wrapperData";
+import { faqs } from "@/data/wrapperData";
 import { formatRupee } from "@/utils/customText";
 import React from "react";
 
@@ -22,15 +22,15 @@ export default function page() {
       <Wrapper bgColor="bg-blue-50" containerClassName="mt-14 py-10">
         <CourseDetailBanner
           tag={"Web Development"}
-          title={"Graphic Design Masterclass - Learn GREAT Design"}
+          title={"Mastering Digital Marketing: Strategies & Tactics"}
           desc={
-            "The Ultimate Graphics Design Course Which Covers Photoshop, Illustrator, InDesign, Design Theory, Branding & Logo Design"
+            "Learn the ins and outs of digital marketing to grow your business and career."
           }
           isBestSeller={true}
           reviews={44}
           rating={4.5}
           authorName={"Pankaj Kumar"}
-          lastUpdated={"08 May 2024"}
+          lastUpdated={"08 Sep 2024"}
           fees={5000}
           discountFeesBy={20}
           demoVideo={video}

@@ -18,19 +18,19 @@ export const header = {
       subNav: [
         {
           id: 21,
-          label: "courses1",
-          href: "/courses1",
+          label: "Digital Marketing",
+          href: "/courses/1",
         },
-        {
-          id: 22,
-          label: "courses2",
-          href: "#",
-        },
-        {
-          id: 23,
-          label: "courses3",
-          href: "#",
-        },
+        // {
+        //   id: 22,
+        //   label: "courses2",
+        //   href: "#",
+        // },
+        // {
+        //   id: 23,
+        //   label: "courses3",
+        //   href: "#",
+        // },
       ],
     },
     {
@@ -199,42 +199,41 @@ export const footer = {
 
 export const faqs = [
   {
-    id: 1,
-    question: "When was the University Established?",
+    question: "What is Talent Kaksha?",
     answer:
-      "The Indian Institute of Technology, Madras was established in 1961. The institute was founded by the erstwhile Prime Minister, Shri. Venkatesh Iyengar.",
+      "Talent Kaksha is an online learning platform offering expert-led courses in various fields, focusing on hands-on learning and practical skills.",
   },
   {
-    id: 2,
-    question: "Is the University a Private or Government University",
+    question: "How do I enroll in a course?",
     answer:
-      "The Indian Institute of Technology, Madras is a private university. The institute is governed by the Government of India. The institute has a status of Government.",
+      "Simply browse our course catalog, choose the course you want to enroll in, and follow the on-screen instructions to sign up and start learning.",
   },
   {
-    id: 3,
-    question: "What is the University Affiliation?",
+    question: "Do I get a certificate after completing a course?",
     answer:
-      "The Indian Institute of Technology, Madras is affiliated to the University of Madras. The institute is governed by the Government of India. The institute has a status of Government.",
+      "Yes! Upon completing a course, you will receive a verified certificate that you can showcase to potential employers or clients.",
   },
   {
-    id: 4,
-    question: "How good is the University",
+    question: "Are the courses self-paced?",
     answer:
-      "The Indian Institute of Technology, Madras is a private university. The institute is governed by the Government of India. The institute has a status of Government.",
+      "Yes, all courses on Talent Kaksha are self-paced, allowing you to learn at your convenience without any deadlines.",
   },
   {
-    id: 5,
-    question: "What courses does the University Offer?",
+    question: "What if I need help during the course?",
     answer:
-      "The Indian Institute of Technology, Madras is a private university. The institute is governed by the Government of India. The institute has a status of Government.",
+      "We have a strong support system in place, including a community of learners and instructors, as well as dedicated support to help you with any questions.",
+  },
+  {
+    question: "Can I access the courses on mobile?",
+    answer:
+      "Absolutely! All of our courses are accessible on any device, including mobile phones and tablets, so you can learn on the go.",
   },
 ];
 
 export const content = [
   {
     subtitle: "About Course",
-    title:
-      "Covers pretty much everything you need to know about Graphics Design",
+    title: "Everything You Need to Know About Digital Marketing for Success",
     textEditor: html,
   },
   {
@@ -248,25 +247,25 @@ export const content = [
       totalAssignments: 18,
       lessons: [
         {
-          title: "Exercise: Turning Information Priority into an IModel",
+          title: "Introduction to Digital Marketing",
           duration: "2h 32m",
           sections: [
             {
-              title: "Hierarchical Tree IA Model pdf",
+              title: "Understanding Digital Marketing",
               href: pdf,
               duration: "5h 32m",
               isDemo: true,
               category: "pdf",
             },
             {
-              title: "Hierarchical Tree IA Model video",
+              title: "Digital Marketing Overview Video",
               href: video,
               duration: "4h 32m",
               isDemo: true,
               category: "video",
             },
             {
-              title: "Hierarchical Tree IA Model pdf",
+              title: "SEO Foundations: Mastering Search Engine Optimization",
               href: "https://www.aeee.in/wp-content/uploads/2020/08/Sample-pdf.pdf",
               duration: "2h 32m",
               isDemo: false,
@@ -498,3 +497,156 @@ export const keyFeatures = [
     icon: "certificate",
   },
 ];
+
+const course = {
+  id: 1,
+  bgImage: "img",
+  courseTitle: "Learning JavaScript With Imagination",
+  description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+  fees: 50000,
+  discountedPercentage: 10,
+  category: ["Development", "Programming"],
+  specialization: ["Java", "JavaScript"],
+  reviews: [],
+  rating: 4.5,
+  instructorDetails: {
+    name: "Pankaj Kumar",
+    avatar: "img",
+    designation: "29-year UX + Design Veteran; Consultant, Author & Speaker",
+    description: `<p>this is a text editor</p>`,
+    rating: 4.7,
+    totalReviews: 45453453,
+    studentEnrolled: 64565,
+    totalCourse: 12,
+  },
+  lastUpdate: "2022-01-01",
+  DetailPageContent: {
+    subtitle: "About Course",
+    title:
+      "Covers pretty much everything you need to know about Graphics Design",
+    textEditor: `<p>this is a text editor</p>`,
+    syllabus: {
+      totalLessons: 10,
+      totalHours: "24h 32m",
+      totalVideos: 10,
+      totalArticles: 5,
+      totalAssignments: 18,
+      lessons: [
+        {
+          title: "Exercise: Turning Information Priority into an IModel",
+          duration: "2h 32m",
+          sections: [
+            {
+              title: "Hierarchical Tree IA Model pdf",
+              href: pdf,
+              duration: "5h 32m",
+              isDemo: true,
+              category: "pdf",
+            },
+            {
+              title: "Hierarchical Tree IA Model video",
+              href: video,
+              duration: "4h 32m",
+              isDemo: true,
+              category: "video",
+            },
+            {
+              title: "Hierarchical Tree IA Model pdf",
+              href: "https://www.aeee.in/wp-content/uploads/2020/08/Sample-pdf.pdf",
+              duration: "2h 32m",
+              isDemo: false,
+              category: "pdf",
+            },
+          ],
+        },
+        {
+          title: "Exercise: Turning Information Priority into an IModel",
+          duration: "2h 32m",
+          sections: [
+            {
+              title: "Hierarchical Tree IA Model",
+              href: "https://pdfobject.com/pdf/sample.pdf",
+              duration: "2h 32m",
+              isDemo: true,
+              category: "pdf",
+            },
+            {
+              title: "Hierarchical Tree IA Model",
+              href: video,
+              duration: "2h 32m",
+              isDemo: true,
+              category: "pdf",
+            },
+            {
+              title: "Hierarchical Tree IA Model",
+              href: "https://pdfobject.com/pdf/sample.pdf",
+              duration: "2h 32m",
+              isDemo: true,
+              category: "pdf",
+            },
+          ],
+        },
+      ],
+    },
+  },
+  faqs: [
+    {
+      id: 1,
+      question: "When was the University Established?",
+      answer:
+        "The Indian Institute of Technology, Madras was established in 1961. The institute was founded by the erstwhile Prime Minister, Shri. Venkatesh Iyengar.",
+    },
+    {},
+    {},
+  ],
+  materialIncluded: [
+    {
+      icon: "image",
+      title: "Authentic Certificate",
+      desc: "Earn a Certificate upon completion",
+    },
+    {},
+    {},
+  ],
+  tags: ["Graphics", "3D", "Animation", "Video"],
+  isPopular: true,
+  popularSequence: 2,
+  sequence: 1,
+};
+
+export const howWeAreDifferent = {
+  title: "How Talent Kaksha Stands Out",
+  subtitle: "What Sets Us Apart from Other Learning Platforms",
+  points: [
+    {
+      title: "Personalized Learning Paths",
+      description:
+        "Unlike others, we offer customized course recommendations and learning paths tailored to your career goals, ensuring you learn what truly matters.",
+    },
+    {
+      title: "Real-World Projects",
+      description:
+        "Our focus is on hands-on learning with real-world projects, so you not only understand the theory but also apply it in practical scenarios.",
+    },
+    {
+      title: "Industry Experts as Instructors",
+      description:
+        "We connect you with instructors who are active industry professionals, giving you insights and knowledge directly from those shaping the future of the industry.",
+    },
+    {
+      title: "Community-Driven Learning",
+      description:
+        "We foster a strong learning community where students, mentors, and professionals collaborate, discuss ideas, and support each other throughout the learning journey.",
+    },
+    {
+      title: "Affordable and Flexible Plans",
+      description:
+        "Our pricing is designed to be flexible and accessible, ensuring everyone can afford quality education without compromising on the learning experience.",
+    },
+    {
+      title: "Verified Certification",
+      description:
+        "Upon course completion, you receive industry-recognized certifications, providing you with valuable credentials that are trusted by employers.",
+    },
+  ],
+};

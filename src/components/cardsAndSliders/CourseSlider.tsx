@@ -66,13 +66,16 @@ export default function CourseSlider() {
                 key={index}
                 slug={index}
                 bgImage={course1}
-                courseTitle={"Learning JavaScript With Imagination"}
+                courseTitle={
+                  "Mastering Digital Marketing: Strategies & Tactics"
+                }
                 tutor={"Pankaj Kumar"}
                 fees={50000}
-                tag={"Development"}
+                tag={"Marketing"}
                 reviews={5}
                 handlePin={handlePin}
                 pinState={PinState}
+                discountedPercentage={20}
               />
             </SwiperSlide>
           );

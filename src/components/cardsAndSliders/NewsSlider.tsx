@@ -18,7 +18,7 @@ import { getAllNews } from "@/graphql/newsQuery/news";
 // import { getAllColleges } from "@/graphql/collegeQuery/colleges";
 // import { getAllTopColleges } from "@/graphql/collegeQuery/topColleges";
 
-export default function NewsSlider() {
+export default function NewsSlider({ slidesPerView1260 = 4 }: any) {
   const uniqueId = "news123";
   // Query
   const {
@@ -69,7 +69,7 @@ export default function NewsSlider() {
         slidesPerView: 3,
       },
       1260: {
-        slidesPerView: 4,
+        slidesPerView: slidesPerView1260,
       },
     },
   };

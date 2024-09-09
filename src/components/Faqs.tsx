@@ -20,7 +20,7 @@ export default function Faqs({ data, className = "" }: any) {
         >
           {faq?.question && (
             <button
-              onClick={() => toggleFaq(faq?.id)}
+              onClick={() => toggleFaq(index)}
               className="flex w-full items-center justify-between text-left"
             >
               <p className="space-x-5">
@@ -31,7 +31,7 @@ export default function Faqs({ data, className = "" }: any) {
               </p>
               <IoIosArrowDown
                 className={`transform text-xl transition-transform ${
-                  openFaq === faq?.id || (index === 0 && openFaq === null)
+                  openFaq === index || (index === 0 && openFaq === null)
                     ? "rotate-180"
                     : ""
                 }`}
@@ -41,7 +41,7 @@ export default function Faqs({ data, className = "" }: any) {
           {faq?.answer && (
             <div
               className={`mt-2 transition-all duration-300 ease-in-out ${
-                openFaq === faq?.id || (index === 0 && openFaq === null)
+                openFaq === index || (index === 0 && openFaq === null)
                   ? "max-h-96"
                   : "max-h-0 overflow-hidden"
               }`}
@@ -69,18 +69,18 @@ export function FaqsForDetailPage({ data, className = "" }: any) {
     <div className={`flex flex-col gap-4 ${className}`}>
       {data?.map((faq: any, index: number) => (
         <div
-          key={faq?.id}
+          key={index}
           className="mb-4 rounded-2xl bg-white px-6 py-2 pt-4 shadow-lg"
         >
           {faq?.question && (
             <button
-              onClick={() => toggleFaq(faq?.id)}
+              onClick={() => toggleFaq(index)}
               className="flex w-full items-center justify-between text-left"
             >
               <span className="text-lg font-medium">{faq?.question}</span>
               <IoIosArrowDown
                 className={`transform text-xl transition-transform ${
-                  openFaq === faq?.id || (index === 0 && openFaq === null)
+                  openFaq === index || (index === 0 && openFaq === null)
                     ? "rotate-180"
                     : ""
                 }`}
@@ -90,7 +90,7 @@ export function FaqsForDetailPage({ data, className = "" }: any) {
           {faq?.answer && (
             <div
               className={`mt-2 transition-all duration-300 ease-in-out ${
-                openFaq === faq?.id || (index === 0 && openFaq === null)
+                openFaq === index || (index === 0 && openFaq === null)
                   ? "max-h-96"
                   : "max-h-0 overflow-hidden"
               }`}

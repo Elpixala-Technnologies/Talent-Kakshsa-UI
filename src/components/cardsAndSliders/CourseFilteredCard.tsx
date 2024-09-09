@@ -1,10 +1,11 @@
 import React from "react";
 import { Button } from "../Button";
 import Image from "next/image";
-import formatFees, { formatRupee } from "@/utils/customText";
+import formatFees, { discountedAmount, formatRupee } from "@/utils/customText";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { FaStar } from "react-icons/fa";
 import { TiPinOutline } from "react-icons/ti";
+import Link from "next/link";
 
 export default function CourseFilteredCard({
   slug,
@@ -14,6 +15,7 @@ export default function CourseFilteredCard({
   fees,
   tag,
   reviews,
+  discountedPercentage,
   handlePin,
   pinState,
 }: any) {
@@ -45,7 +47,11 @@ export default function CourseFilteredCard({
             <FaStar className="text-yellow-500" />({reviews} Review)
           </p>
         </div>
-        <h2 className="poppins-bold text-lg">{courseTitle}</h2>
+        <Link href={slug ? `courses/${slug}` : `#`}>
+          <h2 className="poppins-bold cursor-pointer text-lg hover:text-blue-900">
+            {courseTitle}
+          </h2>
+        </Link>
         <p>By {tutor}</p>
         <div className="flex items-center justify-between">
           <Button
@@ -54,7 +60,19 @@ export default function CourseFilteredCard({
           >
             Enroll Now <FaArrowRightLong />
           </Button>
-          <p className="poppins-bold text-lg">₹ {formatRupee(fees)}</p>
+          <div className="text-right">
+            <p className="poppins-bold text-lg">
+              ₹{" "}
+              {discountedPercentage
+                ? formatRupee(discountedAmount(fees, discountedPercentage))
+                : formatRupee(fees)}
+            </p>
+            {discountedPercentage && (
+              <p className="poppins-medium text-zinc-500 line-through">
+                ₹ {formatRupee(fees)}
+              </p>
+            )}
+          </div>
         </div>
       </div>
     </div>
@@ -97,7 +115,11 @@ export function CourseFilteredCardList({
             {tag}
           </p>
           <div>
-            <h2 className="poppins-bold text-lg">{courseTitle}</h2>
+            <Link href={slug ? `courses/${slug}` : `#`}>
+              <h2 className="poppins-bold cursor-pointer text-lg hover:text-blue-900">
+                {courseTitle}
+              </h2>
+            </Link>
             <p>By {tutor}</p>
             <p className="flex items-center text-zinc-400">
               <FaStar className="text-yellow-500" />({reviews} Review)

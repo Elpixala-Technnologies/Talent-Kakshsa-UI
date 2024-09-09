@@ -13,6 +13,7 @@ import { FaPeopleGroup } from "react-icons/fa6";
 import { PiStudentBold } from "react-icons/pi";
 import { FaBook, FaHandPeace } from "react-icons/fa";
 import { addCommas } from "@/utils/customText";
+import Link from "next/link";
 
 export default function HomeBanner({
   title,
@@ -51,12 +52,14 @@ export default function HomeBanner({
             <HomeTypeHeadSearchBar />
           </div>
           <div className="flex gap-2 max-sm:justify-center md:gap-4">
-            <Button
-              variant="whiteTransparent"
-              className="text-nowrap font-semibold max-md:!px-4"
-            >
-              Read More
-            </Button>
+            <Link href="/courses">
+              <Button
+                variant="whiteTransparent"
+                className="text-nowrap font-semibold max-md:!px-4"
+              >
+                Explore Now
+              </Button>
+            </Link>
             <Button
               variant="blue"
               className="text-nowrap font-semibold max-md:!px-4"

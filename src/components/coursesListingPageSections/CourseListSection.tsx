@@ -197,6 +197,7 @@ export default function CourseListSection({
                     reviews={5}
                     handlePin={setPinState}
                     pinState={PinState}
+                    discountedPercentage={20}
                   />
                 ))
               : [1, 2, 3, 4, 5]?.map(() => (

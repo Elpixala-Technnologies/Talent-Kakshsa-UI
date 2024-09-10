@@ -29,17 +29,17 @@ export default function CourseFilteredCard({
       >
         <TiPinOutline />
       </button>
-      <div className="p-5 lg:h-60">
+      <div className="p-5 pb-3">
         <Image
           src={bgImage}
           alt="logo"
           width={500}
           height={500}
-          className="max-h-60 w-full rounded-md object-cover"
+          className="h-60 w-full rounded-md object-cover"
         />
       </div>
       <div className="space-y-3 p-5 pt-0">
-        <div className="flex items-center justify-between gap-2">
+        <div className="mb-2 flex items-center justify-between gap-2">
           <p className="rounded-e-full rounded-s-full bg-zinc-300 px-4 py-1 font-semibold">
             {tag}
           </p>

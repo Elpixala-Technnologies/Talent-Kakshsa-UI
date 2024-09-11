@@ -35,7 +35,7 @@ export default function AffiliateProgramDetailPage({ params }: Props) {
         containerClassName="mt-10"
         className="relative grid grid-cols-12 gap-1 py-14 md:gap-4"
       >
-        <aside className="bottom-0 left-1/2 w-full space-y-5 max-md:fixed max-md:z-50 max-md:-translate-x-1/2 md:col-span-2 lg:col-span-3">
+        <aside className="bottom-0 left-1/2 w-full space-y-5 max-md:z-50 max-md:hidden max-md:-translate-x-1/2 md:col-span-2 lg:col-span-3">
           {/* Tabs */}
           <ul className="flex w-full justify-between rounded-2xl bg-white p-5 px-3 text-lg shadow-md md:flex-col md:gap-4 lg:gap-1">
             <Tab

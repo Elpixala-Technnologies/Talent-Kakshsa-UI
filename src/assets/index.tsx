@@ -20,6 +20,7 @@ import videoT from "@/assets/banners/videoT.png";
 import banner1 from "@/assets/banners/banner1.jpg";
 import course1 from "@/assets/banners/course1.jpeg";
 import homeBanner from "@/assets/banner.png";
+import storeBanner from "@/assets/banners/Rectangle 5.png";
 //icon
 import icon from "@/assets/documents.png";
 import icon1 from "@/assets/Coffee.svg";
@@ -27,6 +28,8 @@ import icon1 from "@/assets/Coffee.svg";
 import pdf from "@/assets/pdf.pdf";
 // sounds
 import notificationSound from "@/assets/notificationSound.mp3";
+// Store
+import phone from "@/assets/phone.png";
 export {
   headerLogo,
   footerLogo,
@@ -42,8 +45,10 @@ export {
   banner1,
   course1,
   homeBanner,
+  storeBanner,
   icon,
   icon1,
   pdf,
   notificationSound,
+  phone,
 };

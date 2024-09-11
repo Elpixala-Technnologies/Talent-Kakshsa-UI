@@ -8,6 +8,7 @@ import PdfViewer from "./PDFViewer";
 import useIsMobile from "./customHooks/useIsMobile";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useClickOutside } from "@/customHook/useClickOutside";
 
 interface MediaModalProps {
   isOpen: boolean;
@@ -31,6 +32,7 @@ const MediaModal: React.FC<MediaModalProps> = ({
 
   const isMobile = useIsMobile();
   const router = useRouter();
+  const clickOutsiderRef = useClickOutside(onClose);
 
   useEffect(() => {
     if (isOpen && isMobile && mediaType === "pdf") {
@@ -47,9 +49,10 @@ const MediaModal: React.FC<MediaModalProps> = ({
       <div
         className="relative w-full max-w-max rounded-lg max-md:h-full"
         onClick={(e) => e.stopPropagation()}
+        ref={clickOutsiderRef}
       >
         <button
-          className="absolute right-5 top-5 z-10 text-2xl text-orange-500 hover:text-orange-500 md:-right-7 md:-top-6 md:text-white"
+          className="absolute right-5 top-5 z-10 text-2xl text-orange-500 md:-right-7 md:-top-6"
           onClick={onClose}
         >
           <AiOutlineCloseCircle />

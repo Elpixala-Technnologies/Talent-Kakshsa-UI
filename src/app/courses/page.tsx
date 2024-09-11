@@ -8,7 +8,7 @@ export default function page() {
   return (
     <>
       <Wrapper bgColor="bg-blue-50" containerClassName="mt-14 py-10">
-        <div className="swiperStyle1 relative">
+        <div className="swiperStyle2 relative">
           <CourseBanner />
         </div>
       </Wrapper>

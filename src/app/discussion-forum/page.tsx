@@ -17,7 +17,6 @@ import {
   Card,
 } from "@/components/cardsAndSliders/BlogSlider1";
 import ThreadListingCard from "@/components/cardsAndSliders/ThreadListingCard";
-import { news1 } from "@/assets";
 import Banner1 from "@/components/banners/Banner1";
 import { DiscussionForumPostInput } from "@/components/Page-discussionForumPage/DiscussionForumPostInput";
 

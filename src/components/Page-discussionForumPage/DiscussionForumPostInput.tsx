@@ -26,6 +26,7 @@ import { HiArrowUturnRight } from "react-icons/hi2";
 import { FaRegPlayCircle } from "react-icons/fa";
 import MediaModal from "../MediaModal";
 import useIsIOS from "@/customHook/useIsIOS";
+import { useClickOutside } from "@/customHook/useClickOutside";
 
 export function DiscussionForumPostInput({ avatar }: any) {
   const [title, setTitle] = useState<string>("");
@@ -48,9 +49,9 @@ export function DiscussionForumPostInput({ avatar }: any) {
   // Modal
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedMediaSrc, setSelectedMediaSrc] = useState("");
-  const [selectedMediaType, setSelectedMediaType] = useState<"image" | "video">(
-    "image",
-  );
+  const [selectedMediaType, setSelectedMediaType] = useState<
+    "image" | "video" | "pdf"
+  >("image");
   // Detect ios
   const { isIOS, isIPhone } = useIsIOS();
 
@@ -99,7 +100,7 @@ export function DiscussionForumPostInput({ avatar }: any) {
     }
   };
 
-  const openModal = (src: string, type: "image" | "video") => {
+  const openModal = (src: string, type: "image" | "video" | "pdf") => {
     setSelectedMediaSrc(src);
     setSelectedMediaType(type);
     setIsModalOpen(true);
@@ -129,7 +130,7 @@ export function DiscussionForumPostInput({ avatar }: any) {
               <input
                 className="w-full rounded bg-blue-50 px-3 py-2 text-sm text-slate-700 shadow-sm transition duration-300 placeholder:text-slate-400 hover:border-blue-400 focus:border-blue-400 focus:shadow-md focus:outline-none"
                 placeholder="Title"
-                value={codeFileName}
+                value={title}
                 onChange={(e) => setTitle(e.target.value)}
               />
               <textarea
@@ -241,7 +242,6 @@ export function DiscussionForumPostInput({ avatar }: any) {
         {/* Camera and uploaded Image Previews */}
         <div className="mt-4 flex w-full flex-wrap gap-4">
           {isCamera && (
-            // <CustomWebcam imgSrc={imgSrc} setImgSrc={setImgSrc} />
             <MultiPhotoCapture
               photos={imgSrc}
               setPhotos={setImgSrc}
@@ -405,6 +405,7 @@ const MultiPhotoCapture: React.FC<MultiPhotoCaptureProps> = ({
   const [torchToggled, setTorchToggled] = useState<boolean>(false);
   const [numberOfCameras, setNumberOfCameras] = useState<number>(0);
 
+  const camRef = useClickOutside(() => setIsCamera(false));
   const capturePhoto = () => {
     if (cameraRef.current) {
       const photo = cameraRef.current.takePhoto();
@@ -438,7 +439,10 @@ const MultiPhotoCapture: React.FC<MultiPhotoCaptureProps> = ({
 
   return (
     <div className="relative">
-      <div className="fixed inset-0 z-[99999999999] sm:h-1/2 sm:w-1/2 sm:translate-x-[50%] sm:translate-y-[50%]">
+      <div
+        className="fixed inset-0 z-[99999999999] sm:h-1/2 sm:w-1/2 sm:translate-x-[50%] sm:translate-y-[50%]"
+        ref={camRef}
+      >
         {!currentPhoto ? (
           <Camera
             ref={cameraRef}
@@ -465,7 +469,7 @@ const MultiPhotoCapture: React.FC<MultiPhotoCaptureProps> = ({
         )}
         <button
           onClick={() => setIsCamera(false)}
-          className="absolute right-3 top-3 text-3xl text-white"
+          className="absolute right-3 top-3 text-3xl text-red-500"
         >
           <IoMdCloseCircleOutline />
         </button>

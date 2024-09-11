@@ -30,6 +30,7 @@ export default function Dashboard() {
     "bg-purple-100 text-purple-800",
     "bg-pink-100 text-pink-800",
   ];
+
   const color2 = [
     "bg-blue-500",
     "bg-red-500",
@@ -38,10 +39,11 @@ export default function Dashboard() {
     "bg-purple-500",
     "bg-pink-500",
   ];
+
   return (
-    <div className="relative grid grid-cols-3 gap-5">
+    <div className="relative grid grid-cols-1 gap-5 md:grid-cols-3">
       {/* col-span-1  */}
-      <div className="col-span-1 gap-3 rounded-lg text-sm">
+      <div className="col-span-1 gap-3 rounded-lg text-sm md:col-span-1">
         {/* row 1  */}
         <div className="grid grid-cols-1 gap-3 rounded-lg bg-white p-3 text-center md:grid-cols-2">
           <div className="col-span-1 rounded-lg bg-gray-200 p-2 text-blue-800">
@@ -96,7 +98,7 @@ export default function Dashboard() {
         </div>
       </div>
       {/* col-span-2  */}
-      <div className="col-span-2 space-y-5 rounded-lg text-sm">
+      <div className="col-span-1 space-y-5 rounded-lg text-sm md:col-span-2">
         {/* row 1 */}
         <div className="rounded-lg bg-white p-3">
           <h2 className="mb-2 text-lg font-semibold">Your referral link</h2>

@@ -74,7 +74,7 @@ function CourseBannerCard({ bgImg, href }: any) {
     <Link href={href} className="w-full overflow-hidden rounded-xl">
       <Image
         src={bgImg}
-        className="w-full object-cover object-center"
+        className="w-full object-cover object-center max-md:min-h-48"
         alt="banner image"
       />
     </Link>

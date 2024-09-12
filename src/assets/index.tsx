@@ -6,6 +6,8 @@ import vector1 from "@/assets/vectors/Vector1.svg";
 import vector2 from "@/assets/vectors/Vector2.svg";
 import vector3 from "@/assets/vectors/Vector3.svg";
 import vector4 from "@/assets/vectors/Vector4.svg";
+import vector5 from "@/assets/vectors/Vector5.svg";
+import pattern1 from "@/assets/vectors/pattern.svg";
 
 // Login bg
 import login_bg from "@/assets/login-background.png";
@@ -21,6 +23,8 @@ import banner1 from "@/assets/banners/banner1.jpg";
 import course1 from "@/assets/banners/course1.jpeg";
 import homeBanner from "@/assets/banner.png";
 import storeBanner from "@/assets/banners/Rectangle 5.png";
+import storeBanner1 from "@/assets/banners/banner3.png";
+import Banner4 from "@/assets/banners/banner4.png";
 //icon
 import icon from "@/assets/documents.png";
 import icon1 from "@/assets/Coffee.svg";
@@ -37,6 +41,8 @@ export {
   vector2,
   vector3,
   vector4,
+  vector5,
+  pattern1,
   news1,
   login_bg,
   user1,
@@ -46,6 +52,8 @@ export {
   course1,
   homeBanner,
   storeBanner,
+  storeBanner1,
+  Banner4,
   icon,
   icon1,
   pdf,

@@ -1,5 +1,10 @@
 "use client";
+import Banner2 from "@/components/banners/Banner2";
 import StoreBanner from "@/components/banners/StoreBanner";
+import ProductSlider from "@/components/cardsAndSliders/ProductSlider";
+import ProductSlider1 from "@/components/cardsAndSliders/ProductSlider1";
+import ProductSlider2 from "@/components/cardsAndSliders/ProductSlider2";
+import ProductSlider3 from "@/components/cardsAndSliders/ProductSlider3";
 import Dropdown from "@/components/Dropdown";
 import Wrapper from "@/components/Wrappers";
 import { useClickOutside } from "@/customHook/useClickOutside";
@@ -17,8 +22,32 @@ export default function StorePage() {
         </div>
       </Wrapper>
       <Wrapper bgColor="bg-blue-50" containerClassName="py-10">
-        <Heading t1="Grab the best deal on" t2="Electronics" />
+        <div className="mb-10">
+          <Heading t1="Grab the best deal on" t2="Electronics" />
+          <div className="swiperStyle1 relative">
+            <ProductSlider />
+          </div>
+        </div>
+        <div className="mb-10">
+          <Heading t1="Shop for Best" t2="Software" />
+          <div className="swiperStyle1 relative">
+            <ProductSlider1 />
+          </div>
+        </div>
+        <div className="mb-10">
+          <Heading t1="Exclusive Merchandise" t2="Software" />
+          <div className="swiperStyle1 relative">
+            <ProductSlider2 />
+          </div>
+        </div>
+        <div className="mb-10">
+          <Heading t1="Popular" t2="eBooks" />
+          <div className="swiperStyle1 relative">
+            <ProductSlider3 />
+          </div>
+        </div>
       </Wrapper>
+      <Banner2 />
     </>
   );
 }
@@ -72,7 +101,7 @@ function Navbar() {
 
 function Heading({ t1, t2 }: any) {
   return (
-    <h2 className="flex w-fit flex-wrap gap-1 text-wrap border-b-4 border-orange-500 text-xl font-bold md:text-2xl">
+    <h2 className="mb-8 flex w-fit flex-wrap gap-1 text-wrap border-b-4 border-orange-500 text-xl font-bold md:text-2xl">
       <span className="text-zinc-700">{t1}</span>
       <span className="text-blue-900">{t2}</span>
     </h2>

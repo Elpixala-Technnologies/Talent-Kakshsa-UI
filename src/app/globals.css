@@ -453,3 +453,7 @@ input[type="text"] {
     repeating-conic-gradient(var(--c2) 0 25%, var(--c1) 0 50%) 0 0 / var(--s)
       var(--s);
 }
+
+.clip-right-bottom {
+  clip-path: polygon(0 0, 100% 0, 100% 75%, 75% 100%, 0 100%);
+}

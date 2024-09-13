@@ -22,7 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="relative bg-orange-50 !antialiased">
+      <body className="relative bg-blue-50 !antialiased">
         <ReduxProvider>
           <ApolloWrapper>
             <SocketContextProvider>

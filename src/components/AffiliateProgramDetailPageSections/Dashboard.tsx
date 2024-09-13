@@ -19,26 +19,10 @@ import { FiCopy } from "react-icons/fi";
 import { FaShareAlt } from "react-icons/fa";
 import { Button } from "../Button";
 import { BsSendFill } from "react-icons/bs";
+import { color, color2 } from "@/data/wrapperData";
 
 export default function Dashboard() {
   const [monthTab, setMonthTab] = useState("daily");
-  const color = [
-    "bg-blue-100 text-blue-800",
-    "bg-red-100 text-red-800",
-    "bg-green-100 text-green-800",
-    "bg-yellow-100 text-yellow-800",
-    "bg-purple-100 text-purple-800",
-    "bg-pink-100 text-pink-800",
-  ];
-
-  const color2 = [
-    "bg-blue-500",
-    "bg-red-500",
-    "bg-green-500",
-    "bg-yellow-500",
-    "bg-purple-500",
-    "bg-pink-500",
-  ];
 
   return (
     <div className="relative grid grid-cols-1 gap-5 md:grid-cols-3">

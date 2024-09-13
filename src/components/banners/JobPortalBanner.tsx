@@ -19,7 +19,7 @@ export default function JobPortalBanner() {
     >
       <div className="relative z-10 space-y-5 py-5 md:py-16">
         <div>
-          <h2 className="text-3xl font-bold leading-3 text-blue-950 md:text-6xl">
+          <h2 className="text-3xl font-bold text-blue-950 md:text-6xl">
             Discover <br /> more than <br />
             <span className="text-orange-500">5000+ Jobs</span>
           </h2>

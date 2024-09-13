@@ -457,3 +457,7 @@ input[type="text"] {
 .clip-right-bottom {
   clip-path: polygon(0 0, 100% 0, 100% 75%, 75% 100%, 0 100%);
 }
+
+.clip-top-left {
+  clip-path: polygon(20% 0, 100% 0, 100% 100%, 0 100%, 0 20%);
+}

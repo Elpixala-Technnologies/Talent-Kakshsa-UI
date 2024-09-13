@@ -25,6 +25,7 @@ import homeBanner from "@/assets/banner.png";
 import storeBanner from "@/assets/banners/Rectangle 5.png";
 import storeBanner1 from "@/assets/banners/banner3.png";
 import Banner4 from "@/assets/banners/banner4.png";
+import banner5 from "@/assets/banners/banner5.png";
 //icon
 import icon from "@/assets/documents.png";
 import icon1 from "@/assets/Coffee.svg";
@@ -54,6 +55,7 @@ export {
   storeBanner,
   storeBanner1,
   Banner4,
+  banner5,
   icon,
   icon1,
   pdf,

@@ -112,7 +112,7 @@ export default function HomePage() {
         <div className="dotted-gradient mx-auto !-mt-60 h-64 w-full rounded-2xl"></div>
       </Wrapper>
       {/* Packages  */}
-      <Wrapper bgColor="bg-blue-50" className="relative space-y-5 py-16">
+      {/* <Wrapper bgColor="bg-blue-50" className="relative space-y-5 py-16">
         <h2 className="mb-5 text-center text-3xl font-bold text-blue-900">
           Our Packages
         </h2>
@@ -128,7 +128,7 @@ export default function HomePage() {
             />
           ))}
         </div>
-      </Wrapper>
+      </Wrapper> */}
       {/* How We Are Different  */}
       <HowWeAreDifferent />
       {/* FAQs  */}

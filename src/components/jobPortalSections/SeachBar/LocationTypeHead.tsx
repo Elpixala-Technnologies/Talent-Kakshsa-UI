@@ -7,7 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { course1 } from "@/assets";
 
-export default function LocationTypeHead() {
+export default function LocationTypeHead({ setInputs }: any) {
   const [query, setQuery] = useState("");
   // const [getSuggestions, { loading, data }] = useLazyQuery(homePageSearch);
   const handleSearch = (query: any) => {
@@ -32,28 +32,34 @@ export default function LocationTypeHead() {
 
   // if (data) {
   //   // Extracting results from the response
-  //   const { colleges, courses, exams, news } = data;
-  //   if (courses) {
-  //     courses.data.forEach((course: any) => {
-  //       options.push({
-  //         id: course.id,
-  //         name: course?.attributes?.courseName,
-  //         logo: course?.attributes?.bgImage?.data?.attributes?.url,
-  //         type: "courses",
+  //   const { location } = data;
+  //   if (location) {
+  //     location.data.forEach((item: any) => {
+  //        options.push({
+  //         id: item.id,
+  //         name: item?.name,
   //       });
   //     });
   //   }
   // }
+  const handleSelectionChange = (selectedOptions: any[]) => {
+    setInputs((prevFilters: any) => ({
+      ...prevFilters,
+      location: [...selectedOptions],
+    }));
+    // console.log("Selected options:", selectedOptions); // Log the selected options
+  };
   return (
     <AsyncTypeahead
       id="autosuggest"
-      //   onInputChange={handleSearch}
       onSearch={handleSearch}
       options={options}
       labelKey="name"
-      minLength={3}
+      multiple
+      minLength={0}
       isLoading={false}
-      placeholder="Location"
+      placeholder="e.g. Delhi"
+      onChange={handleSelectionChange}
       inputProps={{ className: styles.customInput }}
       renderMenuItemChildren={(option: any, props: any) => (
         <div className={styles.customMenuItem}>

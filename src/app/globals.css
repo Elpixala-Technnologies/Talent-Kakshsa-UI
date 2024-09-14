@@ -461,3 +461,21 @@ input[type="text"] {
 .clip-top-left {
   clip-path: polygon(20% 0, 100% 0, 100% 100%, 0 100%, 0 20%);
 }
+
+.rbt-input-wrapper {
+  display: flex;
+  gap: 0.5rem;
+  .rbt-token {
+    display: flex;
+    gap: 0.2rem;
+    align-items: center;
+    border-radius: 0.25rem;
+    background-color: #dbeafe;
+    color: #1d4ed8;
+    padding: 0.125rem 0.5rem;
+  }
+}
+
+.rbt-menu {
+  z-index: 50 !important;
+}

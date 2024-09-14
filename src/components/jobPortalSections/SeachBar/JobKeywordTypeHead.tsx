@@ -3,15 +3,12 @@ import { useState } from "react";
 import { AsyncTypeahead } from "react-bootstrap-typeahead";
 // import { useLazyQuery, gql } from "@apollo/client";
 import styles from "./TypeHeadSearchBar.module.css";
-import Image from "next/image";
-import Link from "next/link";
-import { course1 } from "@/assets";
 
-export default function JobKeywordTypeHead() {
+export default function JobKeywordTypeHead({ setInputs }: any) {
   const [query, setQuery] = useState("");
   // const [getSuggestions, { loading, data }] = useLazyQuery(homePageSearch);
   const handleSearch = (query: any) => {
-    // setQuery(query);
+    setQuery(query);
     // getSuggestions({ variables: { globalSearch: query } });
   };
 
@@ -32,29 +29,38 @@ export default function JobKeywordTypeHead() {
 
   // if (data) {
   //   // Extracting results from the response
-  //   const { colleges, courses, exams, news } = data;
-  //   if (courses) {
-  //     courses.data.forEach((course: any) => {
+  //   const { jobProfiles } = data;
+  //   if (jobProfiles) {
+  //     jobProfiles.data.forEach((item: any) => {
   //       options.push({
-  //         id: course.id,
-  //         name: course?.attributes?.courseName,
-  //         logo: course?.attributes?.bgImage?.data?.attributes?.url,
-  //         type: "courses",
+  //         id: item.id,
+  //         name: item?.name,
   //       });
   //     });
   //   }
   // }
+
+  const handleSelectionChange = (selectedOptions: any[]) => {
+    setInputs((prevFilters: any) => ({
+      ...prevFilters,
+      jobProfile: [...selectedOptions],
+    }));
+    // console.log("Selected options:", selectedOptions); // Log the selected options
+  };
   return (
     <AsyncTypeahead
-      id="autosuggest"
-      //   onInputChange={handleSearch}
+      id="jobKeywordTypeHead"
       onSearch={handleSearch}
       options={options}
       labelKey="name"
-      minLength={3}
+      multiple
+      minLength={0}
       isLoading={false}
-      placeholder="Job title or keyword"
-      inputProps={{ className: styles.customInput }}
+      placeholder="e.g. Web development"
+      inputProps={{
+        className: styles.customInput,
+      }}
+      onChange={handleSelectionChange}
       renderMenuItemChildren={(option: any, props: any) => (
         <div className={styles.customMenuItem}>
           <p className="cursor-pointer">{option?.name}</p>

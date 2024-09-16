@@ -64,7 +64,7 @@ export const header = {
         {
           id: 62,
           label: "Jobs in Banglore",
-          href: "job-portal/all/all/Banglore/on-site/experience-all/salary-all",
+          href: "/job-portal/all/all/Banglore/on-site/experience-all/salary-all",
         },
       ],
     },

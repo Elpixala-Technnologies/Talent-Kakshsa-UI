@@ -5,6 +5,7 @@ import { GrLineChart } from "react-icons/gr";
 import { IoLocationOutline } from "react-icons/io5";
 import { MdCurrencyRupee, MdOutlineWorkHistory } from "react-icons/md";
 import { Button } from "../Button";
+import Link from "next/link";
 
 export default function JobPostCard({
   id,
@@ -52,20 +53,20 @@ export default function JobPostCard({
             Hybrid
           </p>
         )}
-        {!isPartTime && (
+        {isPartTime && (
           <p className="flex items-center gap-2 bg-blue-100 px-2 py-1 text-sm text-blue-600">
             <MdOutlineWorkHistory />
             PartTime
           </p>
         )}
-        {!isFullTime && (
+        {isFullTime && (
           <p className="flex items-center gap-2 bg-blue-100 px-2 py-1 text-sm text-blue-600">
             <MdOutlineWorkHistory />
             FullTime
           </p>
         )}
       </div>
-      <div className="gap-x-0-8 flex flex-wrap gap-2">
+      <div className="flex flex-wrap gap-2 gap-x-8">
         <div>
           <p className="flex items-center gap-2 text-sm text-zinc-400">
             <FaRegCalendarAlt />
@@ -101,15 +102,16 @@ export default function JobPostCard({
           <IoLocationOutline />
           {location}
         </p>
-        <p className="flex items-center gap-2 bg-orange-100 px-2 py-1 text-sm text-orange-600">
-          <IoLocationOutline />
+        <p className="bg-orange-100 px-2 py-1 text-sm text-orange-600">
           {noOfOpening} Openings
         </p>
       </div>
       <div className="flex justify-end border-t border-zinc-300 pt-3">
-        <Button variant="orange" className="text-nowrap">
-          See Details
-        </Button>
+        <Link href={id ? `/job-portal/job-description/${id}` : "#"}>
+          <Button variant="orange" className="text-nowrap">
+            See Details
+          </Button>
+        </Link>
       </div>
     </div>
   );

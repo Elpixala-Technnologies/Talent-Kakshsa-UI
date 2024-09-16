@@ -7,7 +7,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { course1 } from "@/assets";
 
-export default function LocationTypeHead({ setInputs }: any) {
+export default function LocationTypeHead({
+  setInputs,
+  defaultCities = [],
+}: any) {
   const [query, setQuery] = useState("");
   // const [getSuggestions, { loading, data }] = useLazyQuery(homePageSearch);
   const handleSearch = (query: any) => {
@@ -45,10 +48,16 @@ export default function LocationTypeHead({ setInputs }: any) {
   const handleSelectionChange = (selectedOptions: any[]) => {
     setInputs((prevFilters: any) => ({
       ...prevFilters,
-      location: [...selectedOptions],
+      location: [...selectedOptions?.map((item: any) => item?.name)],
     }));
     // console.log("Selected options:", selectedOptions); // Log the selected options
   };
+
+  const defaultSelectedCities = options.filter((option: any) =>
+    defaultCities
+      .map((city: string) => city.replace("-", " "))
+      .includes(option.name),
+  );
   return (
     <AsyncTypeahead
       id="autosuggest"
@@ -60,6 +69,7 @@ export default function LocationTypeHead({ setInputs }: any) {
       isLoading={false}
       placeholder="e.g. Delhi"
       onChange={handleSelectionChange}
+      defaultSelected={defaultSelectedCities}
       inputProps={{ className: styles.customInput }}
       renderMenuItemChildren={(option: any, props: any) => (
         <div className={styles.customMenuItem}>

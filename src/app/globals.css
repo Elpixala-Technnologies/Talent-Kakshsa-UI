@@ -465,6 +465,7 @@ input[type="text"] {
 .rbt-input-wrapper {
   display: flex;
   gap: 0.5rem;
+  flex-wrap: wrap;
   .rbt-token {
     display: flex;
     gap: 0.2rem;

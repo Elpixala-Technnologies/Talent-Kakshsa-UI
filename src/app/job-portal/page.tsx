@@ -22,7 +22,11 @@ export default function page() {
       <JobPortalBanner />
       {/* Explore by category  */}
       <Wrapper bgColor="bg-blue-50" className="py-10">
-        <Heading t1="Explore by" t2="category" href="#" />
+        <Heading
+          t1="Explore by"
+          t2="category"
+          href="/job-portal/all/all/all/on-site/experience-all/salary-all"
+        />
         <ul className="grid grid-cols-2 gap-5 md:grid-cols-3 lg:grid-cols-4">
           {jobCategory?.map((item: any, index: number) => (
             <Link
@@ -44,7 +48,11 @@ export default function page() {
       </Wrapper>
       <JobPortalBanner1 />
       <Wrapper bgColor="bg-blue-50" className="py-10">
-        <Heading t1="Featured" t2="jobs" href="#" />
+        <Heading
+          t1="Featured"
+          t2="jobs"
+          href="/job-portal/all/all/all/on-site/experience-all/salary-all"
+        />
         <ul className="grid grid-cols-1 gap-5 md:grid-cols-3 lg:grid-cols-4">
           {[...Array(8)]?.map((item: any, index: number) => (
             <JobCard
@@ -61,7 +69,11 @@ export default function page() {
         </ul>
       </Wrapper>
       <Wrapper bgColor="bg-blue-50" className="py-10">
-        <Heading t1="Latest" t2="jobs open" href="#" />
+        <Heading
+          t1="Latest"
+          t2="jobs open"
+          href="/job-portal/all/all/all/on-site/experience-all/salary-all"
+        />
         <ul className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-2">
           {[...Array(8)]?.map((item: any, index: number) => (
             <JobCard1

@@ -1,25 +1,88 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/Button";
 import JobKeywordTypeHead from "@/components/jobPortalSections/SeachBar/JobKeywordTypeHead";
 import LocationTypeHead from "@/components/jobPortalSections/SeachBar/LocationTypeHead";
 import Wrapper from "@/components/Wrappers";
-import { IoIosSearch } from "react-icons/io";
+import { IoIosCloseCircleOutline, IoIosSearch } from "react-icons/io";
 import { IoLocationOutline } from "react-icons/io5";
 import { TbFilterCheck } from "react-icons/tb";
 import JobPostCard from "@/components/cardsAndSliders/JobPostCard";
 import { jobPost } from "@/data/job-portal";
 
-export default function JobPortalFilterPage() {
+export default function JobPortalFilterPage({
+  params,
+}: {
+  params: {
+    jobType: string;
+    jobProfile: string;
+    city: string;
+    workMode: string;
+    experience: string;
+    salary: string;
+  };
+}) {
+  const router = useRouter();
+  const { jobType, jobProfile, city, workMode, experience, salary } = params;
+  const jobProfileArray = decodeURIComponent(params.jobProfile).split(",");
+  const jobTypeArray = jobType.split(",");
+  const cityArray = decodeURIComponent(params.city).split(",");
+  const workModeArray = workMode.split(",");
+  // Parse experience and salary (assuming they are passed as numbers after `experience-` and `salary-`)
+  const experienceYear = parseInt(experience.replace("experience-", ""), 10);
+  const salaryRange = parseInt(salary.replace("salary-", ""), 10);
+
+  const [showFilters, setShowFilters] = useState(false);
   const [filters, setFilters] = useState({
-    jobProfile: [],
-    location: [],
-    isPartTime: false,
-    isRemote: false,
-    isFullTime: false,
-    salaryRange: 0,
-    experienceYear: 0,
+    jobProfile: jobProfileArray, // List of job profiles
+    location: cityArray, // List of cities
+    isPartTime: jobTypeArray.includes("part-time"), // Check if part-time is selected
+    isFullTime: jobTypeArray.includes("full-time"), // Check if full-time is selected
+    isRemote: workModeArray.includes("work-from-home"), // Check if work-from-home is selected
+    salaryRange: salaryRange || 0, // Set salary range (default to 0 if not available)
+    experienceYear: experienceYear || 0, // Set experience (default to 0 if not available)
   });
+
+  // Function to handle filter changes and update the URL
+  const updateURL = () => {
+    // Default to 'all' when filters are empty
+    const updatedJobType =
+      [
+        filters.isPartTime ? "part-time" : "",
+        filters.isFullTime ? "full-time" : "",
+      ]
+        .filter(Boolean)
+        .join(",") || "all";
+
+    const updatedJobProfile =
+      filters.jobProfile.length > 0
+        ? filters.jobProfile
+            .map((profile) => profile.replace(/\s+/g, "-"))
+            .join(",")
+        : "all";
+    const updatedCity =
+      filters.location.length > 0
+        ? filters.location.map((city) => city.replace(/\s+/g, "-")).join(",")
+        : "all";
+    const updatedWorkMode = filters.isRemote ? "work-from-home" : "on-site";
+    const updatedExperience =
+      filters.experienceYear > 0
+        ? `experience-${filters.experienceYear}`
+        : "experience-all";
+    const updatedSalary =
+      filters.salaryRange > 0 ? `salary-${filters.salaryRange}` : "salary-all";
+
+    // Update the URL programmatically
+    const newUrl = `/job-portal/${encodeURIComponent(updatedJobType)}/${updatedJobProfile}/${updatedCity}/${updatedWorkMode}/${updatedExperience}/${updatedSalary}`;
+    router.push(newUrl);
+  };
+
+  // // Effect to update URL whenever filters change
+  useEffect(() => {
+    updateURL();
+  }, [filters]);
+
   console.log(filters);
   const handleSalaryRangeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = Math.min(Number(e.target.value), 10); // Cap the value at 10
@@ -45,7 +108,7 @@ export default function JobPortalFilterPage() {
     <>
       <Wrapper
         bgColor="bg-blue-50"
-        containerClassName="pt-24"
+        containerClassName="pt-24 lg:px-36"
         className="grid grid-cols-12 gap-5"
       >
         <div className="max-md:hidden md:col-span-4"></div>
@@ -58,23 +121,48 @@ export default function JobPortalFilterPage() {
       </Wrapper>
       <Wrapper
         bgColor="bg-blue-50"
-        containerClassName="py-16"
-        className="grid grid-cols-12 gap-5"
+        containerClassName="py-16 pt-5  lg:px-36"
+        className="relative grid grid-cols-12 gap-5"
       >
-        <aside className="rounded-lg bg-white p-3 md:col-span-4">
+        <button
+          className="flex w-max items-center gap-2 rounded-full border border-orange-500 px-2 py-1 md:hidden"
+          onClick={() => setShowFilters((prev) => !prev)}
+        >
+          <TbFilterCheck className="text-orange-500" />
+          Filters
+        </button>
+        <aside
+          className={`col-span-12 rounded-lg bg-white p-3 md:sticky md:top-16 md:col-span-4 md:block md:h-screen ${
+            showFilters
+              ? "fixed inset-0 z-50 overflow-y-auto bg-white"
+              : "hidden"
+          }`}
+        >
+          <button
+            className="!fixed !right-4 !top-4 !z-50 text-3xl text-black hover:text-orange-500 md:hidden"
+            onClick={() => setShowFilters((pre) => !pre)}
+          >
+            <IoIosCloseCircleOutline />
+          </button>
           <h2 className="mx-auto mb-5 flex w-max items-center gap-2 text-xl font-bold">
             <TbFilterCheck className="text-orange-500" /> Filter
           </h2>
           <div className="mb-5">
             <p className="mb-3 ml-1">Profile</p>
             <div className="flex flex-wrap gap-2 rounded-xl border border-zinc-400 p-1.5">
-              <JobKeywordTypeHead setInputs={setFilters} />
+              <JobKeywordTypeHead
+                setInputs={setFilters}
+                defaultJobProfiles={jobProfileArray}
+              />
             </div>
           </div>
           <div className="mb-5">
             <p className="mb-3 ml-1">Location</p>
             <div className="flex flex-wrap gap-2 rounded-xl border border-zinc-400 p-1.5">
-              <LocationTypeHead setInputs={setFilters} />
+              <LocationTypeHead
+                setInputs={setFilters}
+                defaultCities={cityArray}
+              />
             </div>
           </div>
           <div>
@@ -158,7 +246,7 @@ export default function JobPortalFilterPage() {
             Apply Filters
           </Button>
         </aside>
-        <div className="col-span-12 text-center md:col-span-8">
+        <div className="col-span-12 space-y-5 text-center md:col-span-8">
           {[1, 2, 3, 4, 5].map((item, index) => (
             <JobPostCard
               key={index}
@@ -169,6 +257,8 @@ export default function JobPortalFilterPage() {
               isPartTime={jobPost?.isPartTime}
               isFullTime={jobPost?.isFullTime}
               isRemote={jobPost?.isRemote}
+              isHybrid={jobPost?.isHybrid}
+              isOffice={jobPost?.isOffice}
               startDate={jobPost?.startDate}
               minSalary={jobPost?.salaryRange?.min}
               maxSalary={jobPost?.salaryRange?.max}
@@ -184,3 +274,15 @@ export default function JobPortalFilterPage() {
     </>
   );
 }
+
+// src\app\job-portal\[jobType]\[jobProfile]\[city]\[workMode]\[experience]\[salary]\page.tsx
+
+//   {
+//   jobProfile: [ { id: 1, name: 'Digital Marketing' }, { id: 3, name: 'SEO' } ],
+//   location: [ { id: 1, name: 'Delhi' }, { id: 3, name: 'Banglore' } ],
+//   isPartTime: false,
+//   isFullTime: false,
+//   isRemote: false,
+//   salaryRange: 0,
+//   experienceYear: 0
+// }

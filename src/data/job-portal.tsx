@@ -50,6 +50,8 @@ export const jobPost = {
   isPartTime: false,
   isFullTime: true,
   isRemote: true,
+  isHybrid: false,
+  isOffice: true,
   isFeatured: true,
   startDate: "Immediately",
   jobPostDate: "2024-09-10",

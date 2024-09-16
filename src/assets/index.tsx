@@ -7,7 +7,7 @@ import vector2 from "@/assets/vectors/Vector2.svg";
 import vector3 from "@/assets/vectors/Vector3.svg";
 import vector4 from "@/assets/vectors/Vector4.svg";
 import vector5 from "@/assets/vectors/Vector5.svg";
-import pattern1 from "@/assets/vectors/pattern.svg";
+import pattern1 from "@/assets/vectors/Pattern.svg";
 
 // Login bg
 import login_bg from "@/assets/login-background.png";

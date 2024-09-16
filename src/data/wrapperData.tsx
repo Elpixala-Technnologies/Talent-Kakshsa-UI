@@ -52,6 +52,23 @@ export const header = {
       ],
     },
     {
+      id: 6,
+      label: "Jobs",
+      href: "/job-portal",
+      subNav: [
+        {
+          id: 61,
+          label: "Jobs in Delhi",
+          href: "/job-portal/all/all/Delhi/on-site/experience-all/salary-all",
+        },
+        {
+          id: 62,
+          label: "Jobs in Banglore",
+          href: "job-portal/all/all/Banglore/on-site/experience-all/salary-all",
+        },
+      ],
+    },
+    {
       id: 3,
       label: "Blogs",
       href: "/blogs",

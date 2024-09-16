@@ -4,7 +4,10 @@ import { AsyncTypeahead } from "react-bootstrap-typeahead";
 // import { useLazyQuery, gql } from "@apollo/client";
 import styles from "./TypeHeadSearchBar.module.css";
 
-export default function JobKeywordTypeHead({ setInputs }: any) {
+export default function JobKeywordTypeHead({
+  setInputs,
+  defaultJobProfiles = [],
+}: any) {
   const [query, setQuery] = useState("");
   // const [getSuggestions, { loading, data }] = useLazyQuery(homePageSearch);
   const handleSearch = (query: any) => {
@@ -43,10 +46,15 @@ export default function JobKeywordTypeHead({ setInputs }: any) {
   const handleSelectionChange = (selectedOptions: any[]) => {
     setInputs((prevFilters: any) => ({
       ...prevFilters,
-      jobProfile: [...selectedOptions],
+      jobProfile: [...selectedOptions?.map((item: any) => item?.name)],
     }));
     // console.log("Selected options:", selectedOptions); // Log the selected options
   };
+  const defaultSelectedJobProfiles = options.filter((option: any) =>
+    defaultJobProfiles
+      .map((profile: string) => profile.replace("-", " "))
+      .includes(option.name),
+  );
   return (
     <AsyncTypeahead
       id="jobKeywordTypeHead"
@@ -61,6 +69,7 @@ export default function JobKeywordTypeHead({ setInputs }: any) {
         className: styles.customInput,
       }}
       onChange={handleSelectionChange}
+      defaultSelected={defaultSelectedJobProfiles}
       renderMenuItemChildren={(option: any, props: any) => (
         <div className={styles.customMenuItem}>
           <p className="cursor-pointer">{option?.name}</p>

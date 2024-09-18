@@ -153,9 +153,11 @@ function Heading({ t1 = "", t2 = "", href = "#" }: any) {
         <span className="text-zinc-800">{t1}</span>{" "}
         <span className="capitalize text-orange-500">{t2}</span>
       </h2>
-      <p className="flex-center cursor-pointer text-right text-orange-500 hover:underline">
-        Show all jobs <FaArrowRightLong />
-      </p>
+      <Link href={href}>
+        <p className="flex-center cursor-pointer text-right text-orange-500 hover:underline">
+          Show all jobs <FaArrowRightLong />
+        </p>
+      </Link>
     </div>
   );
 }

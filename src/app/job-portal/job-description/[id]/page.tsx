@@ -7,6 +7,7 @@ import { GrLineChart } from "react-icons/gr";
 import { IoLocationOutline } from "react-icons/io5";
 import { MdCurrencyRupee, MdOutlineWorkHistory } from "react-icons/md";
 import { GiDart } from "react-icons/gi";
+import { Button } from "@/components/Button";
 
 export default function JobDescriptionPage() {
   return (
@@ -15,7 +16,7 @@ export default function JobDescriptionPage() {
       containerClassName="mt-14 py-16 lg:px-36"
       className="space-y-8"
     >
-      <h1 className="text-center text-3xl font-bold">
+      <h1 className="text-center text-xl font-bold md:text-3xl">
         {jobPost?.title} Job in {jobPost?.location?.city} at{" "}
         {jobPost?.company?.name}
       </h1>
@@ -111,6 +112,37 @@ export default function JobDescriptionPage() {
           <GiDart className="text-red-600" />
           Be an early applicant
         </p>
+        <h2 className="text-xl font-bold">About the Job</h2>
+        <p>{jobPost?.description}</p>
+        <ul className="list-disc pl-5">
+          {jobPost?.AboutJob?.map((item, index) => <li key={index}>{item}</li>)}
+        </ul>
+        <h3 className="text-lg font-semibold">Key Responsibilities</h3>
+        <ul className="list-disc pl-5">
+          {jobPost?.responsibilities?.map((item, index) => (
+            <li key={index}>{item}</li>
+          ))}
+        </ul>
+        <h3 className="text-lg font-semibold">Skill(s) Required</h3>
+        <ul className="flex flex-wrap gap-3">
+          {jobPost?.requirements?.skills?.map((item, index) => (
+            <li
+              key={index}
+              className="flex items-center rounded-full bg-blue-100 px-2 py-1 text-blue-500"
+            >
+              {item}
+            </li>
+          ))}
+        </ul>
+        <h3 className="text-xl font-semibold">Number of openings</h3>
+        <p>{jobPost?.noOfOpening}</p>
+        <h3 className="text-xl font-semibold">
+          About {jobPost?.company?.name}
+        </h3>
+        <p className="mb-5 border-b border-zinc-400 pb-5">
+          {jobPost?.company?.description}
+        </p>
+        <Button className="!mx-auto text-nowrap">Apply Now</Button>
       </div>
     </Wrapper>
   );
